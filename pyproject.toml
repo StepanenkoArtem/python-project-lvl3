@@ -6,6 +6,8 @@ authors = ["Artem Stepanenko <artem.stepanenko.ks.ua@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.6"
+flake8 = "^3.7.9"
+wemake-python-styleguide = "^0.13.4"
 
 [tool.poetry.dev-dependencies]
 
