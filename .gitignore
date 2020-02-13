@@ -4,3 +4,4 @@ cc-test-reporter
 .pytest_cache
 .vscode
 *.swp
+.coverage*-
