@@ -1,0 +1,31 @@
+language: python
+python:
+  - "3.4"
+  - "3.5"
+  - "3.6"      # current default Python on Travis CI
+  - "3.7"
+  - "3.8"
+  - "3.8-dev"  # 3.8 development branch
+  - "nightly"  # nightly build
+os: linux
+# command to install dependencies
+install:
+  - pip install poetry
+  - pip install flake8
+  - pip install pytest
+  - pip install pytest-cov
+  - pip install coverage
+  - pip install requests
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+# command to run tests
+script:
+  - make lint
+  - make test
+  - make cov_test2xml
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter after-build format-coverage coverage.xml -t coverage.py
+  - ./cc-test-reporter after-build upload-coverage
