@@ -3,14 +3,24 @@ name = "page-loader"
 version = "0.1.0"
 description = "Tool for downloding web-pages to local machine"
 authors = ["Artem Stepanenko <artem.stepanenko.ks.ua@gmail.com>"]
+packages = [
+    { include = "page_loader" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.6"
-flake8 = "^3.7.9"
-wemake-python-styleguide = "^0.13.4"
+requests = "^2.22.0"
+
 
 [tool.poetry.dev-dependencies]
+wemake-python-styleguide = "^0.13.4"
+flake8 = "^3.7.9"
+pytest = "^5.3.5"
+pytest-cov = "^2.8.1"
 
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+
+[tool.poetry.scripts]
+page_loader = 'page_loader.scripts.loader:main'
