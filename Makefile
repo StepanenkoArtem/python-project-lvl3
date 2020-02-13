@@ -16,8 +16,8 @@ bump:
 test:
 	poetry run python -m pytest -vv
 
-cov-test:
+test-cov:
 	poetry run python -m pytest --cov=page_loader tests/
 
-cov_test2xml:
+test-cov2xml:
 	poetry run python -m pytest --cov=page_loader tests/ --cov-report=xml
