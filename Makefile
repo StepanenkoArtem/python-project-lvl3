@@ -8,7 +8,7 @@ publish:
 	poetry publish -r testPyPI -u artem.stepanenko -p Fb_706428
 
 lint:
-	poetry run flake8 gendiff.py
+	poetry run flake8 page_loader.py
 
 bump:
 	poetry version patch
