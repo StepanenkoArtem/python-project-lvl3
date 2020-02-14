@@ -1,3 +1,0 @@
-[console_scripts]
-page_loader = page_loader.scripts.loader:main
-
