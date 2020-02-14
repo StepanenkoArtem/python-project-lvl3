@@ -1,5 +1,5 @@
 [[package]]
-category = "main"
+category = "dev"
 description = "Read/rewrite/write Python ASTs"
 name = "astor"
 optional = false
@@ -7,7 +7,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,>=2.7"
 version = "0.8.1"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Atomic file writes."
 marker = "sys_platform == \"win32\""
 name = "atomicwrites"
@@ -16,7 +16,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "1.3.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Classes Without Boilerplate"
 name = "attrs"
 optional = false
@@ -30,7 +30,7 @@ docs = ["sphinx", "zope.interface"]
 tests = ["coverage", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Security oriented static analyser for python code."
 name = "bandit"
 optional = false
@@ -62,6 +62,14 @@ version = "3.0.4"
 
 [[package]]
 category = "main"
+description = "Composable command line interface toolkit"
+name = "click"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "7.0"
+
+[[package]]
+category = "dev"
 description = "Library to calculate Python functions cognitive complexity via code"
 name = "cognitive-complexity"
 optional = false
@@ -72,7 +80,7 @@ version = "0.0.4"
 setuptools = "*"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Cross-platform colored terminal text."
 name = "colorama"
 optional = false
@@ -80,7 +88,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 version = "0.4.3"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Code coverage measurement for Python"
 name = "coverage"
 optional = false
@@ -91,7 +99,7 @@ version = "5.0.3"
 toml = ["toml"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "A utility for ensuring Google-style docstrings stay up to date with the source code."
 name = "darglint"
 optional = false
@@ -99,7 +107,7 @@ python-versions = ">=3.5"
 version = "1.1.3"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Docutils -- Python Documentation Utilities"
 name = "docutils"
 optional = false
@@ -107,7 +115,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 version = "0.16"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Discover and load entry points from installed packages."
 name = "entrypoints"
 optional = false
@@ -115,7 +123,7 @@ python-versions = ">=2.7"
 version = "0.3"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Removes commented-out code."
 name = "eradicate"
 optional = false
@@ -123,7 +131,7 @@ python-versions = "*"
 version = "1.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "the modular source code checker: pep8, pyflakes and co"
 name = "flake8"
 optional = false
@@ -137,7 +145,7 @@ pycodestyle = ">=2.5.0,<2.6.0"
 pyflakes = ">=2.1.0,<2.2.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "A flake8 extension that checks for type annotations complexity"
 name = "flake8-annotations-complexity"
 optional = false
@@ -148,7 +156,7 @@ version = "0.0.2"
 setuptools = "*"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Automated security testing with bandit and flake8."
 name = "flake8-bandit"
 optional = false
@@ -162,7 +170,7 @@ flake8-polyfill = "*"
 pycodestyle = "*"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Flake8 plugin to forbid backslashes for line breaks"
 name = "flake8-broken-line"
 optional = false
@@ -173,7 +181,7 @@ version = "0.1.1"
 flake8 = ">=3.5,<4.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "A plugin for flake8 finding likely bugs and design problems in your program. Contains warnings that don't belong in pyflakes and pycodestyle."
 name = "flake8-bugbear"
 optional = false
@@ -185,7 +193,7 @@ attrs = "*"
 flake8 = ">=3.0.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Check for python builtins being used as variables or parameters."
 name = "flake8-builtins"
 optional = false
@@ -199,7 +207,7 @@ flake8 = "*"
 test = ["coverage", "coveralls", "mock", "pytest", "pytest-cov"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Adds coding magic comment checks to flake8"
 name = "flake8-coding"
 optional = false
@@ -210,7 +218,7 @@ version = "1.3.2"
 flake8 = "*"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Flake8 lint for trailing commas."
 name = "flake8-commas"
 optional = false
@@ -221,7 +229,7 @@ version = "2.0.0"
 flake8 = ">=2,<4.0.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "A flake8 plugin to help you write better list/set/dict comprehensions."
 name = "flake8-comprehensions"
 optional = false
@@ -236,7 +244,7 @@ python = "<3.8"
 version = "*"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "ipdb/pdb statement checker plugin for flake8"
 name = "flake8-debugger"
 optional = false
@@ -248,7 +256,7 @@ flake8 = ">=1.5"
 pycodestyle = "*"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Extension for flake8 which uses pydocstyle to check docstrings"
 name = "flake8-docstrings"
 optional = false
@@ -260,7 +268,7 @@ flake8 = ">=3"
 pydocstyle = ">=2.1"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Flake8 plugin to find commented out code"
 name = "flake8-eradicate"
 optional = false
@@ -273,7 +281,7 @@ eradicate = ">=0.2.1,<1.1.0"
 flake8 = ">=3.5,<4.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "A Flake8 plugin for checking executable permissions and shebangs."
 name = "flake8-executable"
 optional = false
@@ -284,7 +292,7 @@ version = "2.0.3"
 flake8 = ">=3.0.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "flake8 plugin that integrates isort ."
 name = "flake8-isort"
 optional = false
@@ -303,7 +311,7 @@ version = ">=4.3.0"
 test = ["pytest"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Flake8 extension to validate (lack of) logging format strings"
 name = "flake8-logging-format"
 optional = false
@@ -311,7 +319,7 @@ python-versions = "*"
 version = "0.6.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Checks for old string formatting."
 name = "flake8-pep3101"
 optional = false
@@ -325,7 +333,7 @@ flake8 = ">=3.0"
 test = ["pytest", "testfixtures"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Polyfill package for Flake8 plugins"
 name = "flake8-polyfill"
 optional = false
@@ -336,7 +344,7 @@ version = "1.0.2"
 flake8 = "*"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "print statement checker plugin for flake8"
 name = "flake8-print"
 optional = false
@@ -349,7 +357,7 @@ pycodestyle = "*"
 six = "*"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Flake8 lint for quotes."
 name = "flake8-quotes"
 optional = false
@@ -360,7 +368,7 @@ version = "2.1.1"
 flake8 = "*"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Python docstring reStructuredText (RST) validator"
 name = "flake8-rst-docstrings"
 optional = false
@@ -372,7 +380,7 @@ flake8 = ">=3.0.0"
 restructuredtext_lint = "*"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "string format checker, plugin for flake8"
 name = "flake8-string-format"
 optional = false
@@ -383,7 +391,7 @@ version = "0.2.3"
 flake8 = "*"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Clean single-source support for Python 3 and 2"
 name = "future"
 optional = false
@@ -391,7 +399,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 version = "0.18.2"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Git Object Database"
 name = "gitdb2"
 optional = false
@@ -402,7 +410,7 @@ version = "2.0.6"
 smmap2 = ">=2.0.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Python Git Library"
 name = "gitpython"
 optional = false
@@ -421,7 +429,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.8"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Read metadata from Python packages"
 marker = "python_version < \"3.8\""
 name = "importlib-metadata"
@@ -437,7 +445,7 @@ docs = ["sphinx", "rst.linker"]
 testing = ["packaging", "importlib-resources"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "A Python utility / library to sort Python imports."
 name = "isort"
 optional = false
@@ -456,7 +464,7 @@ requirements = ["pipreqs", "pip-api"]
 xdg_home = ["appdirs (>=1.4.0)"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Create Python CLI apps with little to no effort at all!"
 name = "mando"
 optional = false
@@ -470,7 +478,7 @@ six = "*"
 restructuredText = ["rst2ansi"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "McCabe checker, plugin for flake8"
 name = "mccabe"
 optional = false
@@ -478,7 +486,7 @@ python-versions = "*"
 version = "0.6.1"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "More routines for operating on iterables, beyond itertools"
 name = "more-itertools"
 optional = false
@@ -486,7 +494,7 @@ python-versions = ">=3.5"
 version = "8.2.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Core utilities for Python packages"
 name = "packaging"
 optional = false
@@ -498,7 +506,7 @@ pyparsing = ">=2.0.2"
 six = "*"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Python Build Reasonableness"
 name = "pbr"
 optional = false
@@ -506,7 +514,7 @@ python-versions = "*"
 version = "5.4.4"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Check PEP-8 naming conventions, plugin for flake8"
 name = "pep8-naming"
 optional = false
@@ -517,7 +525,7 @@ version = "0.9.1"
 flake8-polyfill = ">=1.0.2,<2"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "plugin and hook calling mechanisms for python"
 name = "pluggy"
 optional = false
@@ -533,7 +541,7 @@ version = ">=0.12"
 dev = ["pre-commit", "tox"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "library with cross-python path, ini-parsing, io, code, log facilities"
 name = "py"
 optional = false
@@ -541,7 +549,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "1.8.1"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Python style guide checker"
 name = "pycodestyle"
 optional = false
@@ -549,7 +557,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.5.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Python docstring style checker"
 name = "pydocstyle"
 optional = false
@@ -560,7 +568,7 @@ version = "5.0.2"
 snowballstemmer = "*"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "passive checker of Python programs"
 name = "pyflakes"
 optional = false
@@ -568,7 +576,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.1.1"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Pygments is a syntax highlighting package written in Python."
 name = "pygments"
 optional = false
@@ -576,7 +584,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 version = "2.5.2"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Python parsing module"
 name = "pyparsing"
 optional = false
@@ -584,7 +592,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 version = "2.4.6"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "pytest: simple powerful testing with Python"
 name = "pytest"
 optional = false
@@ -610,7 +618,7 @@ checkqa-mypy = ["mypy (v0.761)"]
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xmlschema"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Pytest plugin for measuring coverage."
 name = "pytest-cov"
 optional = false
@@ -625,7 +633,7 @@ pytest = ">=3.6"
 testing = ["fields", "hunter", "process-tests (2.0.2)", "six", "virtualenv"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "YAML parser and emitter for Python"
 name = "pyyaml"
 optional = false
@@ -633,7 +641,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 version = "5.3"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Code Metrics in Python"
 name = "radon"
 optional = false
@@ -665,7 +673,7 @@ security = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)"]
 socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7)", "win-inet-pton"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "reStructuredText linter"
 name = "restructuredtext-lint"
 optional = false
@@ -676,7 +684,7 @@ version = "1.3.0"
 docutils = ">=0.11,<1.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Python 2 and 3 compatibility utilities"
 name = "six"
 optional = false
@@ -684,7 +692,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 version = "1.14.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "A pure Python implementation of a sliding window memory map manager"
 name = "smmap2"
 optional = false
@@ -692,7 +700,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.0.5"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "This package provides 26 stemmers for 25 languages generated from Snowball algorithms."
 name = "snowballstemmer"
 optional = false
@@ -700,7 +708,7 @@ python-versions = "*"
 version = "2.0.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Manage dynamic plugins for Python applications"
 name = "stevedore"
 optional = false
@@ -712,7 +720,7 @@ pbr = ">=2.0.0,<2.1.0 || >2.1.0"
 six = ">=1.10.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "A collection of helpers and mock objects for unit tests and doc tests."
 name = "testfixtures"
 optional = false
@@ -725,7 +733,7 @@ docs = ["sphinx"]
 test = ["pytest (>=3.6)", "pytest-cov", "pytest-django", "sybil", "zope.component", "twisted", "mock", "django (<2)", "django"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Python Library for Tom's Obvious, Minimal Language"
 name = "toml"
 optional = false
@@ -733,7 +741,7 @@ python-versions = "*"
 version = "0.10.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Backported and Experimental Type Hints for Python 3.5+"
 name = "typing-extensions"
 optional = false
@@ -754,7 +762,7 @@ secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "cer
 socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7,<2.0)"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Measures number of Terminal column cells of wide-character codes"
 name = "wcwidth"
 optional = false
@@ -762,7 +770,7 @@ python-versions = "*"
 version = "0.1.8"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "The strictest and most opinionated python linter ever"
 name = "wemake-python-styleguide"
 optional = false
@@ -800,7 +808,7 @@ radon = ">=4.0,<5.0"
 typing_extensions = ">=3.6,<4.0"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Backport of pathlib-compatible object wrapper for zip files"
 marker = "python_version < \"3.8\""
 name = "zipp"
@@ -813,7 +821,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools"]
 
 [metadata]
-content-hash = "31fe7ef79e543bc690f85aff16e6800d81d78d96b52deb6e3486ca19247e39df"
+content-hash = "f00b4d5cc0e076718abd05b53f057e9bcae85c092459ebbe1b65ae0f0883a5c3"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -840,6 +848,10 @@ certifi = [
 chardet = [
     {file = "chardet-3.0.4-py2.py3-none-any.whl", hash = "sha256:fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691"},
     {file = "chardet-3.0.4.tar.gz", hash = "sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae"},
+]
+click = [
+    {file = "Click-7.0-py2.py3-none-any.whl", hash = "sha256:2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13"},
+    {file = "Click-7.0.tar.gz", hash = "sha256:5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"},
 ]
 cognitive-complexity = [
     {file = "cognitive_complexity-0.0.4.tar.gz", hash = "sha256:8a456bf2871a40c73f33c937ec0b42bc2daaefafa850b3158b0f7a2a91af2b64"},

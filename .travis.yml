@@ -5,7 +5,7 @@ python:
   - "3.6"      # current default Python on Travis CI
   - "3.7"
   - "3.8"
-  
+
 os: linux
 # command to install dependencies
 install:
@@ -15,6 +15,7 @@ install:
   - pip install pytest-cov
   - pip install coverage
   - pip install requests
+  - pip install click
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter

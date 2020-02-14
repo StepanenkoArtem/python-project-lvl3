@@ -1,0 +1,11 @@
+Metadata-Version: 1.2
+Name: page-loader
+Version: 0.1.0
+Summary: Tool for downloding web-pages to local machine
+Home-page: UNKNOWN
+Author: Artem Stepanenko
+Author-email: artem.stepanenko.ks.ua@gmail.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.6,<4.0
