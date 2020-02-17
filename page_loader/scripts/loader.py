@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import click
-from page_loader.download import get_web_content
+from page_loader.download import get_requested
 from page_loader.save import save_content
 from page_loader.validate_args import is_valid
 
@@ -27,7 +27,7 @@ def validate(ctx, option, option_value):
 )
 def main(save_to, url):
     requested_data = get_requested(url)
-    save_content(page, save_to)
+    save_content(requested_data, save_to)
 
 
 if __name__ == '__main__':
