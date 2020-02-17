@@ -1,5 +1,5 @@
 import requests
 
 
-def get_web_content(url):
-    return url
+def get_requested(url):
+    return requests.get(url)

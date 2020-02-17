@@ -11,7 +11,7 @@ def _validate_url(url):
 
 
 def _validate_path(path):
-    # need to refactor to REGEX later
+    # need to refactor (to REGEX) later
     if re.search(PATH_REGEX, path) and '//' not in path:  
         return True
     return False

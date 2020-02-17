@@ -1,6 +1,11 @@
+import json
+
 from page_loader.download import get_web_content
 
 
 def test_download():
-    test_url = 'hexlet'
-    assert get_web_content(test_url) == test_url
+    fixtures = 'tests/fixtures/download/urls.json'
+    with open(fixtures) as expected_data:
+        expected = json.load(expected_data)
+        for url, status_code in expected.items():
+            assert get_web_content(url).status_code == status_code

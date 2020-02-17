@@ -17,17 +17,17 @@ def validate(ctx, option, option_value):
 @click.command()
 @click.option(
     '--save-to',
-    default='~/page-downloads',
+    default='./page-downloads',
     help='Enter path to folder to save downloading pages',
     callback=validate,
 )
 @click.argument(
-    'url', 
+    'url',
     callback=validate,
 )
 def main(save_to, url):
-    page = get_web_content(url)
-    save_content(page)
+    requested_data = get_requested(url)
+    save_content(page, save_to)
 
 
 if __name__ == '__main__':
