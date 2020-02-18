@@ -1,4 +1,8 @@
 {
-    "https://sicp.hexlet.io/ru/my": 200,
-    "https://sicp.hexlet.io/ru/m": 404
+    "https://httpbin.org/": 200,
+    "https://httpbin.org/anythin": 404,
+    "https://httpbin.org/status/301": 200,
+    "https://httpbin.org/status/302": 200,
+    "https://httpbin.org/status/404": 404,
+    "https://httpbin.org/status/502": 502
 }

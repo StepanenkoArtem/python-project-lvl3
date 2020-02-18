@@ -2,7 +2,7 @@
 
 import click
 from page_loader.download import get_requested
-from page_loader.save import save_content
+from page_loader.save import save_requsted as save
 from page_loader.validate_args import is_valid
 
 
@@ -16,7 +16,7 @@ def validate(ctx, option, option_value):
 
 @click.command()
 @click.option(
-    '--save-to',
+    '--path',
     default='./page-downloads',
     help='Enter path to folder to save downloading pages',
     callback=validate,
@@ -25,9 +25,12 @@ def validate(ctx, option, option_value):
     'url',
     callback=validate,
 )
-def main(save_to, url):
-    requested_data = get_requested(url)
-    save_content(requested_data, save_to)
+def main(url, path):
+    requested = get_requested(url)
+    if requested:
+        save(requested, path)
+    else:
+        print('Connection Failed')  # noqa: T001
 
 
 if __name__ == '__main__':

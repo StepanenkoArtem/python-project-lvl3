@@ -1,10 +1,16 @@
-import json
+from page_loader.download import clean_url, get_requested
+from tests.get_fixtures import get_fixture_from_json
 
-from page_loader.download import get_requested
+
+def test_clean_url():
+    expected = get_fixture_from_json(
+        'tests/fixtures/download/clean_url.json',
+    )
+    for url, cleaned_url in expected.items():
+        assert clean_url(url) == cleaned_url
+
 
 def test_download():
-    fixtures = 'tests/fixtures/download/urls.json'
-    with open(fixtures) as expected_data:
-        expected = json.load(expected_data)
-        for url, status_code in expected.items():
-            assert get_requested(url).status_code == status_code
+    expected = get_fixture_from_json('tests/fixtures/download/urls.json')
+    for url, status_code in expected.items():
+        assert get_requested(url).status_code == status_code
