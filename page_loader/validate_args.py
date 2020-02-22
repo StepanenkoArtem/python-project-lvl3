@@ -10,9 +10,9 @@ def _validate_url(url):
     return False
 
 
-def _validate_path(path):
+def _validate_path(save_to):
     # need to refactor (to REGEX) later
-    if re.search(PATH_REGEX, path) and '//' not in path:  
+    if re.search(PATH_REGEX, save_to) and '//' not in save_to:
         return True
     return False
 

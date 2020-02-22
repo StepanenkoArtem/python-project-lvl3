@@ -4,13 +4,13 @@ from tests.get_fixtures import get_fixture_from_json
 
 def test_clean_url():
     expected = get_fixture_from_json(
-        'tests/fixtures/download/clean_url.json',
+        'tests/data/download/clean_url.json',
     )
     for url, cleaned_url in expected.items():
         assert clean_url(url) == cleaned_url
 
 
 def test_download():
-    expected = get_fixture_from_json('tests/fixtures/download/urls.json')
+    expected = get_fixture_from_json('tests/data/download/urls.json')
     for url, status_code in expected.items():
         assert get_requested(url).status_code == status_code

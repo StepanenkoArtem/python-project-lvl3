@@ -1,14 +1,10 @@
-from page_loader.save import _make_filename_from_url, save_requsted  # noqa: WPS436
+from page_loader.save import make_filename_from_url
 from tests.get_fixtures import get_fixture_from_json
 
 
-def test_set_name():
+def test_make_filename_from_url():
     filenames = get_fixture_from_json(
-        'tests/fixtures/save/uri_to_filename.json',
+        'tests/data/save/uri_to_filename.json',
     )
     for url, expected in filenames.items():
-        assert _make_filename_from_url(url) == expected
-
-
-#def test_save_requested():
- #   save_requsted()
+        assert make_filename_from_url(url) == expected

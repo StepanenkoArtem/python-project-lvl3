@@ -12,5 +12,6 @@
 "path;/to": false,
 "path:/to/file": false,
 "~path/to/file": true,
-"~/path/to/file": true
+"~/path/to/file": true,
+"/tmp": true
 }
