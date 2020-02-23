@@ -2,7 +2,8 @@
     "https://httpbin.org/": 200,
     "https://httpbin.org/anythin": 404,
     "https://httpbin.org/status/301": 200,
-    "https://httpbin.org/status/302": 200,
+    "https://httpbin.org/redirect-to?url=dtestss": 404,
     "https://httpbin.org/status/404": 404,
-    "https://httpbin.org/status/502": 502
+    "https://httpbin.org/status/502": 502,
+    "https://httpbin.org/status/500": 500
 }
