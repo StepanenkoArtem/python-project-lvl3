@@ -23,6 +23,8 @@ def _get_dir(path):
 def save_requsted(requested, save_to):
     filename = make_filename_from_url(requested.url)
     dir_path = _get_dir(save_to)
+    if not os.path.isdir(dir_path):
+        os.mkdir(dir_path)
     full_path = os.path.join(dir_path, filename)
     with open(full_path, 'wb') as requested_page:
         requested_page.write(requested.content)
