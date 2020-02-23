@@ -7,4 +7,4 @@ cc-test-reporter
 coverage.xml
 .coverage
 *.egg-info/
-/dist
+dist
