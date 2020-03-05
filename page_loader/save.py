@@ -1,30 +1,30 @@
-import os
-from re import sub
-
-CURRENT_DIR = os.getcwd()
-FILE_EXTENSION = '.html'
-_CUT_SCHEME = r'http(s)?:\/\/'
-_CUT_TRAILING_SLASH = r'/$'
-_SUB_TO_HYPHEN = r'[\./_]'
+from page_loader import helpers, parser
+from page_loader.download import download
 
 
-def make_filename_from_url(url):
-    url = sub(_CUT_SCHEME, '', url)
-    url = sub(_CUT_TRAILING_SLASH, '', url)
-    return sub(_SUB_TO_HYPHEN, '-', url) + FILE_EXTENSION
+def save_html(downloaded, output_dir):
+    modified_html = parser.localize_resources(
+        html=downloaded.content,
+        resource_dir=helpers.get_resource_dir_name(downloaded.url),
+    )
+    html_file_path = helpers.get_html_file_path(downloaded.url, output_dir)
+    with open(html_file_path, 'bw') as html_file:
+        html_file.write(modified_html)
+        return True
 
 
-def _get_dir(path):
-    path = os.path.expanduser(path)
-    path = os.path.abspath(os.path.normpath(path))
-    return path
+def save_resources(downloaded, output_dir):
+    resources = parser.get_local_resources(downloaded.content)
+    if resources:
+        helpers.create_resource_dir(downloaded.url, output_dir)
+        for resource in resources:
+            resource_url = downloaded.url + resource
+            resource_file_path = helpers.get_resource_file_path(resource)
+            with open(resource_file_path) as resource_file:
+                resource_file.write(download(resource_url).content)
 
 
-def save_requsted(requested, save_to):
-    filename = make_filename_from_url(requested.url)
-    dir_path = _get_dir(save_to)
-    if not os.path.isdir(dir_path):
-        os.mkdir(dir_path)
-    full_path = os.path.join(dir_path, filename)
-    with open(full_path, 'wb') as requested_page:
-        requested_page.write(requested.content)
+def save(dowloaded, save_to):
+    output_dir = helpers.get_full_path(save_to)
+    save_html(dowloaded, output_dir)
+    save_resources(dowloaded, output_dir)

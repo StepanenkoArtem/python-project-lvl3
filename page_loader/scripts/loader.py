@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
+from os import getcwd
+
 import click
 from page_loader import settings
-from page_loader.download import get_requested
-from page_loader.save import CURRENT_DIR, save_requsted
+from page_loader.download import download
+from page_loader.save import save
 from page_loader.validate_args import is_valid
 
 
@@ -18,8 +20,8 @@ def validate(ctx, option, option_value):
 @click.command()
 @click.option(
     '--save-to',
-    default=CURRENT_DIR,
-    help=settings.PATH_HELP,
+    default=getcwd(),
+    help=settings.HELP_SAVE_TO,
     callback=validate,
 )
 @click.argument(
@@ -27,11 +29,7 @@ def validate(ctx, option, option_value):
     callback=validate,
 )
 def main(url, save_to):
-    requested = get_requested(url)
-    if requested:
-        save_requsted(requested, save_to)
-    else:
-        print(settings.CON_ERR)  # noqa: T001
+    save(download(url), save_to)
 
 
 if __name__ == '__main__':

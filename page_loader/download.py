@@ -5,12 +5,12 @@ import requests
 CLEAN_URL_REGEX = r'[-\?\#\@].*$'
 
 
-def clean_url(url):
+def _clean_url(url):
     return sub(CLEAN_URL_REGEX, '', url)
 
 
-def get_requested(url):
+def download(url):
     try:
-        return requests.get(clean_url(url))
+        return requests.get(_clean_url(url))
     except requests.exceptions.RequestException:
         return None
