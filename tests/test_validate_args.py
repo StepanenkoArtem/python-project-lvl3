@@ -4,12 +4,12 @@ from tests.get_data import get_data_from_json
 
 
 def test_validate_url():
-    urls = get_data_from_json('tests/data/test_validate/urls.json')
+    urls = get_data_from_json('tests/data/validate/urls.json')
     for url, expected in urls.items():
         assert expected == _validate_url(url)
 
 
 def test_validate_path():
-    paths = get_data_from_json('tests/data/test_validate/paths.json')
+    paths = get_data_from_json('tests/data/validate/paths.json')
     for path, expected in paths.items():
         assert expected == _validate_path(path)

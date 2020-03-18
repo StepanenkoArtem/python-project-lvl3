@@ -1,7 +1,0 @@
-{
-"http://test.org": "http://test.org",
-"http://test.org.ua?key=value&key2=value2": "http://test.org.ua",
-"https://httpbin.org/?key=value": "https://httpbin.org/",
-"https://httpbin.org/anythin/#/test": "https://httpbin.org/anythin/",
-"https://httpbin.org/anythin/#/": "https://httpbin.org/anythin/"
-}
