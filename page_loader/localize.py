@@ -1,2 +1,2 @@
 def localize(downloaded):
-    pass
+    return downloaded.content
