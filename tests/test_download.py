@@ -1,16 +1,13 @@
-from page_loader.download import _clean_url, download
-from tests.get_data import get_data_from_json
+import json
 
+from page_loader.download import download
 
-def test_clean_url():
-    expected = get_data_from_json(
-        'tests/data/download/clean_url.json',
-    )
-    for url, cleaned_url in expected.items():
-        assert _clean_url(url) == cleaned_url
+TEST_DATA_FILE = 'tests/data/_download.json'
 
 
 def test_download():
-    expected = get_data_from_json('tests/data/download/urls.json')
-    for url, status_code in expected.items():
-        assert download(url).status_code == status_code
+    with open(TEST_DATA_FILE) as test_data_json:
+        test_data = json.load(test_data_json)
+    for url, expected_code in test_data.items():
+        received_code = download(url).status_code
+        assert expected_code == received_code
