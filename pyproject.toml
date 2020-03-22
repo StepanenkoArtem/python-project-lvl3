@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "stepanenko-page-loader"
-version = "0.1.10"
+version = "0.1.11"
 description = "Tool for downloding web-pages to local machine"
 authors = ["Artem Stepanenko <artem.stepanenko.ks.ua@gmail.com>"]
 packages = [

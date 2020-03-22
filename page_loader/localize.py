@@ -1,13 +1,15 @@
 import re
 
 SCHEME_PATTERN = r'http(s)?://'
+TRAILING_SLASH = r'/*$'
 REPLACABLE_SYMBOLS = r'[^-a-zA-Z0-9]'
 FILE_EXT = '.html'
 
 
 def make_name_from(url):
     unschemed = re.sub(SCHEME_PATTERN, '', url)
-    hyphened = re.sub(REPLACABLE_SYMBOLS, '-', unschemed)
+    untrailed = re.sub(TRAILING_SLASH, '', unschemed)
+    hyphened = re.sub(REPLACABLE_SYMBOLS, '-', untrailed)
     return hyphened + FILE_EXT
 
 
