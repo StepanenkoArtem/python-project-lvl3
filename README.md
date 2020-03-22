@@ -12,10 +12,13 @@ Downloading URLs should be specified as command-line argument.
 Run next command for installing page-loader package
     pip install --extra-index-url https://pypi.org/simple -i https://test.pypi.org/simple stepanenko-page-loader
 
-[![asciicast](https://asciinema.org/a/Z1mFs9J7p8cClZ3gC1WVBPvEM.svg)](https://asciinema.org/a/Z1mFs9J7p8cClZ3gC1WVBPvEM)
+[![asciicast](https://asciinema.org/a/gHpRua3Ib7qGAdglsqI0veDuT.svg)](https://asciinema.org/a/gHpRua3Ib7qGAdglsqI0veDuT)
 
 *Usage*
 
 1. Run
     stepanenko-page-loader --help
 to get short help
+
+    Running with 'save-to' parameter
+[![asciicast](https://asciinema.org/a/oo2NGMaHTu9ENWc6yTr7jjULW.svg)](https://asciinema.org/a/oo2NGMaHTu9ENWc6yTr7jjULW)
