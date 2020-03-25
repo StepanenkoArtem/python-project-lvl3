@@ -44,27 +44,33 @@ def make_resource_file_name(resource):
     return None
 
 
+def localize_resource(resource, filename):
+    return None
+
+
 def localize_document(document, output):
     document_dom = BeautifulSoup(document.content, DEFAULT_PARSER)
     local_resources = list(filter(is_local, document_dom.find_all(RESOURCES)))
-    resource_dir_name = hyphenate(document.url) + _FILES
     if local_resources:
-        save.create_resource_dir(
+        resource_dir = save.create_resource_dir(
             output=output,
-            resource_dir_name=resource_dir_name,
+            resource_dir_name=hyphenate(document.url) + _FILES,
         )
-    for resource in local_resources:
-        downloaded_resource = download.get_document(
-            url='{domain}{path}'.format(
-                domain=get_domain(document.url),
-                path=get_resource_path(resource),
-            ),
-        )
-        save.save_resource(
-            resource_content=downloaded_resource.content,
-            save_to='/'.join(
-                output,
-                resource_dir_name,
-            ),
-            filename=make_resource_file_name(get_resource_path),
-        )
+        for resource in local_resources:
+            resource_path = get_resource_path(resource)
+            downloaded_resource = download.get_document(
+                url='{domain}{path}'.format(
+                    domain=get_domain(document.url),
+                    path=resource_path,
+                ),
+            )
+            resource_file_path = save.save_resource(
+                resource_content=downloaded_resource.content,
+                save_to=resource_dir,
+                filename=make_resource_file_name(resource_path),
+            )
+            localize_resource(resource, resource_file_path)
+    save.save_document(
+        document=document_dom.contents,
+        save_to=output,
+    )
