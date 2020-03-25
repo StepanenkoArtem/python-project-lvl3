@@ -40,7 +40,7 @@ def get_resource_path(resource):
     return None
 
 
-def make_resource_file_name(resource):
+def make_resource_filename(resource):
     return None
 
 
@@ -48,7 +48,7 @@ def localize_resource(resource, filename):
     return None
 
 
-def localize_document(document, output):
+def localize_document(document, output):  # noqa: WPS210
     document_dom = BeautifulSoup(document.content, DEFAULT_PARSER)
     local_resources = list(filter(is_local, document_dom.find_all(RESOURCES)))
     if local_resources:
@@ -67,10 +67,10 @@ def localize_document(document, output):
             resource_file_path = save.save_resource(
                 resource_content=downloaded_resource.content,
                 save_to=resource_dir,
-                filename=make_resource_file_name(resource_path),
+                filename=make_resource_filename(resource_path),
             )
             localize_resource(resource, resource_file_path)
     save.save_document(
-        document=document_dom.contents,
-        save_to=output,
+        document=document_dom.encode,
+        path=output,
     )

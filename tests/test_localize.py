@@ -16,3 +16,19 @@ def test_hyphenate():
     for url, expected_name in test_data.items():
         received_name = localize.hyphenate(url)
         assert expected_name == received_name
+
+
+def test_is_local():
+    assert expected == recieved
+
+
+def test_get_resource_path(resource):
+    assert expected == recieved
+
+
+def test_make_resource_filename():
+    assert expected == recieved
+
+
+def test_localize_resource():
+    assert expected == recieved

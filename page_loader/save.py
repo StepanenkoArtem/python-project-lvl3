@@ -17,7 +17,6 @@ def save_resource(resource_content, output, filename):
     return None
 
 
-def save_document(document, save_to):
-    html_file_path = os.path.join(save_to, document.url)
-    with open(html_file_path, mode=WB) as html_file:
-        html_file.write(document.content)
+def save_document(document_content, path):
+    with open(path, mode=WB) as html_file:
+        html_file.write(document_content)
