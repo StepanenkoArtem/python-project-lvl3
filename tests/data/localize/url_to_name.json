@@ -1,6 +1,0 @@
-{
-    "https://example.com/path/to/page": "example-com-path-to-page.html",
-    "http://example.com/consulting/marketing" : "example-com-consulting-marketing.html",
-    "http://example.com/services/legal/patents/": "example-com-services-legal-patents.html",
-    "http://example.com/services/legal/patents//": "example-com-services-legal-patents.html"
-}

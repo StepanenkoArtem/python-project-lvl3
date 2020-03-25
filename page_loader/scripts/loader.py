@@ -3,9 +3,7 @@
 from os import getcwd
 
 import click
-from page_loader import download, save
-# from page_loader.get_resources import get_resources
-from page_loader.localize import localize
+from page_loader import download, localize
 
 
 @click.command()
@@ -17,11 +15,8 @@ from page_loader.localize import localize
     'url',
 )
 def main(url, save_to):
-    downloaded = download.get_document(url)
-    localized = localize(downloaded)
-    save.save_html(localized, save_to)
-    # resource_files = download.get_resources(downloaded)
-    # save.save_resources(resource_files, save_to)
+    document = download.get_document(url)
+    localize.localize_document(document, save_to)
 
 
 if __name__ == '__main__':

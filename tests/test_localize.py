@@ -1,12 +1,18 @@
-import json
+from page_loader import localize
+from tests.get_test_data import _get_test_data_from_json
 
-from page_loader.localize import make_name_from
+
+def test_get_domain():
+    test_data_file = 'tests/data/localize/get_domain.json'
+    test_data = _get_test_data_from_json(test_data_file)
+    for url, expected_domain in test_data.items():
+        received_domain = localize.get_domain(url)
+        assert expected_domain == received_domain
 
 
-def test_make_name_from():
-    test_data_file = 'tests/data/localize/url_to_name.json'
-    with open(test_data_file) as test_data_json:
-        test_data = json.load(test_data_json)
+def test_hyphenate():
+    test_data_file = 'tests/data/localize/make_name_from.json'
+    test_data = _get_test_data_from_json(test_data_file)
     for url, expected_name in test_data.items():
-        received_name = make_name_from(url)
+        received_name = localize.hyphenate(url)
         assert expected_name == received_name

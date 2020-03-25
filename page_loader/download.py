@@ -1,5 +1,3 @@
-from re import sub
-
 import requests
 
 DEFAULT_SCHEME = 'https://'
@@ -13,7 +11,3 @@ def url_normalize(url, scheme=DEFAULT_SCHEME):
 
 def get_document(url):
     return requests.get(url_normalize(url))
-
-
-def get_resources():
-    return None

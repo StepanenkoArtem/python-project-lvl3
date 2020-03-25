@@ -1,0 +1,8 @@
+{
+    "https://httpbin.org/status/401": "https://httpbin.org",
+    "https://httpbin.org/deny/" : "https://httpbin.org",
+    "https://httpbin.org/some/images.jpg": "https://httpbin.org",
+    "httbin_org/some/images.jpg": null,
+    "https://httpbin.org.co.uk/some/images.jpg": "https://httpbin.org.co.uk",
+    "https://httpbin.org/some/js/images.js": "https://httpbin.org"
+}
