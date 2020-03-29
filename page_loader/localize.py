@@ -6,6 +6,8 @@ from page_loader import download, save
 SCHEME_PATTERN = r'http(s)?://'
 TRAILING_SLASH = r'/*$'
 REPLACABLE_SYMBOLS = r'[^-a-zA-Z0-9]'
+DOMAIN = r'http(s)?://.[^\/\"]*'
+
 _HTML = '.html'
 _FILES = '_files'
 
@@ -25,6 +27,9 @@ def hyphenate(url):
 
 
 def get_domain(url):
+    found = re.search(DOMAIN, url)
+    if found:
+        return found.group(0)
     return None
 
 
@@ -71,6 +76,6 @@ def localize_document(document, output):  # noqa: WPS210
             )
             localize_resource(resource, resource_file_path)
     save.save_document(
-        document=document_dom.encode,
+        document=document_dom.encode(),
         path=output,
     )

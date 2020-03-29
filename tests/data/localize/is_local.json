@@ -1,0 +1,8 @@
+{
+    "https://httpbin.org/images": false,
+    "https://httpbin.org/images/favicon.ico": false,
+    "/images/favicon.ico": true,
+    "/resources/scripts/jquery-2.3-4.min.js": true,
+    "resources/scripts/jquery-2.3-4.min.js": true,
+    "some.domain.com/images": false
+}
