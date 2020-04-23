@@ -4,6 +4,11 @@ import os
 WB = 'wb'
 
 
+def create_output_dir(output):
+    if not os.path.exists(output):
+        os.makedirs(output)
+
+
 def create_resource_dir(output, resource_dir_name):
     os.makedirs(
         os.path.join(
@@ -13,10 +18,7 @@ def create_resource_dir(output, resource_dir_name):
     )
 
 
-def save_resource(resource_content, output, filename):
-    return None
-
-
-def save_document(document_content, path):
-    with open(path, mode=WB) as html_file:
+def save_document(document_content, path, filename):
+    fullpath = os.path.join(path, filename)
+    with open(fullpath, mode=WB) as html_file:
         html_file.write(document_content)

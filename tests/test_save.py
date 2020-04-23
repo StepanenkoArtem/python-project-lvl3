@@ -1,9 +1,12 @@
 import os
 import tempfile
 
-import requests
-from page_loader.save import save_document
+from page_loader import save
 
 
 def test_save_resource():
-    assert expected == recieved
+    assert expected == save.save_resource
+
+
+def test_save_document():
+    assert expected == test_save_document
