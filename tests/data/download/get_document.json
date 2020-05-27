@@ -1,8 +1,0 @@
-{
-    "https://httpbin.org/status/403": 403,
-    "https://httpbin.org/status/404": 404,
-    "https://httpbin.org/status/201": 201,
-    "https://httpbin.org/status/302": 200,
-    "https://httpbin.org/status/301": 200,
-    "https://httpbin.org/status/500": 500
-}

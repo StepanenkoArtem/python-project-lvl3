@@ -1,6 +1,0 @@
-{
-    "https://domain.com/index.php?foo=bar": "https://domain.com/index.php",
-    "https://domain.com/index?foo=bar": "https://domain.com/index",
-    "domain.com/index?foo=bar": "https://domain.com/index",
-    "https://domain.com/?foo=bar": "https://domain.com/"
-}
