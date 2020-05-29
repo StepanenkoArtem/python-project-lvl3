@@ -3,21 +3,21 @@
 from os import getcwd
 
 import click
-from page_loader import download, localize, save
+from page_loader import download, localize
 
 
 @click.command()
 @click.option(
-    '--save-to',
+    '--output',
     default=getcwd(),
 )
 @click.argument(
     'url',
 )
-def main(url, save_to):
-    downloaded_document = download.get_document(url)
-    localized_document = localize.localize_document(downloaded_document)
-    save.save_document(localized_document)
+def main(url, output):
+    downloaded = download.get_document(url)
+    if downloaded:
+        localize.localize(downloaded, output)
 
 
 if __name__ == '__main__':
