@@ -1,4 +1,6 @@
-def test_is_local():
-    expected = 0
-    actual = 0
-    assert expected == actual
+def test_get_document():
+    assert None == None
+
+
+def test_url_normalize():
+    assert None == None
