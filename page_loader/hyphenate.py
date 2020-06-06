@@ -1,3 +1,6 @@
+import re
+
+
 def _hyphenate(path):
     return None
 

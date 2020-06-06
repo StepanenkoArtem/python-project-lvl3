@@ -1,16 +1,20 @@
-def test_hyphenate():
-    expected = 0
-    actual = 0
-    assert expected == actual
+import json
+
+import pytest
+from page_loader import hyphenate
 
 
 def test_make_resource_dir_name():
-    assert None == None
+    assert None == 2
 
 
 def test_make_resource_filename():
-    assert None == None
+    assert None == 2
 
 
-def make_document_name():
-    assert None == None
+def test_make_document_name():
+    assert None == 2
+
+
+def test_hyphenate():
+    assert expected == actual

@@ -1,4 +1,4 @@
-import re
+from re import search
 
 from bs4 import BeautifulSoup
 from page_loader import download, filesystem, hyphenate
@@ -22,25 +22,26 @@ def _is_local(resource):
         path = resource.get(_SRC)
     else:
         return False
-    if re.search(LOCAL_PATH_PATTERN, path):
+    if search(LOCAL_PATH_PATTERN, path):
         return False
     return True
 
 
-def _get_resource_url(resource):
+def get_resource_host(resource):
     return None
 
 
-def _get_resource_path(resource):
+def get_resource_path(resource):
     return None
 
 
-def _set_local_resource_filename(resource, new_entry):
-    return None
+def update_resource_filename(resource, filename):
+    return filename
 
 
 def localize(document, output):  # noqa: WPS210
     document_dom = BeautifulSoup(document.content, 'html_parser')
+    resource_host = get_resource_host(document.url)
     resource_list = list(filter(
         _is_local,
         document_dom.find_all(LOCAL_RESOURCES),
@@ -55,7 +56,10 @@ def localize(document, output):  # noqa: WPS210
         )
     for resource in resource_list:
         downloaded_resource = download.get_document(
-            _get_resource_url(resource),
+            '{host}{path}'.format(
+                host=resource_host,
+                path=get_resource_path(resource),
+            ),
         )
         resource_filename = hyphenate.make_resource_file_name(
             downloaded_resource.url,
@@ -66,7 +70,7 @@ def localize(document, output):  # noqa: WPS210
                 path=resource_dir,
                 filename=resource_filename,
             )
-            _set_local_resource_filename(resource, resource_filename)
+            update_resource_filename(resource, resource_filename)
     filesystem.save_document(
         document_content=document_dom,
         path=output,
