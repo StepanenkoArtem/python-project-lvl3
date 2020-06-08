@@ -1,9 +1,12 @@
-from page_loader.download import _url_normalize
+import pytest
+from page_loader import download
+from tests.fixtures.get_dataset_from_file import get_dataset_from_file
+
+_DS_URL_NORMALIZE = 'tests/datasets/download/url_norm.json'
 
 
-def test_get_document():
-    assert None == None
-
-
-def test_url_normalize():
-    assert expected == _url_normalize('htttp')
+@pytest.mark.parametrize(
+    'url, normalized', get_dataset_from_file(_DS_URL_NORMALIZE),
+)
+def test_url_normalize(url, normalized):
+    assert normalized == download.url_normalize(url)

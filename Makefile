@@ -17,7 +17,7 @@ test:
 	poetry run python -m pytest -vv
 
 test-cov:
-	poetry run python -m pytest --cov=page_loader tests/
+	poetry run python -m pytest -q --cov=page_loader tests/
 
 test-cov2xml:
 	poetry run python -m pytest --cov=page_loader tests/ --cov-report=xml

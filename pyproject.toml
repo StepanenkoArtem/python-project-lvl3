@@ -20,6 +20,7 @@ wemake-python-styleguide = "^0.13.4"
 flake8 = "^3.7.9"
 pytest = "^5.3.5"
 pytest-cov = "^2.8.1"
+pyfakefs = "^4.0.2"
 
 [tool.poetry.scripts]
 stepanenko-page-loader = 'page_loader.scripts.loader:main'

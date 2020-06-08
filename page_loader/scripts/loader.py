@@ -5,6 +5,8 @@ from os import getcwd
 import click
 from page_loader import download, localize
 
+OK_STATUS = 200
+
 
 @click.command()
 @click.option(
@@ -16,8 +18,9 @@ from page_loader import download, localize
 )
 def main(url, output):
     downloaded = download.get_document(url)
-    if downloaded:
+    if downloaded.status_code == OK_STATUS:
         localize.localize(downloaded, output)
+    print(downloaded.url, downloaded.reason)
 
 
 if __name__ == '__main__':

@@ -3,7 +3,7 @@ from re import search
 from bs4 import BeautifulSoup
 from page_loader import download, filesystem, hyphenate
 
-LOCAL_PATH_PATTERN = r'http(s)?://.*\/*'
+NON_LOCAL_PATH_PATTERN = r'http(s)?://.*\/*'
 LOCAL_RESOURCES = (
     'img',
     'link',
@@ -22,7 +22,7 @@ def _is_local(resource):
         path = resource.get(_SRC)
     else:
         return False
-    if search(LOCAL_PATH_PATTERN, path):
+    if search(NON_LOCAL_PATH_PATTERN, path):
         return False
     return True
 
@@ -48,10 +48,10 @@ def localize(document, output):  # noqa: WPS210
     ),
     )
     if resource_list:
-        resource_dir = filesystem.create_resource_dir(
-            output=output,
-            resource_dir_name=hyphenate.make_resource_dir_name(
-                document.url,
+        resource_dir = filesystem.create_dir(
+            output='/'.join(
+                output,
+                hyphenate.make_resource_dir_name(document.url),
             ),
         )
     for resource in resource_list:
@@ -73,6 +73,8 @@ def localize(document, output):  # noqa: WPS210
             update_resource_filename(resource, resource_filename)
     filesystem.save_document(
         document_content=document_dom,
-        path=output,
-        filename=hyphenate.make_document_name(document.url),
+        path_file='/'.join(
+            output,
+            hyphenate.make_document_name(document.url),
+        ),
     )
