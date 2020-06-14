@@ -12,7 +12,7 @@ def create_dir(output):
         output (str): Path for directory
 
     Returns:
-        (Boolean): Returns path if directory created successfully,
+        (str | Boolean): Returns path if directory created successfully,
         esle returns False
 
     """

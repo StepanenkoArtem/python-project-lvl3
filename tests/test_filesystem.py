@@ -24,7 +24,7 @@ def test_create_dir_on_readonly_dir(fs):  # noqa: D103
 
 
 @pytest.fixture
-def get_fake_content():
+def get_fake_content():  # noqa: D103
     with open('tests/datasets/filesystem/html_doc.gold', 'r') as golden:
         return golden.read()
 

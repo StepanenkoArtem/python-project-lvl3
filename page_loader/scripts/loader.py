@@ -3,7 +3,8 @@
 from os import getcwd
 
 import click
-from page_loader import download, localize
+import requests
+from page_loader import localize
 
 OK_STATUS = 200
 
@@ -17,10 +18,9 @@ OK_STATUS = 200
     'url',
 )
 def main(url, output):
-    downloaded = download.get_document(url)
+    downloaded = requests.get(localize.url_normalize(url))
     if downloaded.status_code == OK_STATUS:
         localize.localize(downloaded, output)
-    print(downloaded.url, downloaded.reason)
 
 
 if __name__ == '__main__':
