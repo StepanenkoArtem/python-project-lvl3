@@ -40,6 +40,9 @@ def test_set_new_link_on_doc():  # noqa: D103
     new_resource.attrs = {'href': 'new_link'}
 
     expected = new_resource.attrs
-    actual = localize.set_new_resource_link_on_doc(old_resource, 'new_link').attrs
+    actual = localize.set_new_resource_link_on_doc(
+        old_resource,
+        'new_link',
+        ).attrs
 
     assert expected == actual
