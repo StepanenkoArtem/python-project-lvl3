@@ -1,8 +1,12 @@
+# coding=utf-8
+
+"""Testing localize.py module."""
 from unittest.mock import MagicMock, Mock
 
 from page_loader import localize
 from tests.fixtures.get_dataset_from_file import get_dataset_from_json
 
+# Filepaths for testing datasets
 _DS_IS_LOCAL = 'tests/datasets/localize/is_local.json'
 _DS_GET_DOCUMENT_HOST = 'tests/datasets/localize/get_document_host.json'
 _DS_GET_RESOURCE_PATH = 'tests/datasets/localize/get_resource_path.json'
@@ -43,6 +47,6 @@ def test_set_new_link_on_doc():  # noqa: D103
     actual = localize.set_new_resource_link_on_doc(
         old_resource,
         'new_link',
-        ).attrs
+    ).attrs
 
     assert expected == actual
