@@ -1,7 +1,11 @@
+# coding=utf-8
+
+"""This module provides file operations."""
+
 import os
 
 # File operation modes
-WRITE = 'w'
+WRITE = 'wb'
 
 
 def create_dir(output):
@@ -9,7 +13,8 @@ def create_dir(output):
     Create destination directory.
 
     Args:
-        output (str): Path for directory
+        output : str
+            Path for directory
 
     Returns:
         (str | Boolean): Returns path if directory created successfully,
@@ -22,6 +27,14 @@ def create_dir(output):
     return False
 
 
-def save_document(document_content, path_file):  # noqa: D103
+def save_document(document_content, path_file):
+    """
+    Save document content to file.
+
+    Args:
+        document_content (class 'bytes'): Content of html document.
+        path_file (str) : Full path to destination file.
+
+    """
     with open(path_file, mode=WRITE) as html_file:
         html_file.write(document_content)
