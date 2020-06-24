@@ -5,7 +5,7 @@
 import os
 
 # File operation modes
-WRITE = 'wb'
+WRITE_B = 'wb'
 
 
 def create_dir(output):
@@ -36,5 +36,5 @@ def save_document(document_content, path_file):
         path_file (str) : Full path to destination file.
 
     """
-    with open(path_file, mode=WRITE) as html_file:
-        html_file.write(document_content)
+    with open(path_file, mode=WRITE_B) as document:
+        document.write(document_content)

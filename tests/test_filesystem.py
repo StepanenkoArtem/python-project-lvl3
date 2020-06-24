@@ -27,7 +27,7 @@ def test_create_dir_on_readonly_dir(fs):  # noqa: D103
 
 @pytest.fixture
 def get_fake_content():  # noqa: D103
-    with open('tests/datasets/filesystem/html_doc.gold', 'r') as golden:
+    with open('tests/datasets/filesystem/html_doc.gold', 'rb') as golden:
         return golden.read()
 
 
@@ -35,5 +35,5 @@ def test_save_document(get_fake_content, fs, tmpdir):  # noqa: D103
     path_file = tmpdir.mkdir('test').join('test_file.txt')
     fake_content = get_fake_content
     save_document(fake_content, path_file)
-    with open(path_file, 'r') as expected:
+    with open(path_file, 'rb') as expected:
         assert fake_content == expected.read()
