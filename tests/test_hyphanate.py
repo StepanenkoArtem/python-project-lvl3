@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from page_loader import hyphenate
 from tests.fixtures.get_dataset_from_file import get_dataset_from_json
 

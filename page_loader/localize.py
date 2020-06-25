@@ -7,13 +7,13 @@ Parce and save downloaded document.
 Obtain, download and save local resources from downloaded document.
 """
 
-from re import match, search
+from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
 from page_loader import filesystem, hyphenate
 
-_DEFAULT_PARSER = 'html_parser'
+_DEFAULT_PARSER = 'html.parser'
 
 # REGEX Patterns
 NON_LOCAL_PATH_PATTERN = r'http(s)?://.*\/*'
@@ -72,7 +72,7 @@ def _is_local(resource):
         path = resource.get(_SRC)
     else:
         return False
-    if search(NON_LOCAL_PATH_PATTERN, path):
+    if urlparse(path).netloc:
         return False
     return True
 
@@ -118,7 +118,6 @@ def set_new_resource_link_on_doc(resource, new_link):
         resource.attrs[_HREF] = new_link
     elif resource.attrs(_SRC):
         resource.attrs[_SRC] = new_link
-
     return resource
 
 
@@ -140,12 +139,15 @@ def localize(document, output):  # noqa: WPS210
     # Get document DOM
     document_dom = BeautifulSoup(document.content, _DEFAULT_PARSER)
 
-    # Obtain host of document
-    document_host = match(
-        HOST_PATTERN,
-        url_normalize(document.url),
-    ).group()
+    # Obtain url components
+    document_host = urlparse(url_normalize(document.url)).netloc
+    document_path = urlparse(url_normalize(document.url)).path
 
+    # Make boilerplate name for generating local dirs and files names
+    boilerplate_name = '{host}{path}'.format(
+        host=document_host,
+        path=document_path,
+    )
     # Obtain list of local resources
     resource_list = list(filter(
         _is_local,
@@ -156,9 +158,13 @@ def localize(document, output):  # noqa: WPS210
     # Create directory for resource files if local resources exist
     if resource_list:
         resource_dir = filesystem.create_dir(
-            output=_LEAD_SLASH.join(
-                output,
-                hyphenate.make_resource_dir_name(document.url),
+            dir_path=_LEAD_SLASH.join(
+                [
+                    output,
+                    hyphenate.make_resource_dir_name(
+                        boilerplate_name,
+                    ),
+                ],
             ),
         )
     # Download each local resource from resource list
@@ -176,25 +182,29 @@ def localize(document, output):  # noqa: WPS210
         if downloaded_resource:
             # Create new resource filename
             # with hyphen instead non-alphanumeric symbols
-            resource_filename = hyphenate.make_resource_filename(
+            resource_local_filename = hyphenate.make_resource_filename(
                 resource_path,
+            )
+            resource_local_path = _LEAD_SLASH.join(
+                [resource_dir, resource_local_filename],
             )
             # Save downloaded resource file
             filesystem.save_document(
                 document_content=downloaded_resource.content,
-                path=resource_dir,
-                filename=resource_filename,
+                path_file=resource_local_path,
             )
             # Update resource reference in main document
             set_new_resource_link_on_doc(
                 resource,
-                resource_filename,
+                resource_local_path,
             )
     # Save modified document
     filesystem.save_document(
-        document_content=document_dom,
+        document_content=document_dom.encode(),
         path_file=_LEAD_SLASH.join(
-            output,
-            hyphenate.make_document_name(document.url),
+            [
+                output,
+                hyphenate.make_document_name(boilerplate_name),
+            ],
         ),
     )

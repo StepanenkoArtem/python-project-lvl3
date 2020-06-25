@@ -4,16 +4,16 @@
 
 import os
 
-# File operation modes
-WRITE_B = 'wb'
+# File operation mode
+MODE = 'wb'
 
 
-def create_dir(output):
+def create_dir(dir_path):
     """
     Create destination directory.
 
     Args:
-        output : str
+        dir_path : str
             Path for directory
 
     Returns:
@@ -21,10 +21,9 @@ def create_dir(output):
         esle returns False
 
     """
-    if not os.path.exists(output):
-        os.makedirs(output)
-        return (output)
-    return False
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
+    return dir_path
 
 
 def save_document(document_content, path_file):
@@ -36,5 +35,5 @@ def save_document(document_content, path_file):
         path_file (str) : Full path to destination file.
 
     """
-    with open(path_file, mode=WRITE_B) as document:
+    with open(path_file, mode=MODE) as document:
         document.write(document_content)

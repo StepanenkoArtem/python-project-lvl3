@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "stepanenko-page-loader"
-version = "0.1.18"
-description = "Tool for downloding web-pages to local machine"
+version = "0.1.19"
+description = "Tool for downloading web pages to the local machine"
 authors = ["Artem Stepanenko <artem.stepanenko.ks.ua@gmail.com>"]
 packages = [
     { include = "page_loader" },
@@ -21,6 +21,7 @@ flake8 = "^3.7.9"
 pytest = "^5.3.5"
 pytest-cov = "^2.8.1"
 pyfakefs = "^4.0.2"
+rope = "^0.17.0"
 
 [tool.poetry.scripts]
 stepanenko-page-loader = 'page_loader.scripts.loader:main'

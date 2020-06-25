@@ -44,20 +44,20 @@ def _trim_extension(path):
     return re.sub(_FILE_EXTENSION, '', path.strip(_LEADING_SLASH))
 
 
-def make_resource_dir_name(document_url):
+def make_resource_dir_name(document_path):
     """
     Create name for directory where resource files will be saved.
 
     Add '_files' postfix to 'hyphenated' filename
 
     Args :
-        document_url (str): URL of downloaded document
+        document_path (str): URL of downloaded document
 
     Returns :
         str : String contains directory name with '_files' ending.
     """
     return '{file_basename}{ext}'.format(
-        file_basename=_hyphenate(_trim_extension(document_url)),
+        file_basename=_hyphenate(_trim_extension(document_path)),
         ext=_RES_DIR_POSTFIX,
     )
 
@@ -74,7 +74,10 @@ def make_resource_filename(resource_path):
         str : Filename with replaced non-alpanumerical symbols
         and original filextension.
     """
-    extension = re.search(_FILE_EXTENSION, resource_path).group(0)
+    try:
+        extension = re.search(_FILE_EXTENSION, resource_path).group(0)
+    except AttributeError:
+        extension = ''
     return '{base_path}{ext}'.format(
         base_path=_hyphenate(_trim_extension(resource_path)),
         ext=extension,
@@ -93,6 +96,8 @@ def make_document_name(document_url):
         and with 'html' - extendion
     """
     return '{file_basename}{ext}'.format(
-        file_basename=_hyphenate(_trim_extension(document_url)),
+        file_basename=_hyphenate(
+            _trim_extension(document_url),
+        ),
         ext=_DOC_EXTENSION,
     )
