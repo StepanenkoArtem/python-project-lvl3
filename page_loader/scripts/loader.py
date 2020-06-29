@@ -8,8 +8,7 @@ from os.path import join
 
 import click
 import requests
-from page_loader import localize
-from page_loader import settings
+from page_loader import localize, settings
 
 
 @click.command()
