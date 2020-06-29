@@ -3,6 +3,7 @@
 """This module provides creating 'hyphanated' filenames and paths."""
 
 import re
+from urllib.parse import urlparse
 
 # Postfixes
 _DOC_EXTENSION = '.html'
@@ -26,7 +27,7 @@ def _hyphenate(path):
     Returns :
         str : String with replaced non-alphanumecric symbols
     """
-    return re.sub(_HYPHENATE_PATTERN, _HYPHEN, path)
+    return re.sub(_HYPHENATE_PATTERN, _HYPHEN, path).strip(_HYPHEN)
 
 
 def _trim_extension(path):
@@ -41,25 +42,26 @@ def _trim_extension(path):
         str: string
             resource file basenamr.
     """
-    return re.sub(_FILE_EXTENSION, '', path.strip(_LEADING_SLASH))
+    return re.sub(_FILE_EXTENSION, '', path)
 
 
-def make_resource_dir_name(document_path):
+def make_resource_dir_name(document_url):
     """
     Create name for directory where resource files will be saved.
 
     Add '_files' postfix to 'hyphenated' filename
 
     Args :
-        document_path (str): URL of downloaded document
+        document_url (str): URL of downloaded document
 
     Returns :
         str : String contains directory name with '_files' ending.
     """
-    return '{file_basename}{ext}'.format(
-        file_basename=_hyphenate(_trim_extension(document_path)),
-        ext=_RES_DIR_POSTFIX,
+    prepared_path = '{host}{path}'.format(
+        host=urlparse(document_url).netloc,
+        path=_trim_extension(urlparse(document_url).path),
     )
+    return _hyphenate(prepared_path) + _RES_DIR_POSTFIX
 
 
 def make_resource_filename(resource_path):
@@ -79,7 +81,7 @@ def make_resource_filename(resource_path):
     except AttributeError:
         extension = ''
     return '{base_path}{ext}'.format(
-        base_path=_hyphenate(_trim_extension(resource_path)),
+        base_path=_hyphenate(_trim_extension(resource_path)).strip('-'),
         ext=extension,
     )
 
@@ -95,9 +97,11 @@ def make_document_name(document_url):
         str : Filename with replaced non-alphanumerical symbols
         and with 'html' - extendion
     """
-    return '{file_basename}{ext}'.format(
-        file_basename=_hyphenate(
-            _trim_extension(document_url),
-        ),
+    basename = '{host}{path}'.format(
+        host=urlparse(document_url).netloc,
+        path=_trim_extension(urlparse(document_url).path),
+    )
+    return '{basename}{ext}'.format(
+        basename=_hyphenate(basename),
         ext=_DOC_EXTENSION,
     )

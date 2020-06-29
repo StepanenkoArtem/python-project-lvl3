@@ -1,8 +1,9 @@
 # coding=utf-8
 
 """Testing localize.py module."""
-from unittest.mock import MagicMock, Mock
+from unittest.mock import Mock
 
+import bs4
 from page_loader import localize
 from tests.fixtures.get_dataset_from_file import get_dataset_from_json
 
@@ -24,6 +25,7 @@ def test_is_local():  # noqa: D103
     for path, expected in get_dataset_from_json(_DS_IS_LOCAL):
         resource = Mock()
         resource.path = Mock()
+        resource.attrs = dict(href=path)
         resource.get = Mock(return_value=path)
         assert expected == localize._is_local(resource)  # noqa: WPS437
 
@@ -36,17 +38,30 @@ def test_get_resource_path():  # noqa: D103
         assert path == localize.get_resource_path(resource)
 
 
-def test_set_new_link_on_doc():  # noqa: D103
-    old_resource = MagicMock()
-    old_resource.attrs = {'href': 'old_value'}
+def test_set_new_link_on_doc():  # noqa: D103, WPS210
+    before_value = 'old_value'
+    after_value = 'new_link'
 
-    new_resource = MagicMock()
-    new_resource.attrs = {'href': 'new_link'}
+    bs4.element = Mock()
+    resource_before = bs4.element
+    resource_after = bs4.element
 
-    expected = new_resource.attrs
-    actual = localize.set_new_resource_link_on_doc(
-        old_resource,
-        'new_link',
+    resource_before.attrs = {'href': before_value}
+    resource_after.attrs = {'href': after_value}
+
+    expected = resource_after.attrs
+    actual = localize.set_new_resource_link(
+        resource_before,
+        after_value,
+    ).attrs
+
+    resource_before.attrs = {'src': before_value}
+    resource_after.attrs = {'src': after_value}
+
+    expected = resource_after.attrs
+    actual = localize.set_new_resource_link(
+        resource_before,
+        after_value,
     ).attrs
 
     assert expected == actual
