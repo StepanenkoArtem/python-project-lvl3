@@ -9,15 +9,13 @@ from os.path import join
 import click
 import requests
 from page_loader import localize
-
-OK_STATUS = 200
-DOWNLOAD_DIR = 'downloads'
+from page_loader import settings
 
 
 @click.command()
 @click.option(
     '--output',
-    default=join(getcwd(), DOWNLOAD_DIR),
+    default=join(getcwd(), settings.DOWNLOAD_DIR),
     help='Set destionation folder to save file',
 )
 @click.argument(
@@ -26,7 +24,7 @@ DOWNLOAD_DIR = 'downloads'
 def main(url, output):
     """Download web page from specified URL."""
     downloaded = requests.get(localize.url_normalize(url))
-    if downloaded.status_code == OK_STATUS:
+    if downloaded.status_code == settings.STATUS_OK:
         localize.localize(downloaded, output)
 
 

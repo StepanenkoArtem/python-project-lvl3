@@ -12,26 +12,12 @@ from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
-from page_loader import filesystem, hyphenate
+from page_loader import filesystem, hyphenate, settings
 
-_DEFAULT_PARSER = 'html.parser'
-
-# Postfixs
-_RESOURCE_FILES_DIR = '_files'
-
-LOCAL_RESOURCES = (
-    'img',
-    'link',
-    'script',
-)
-
-RESOURCE_REFS = ('href', 'src')
-
-_DEFAULT_SCHEME = 'https://'
-_LEAD_SLASH = '/'
+LEAD_SLASH = '/'
 
 
-def url_normalize(url, scheme=_DEFAULT_SCHEME):
+def url_normalize(url, scheme=settings.DEFAULT_SCHEME):
     """
     Add HTTPS scheme to URL if does not it contains.
 
@@ -64,9 +50,9 @@ def _is_local(resource):
             else return False
     """
     for attr in resource.attrs:
-        if attr in RESOURCE_REFS:
+        if attr in settings.RESOURCE_REFS:
             url_parts = urlparse(resource.get(attr))
-            if url_parts.path == _LEAD_SLASH:
+            if url_parts.path == LEAD_SLASH:
                 return False
             if (not url_parts.netloc) and url_parts.path:
                 return True
@@ -86,12 +72,12 @@ def get_resource_path(resource):
             String contains full path to resource file
             (excluding protocol and host)
     """
-    for attr in RESOURCE_REFS:
+    for attr in settings.RESOURCE_REFS:
         if resource.has_attr(attr):
             path = urlparse(resource.get(attr)).path
-    if path.startswith(_LEAD_SLASH):
+    if path.startswith(LEAD_SLASH):
         return path
-    return ''.join([_LEAD_SLASH, path])
+    return ''.join([LEAD_SLASH, path])
 
 
 def set_new_resource_link(resource, new_link):
@@ -108,7 +94,7 @@ def set_new_resource_link(resource, new_link):
         resource : (class 'bs4.element.Tag')
             Updates resource object
     """
-    for attr in RESOURCE_REFS:
+    for attr in settings.RESOURCE_REFS:
         if resource.has_attr(attr):
             resource.attrs[attr] = new_link
     return resource
@@ -130,7 +116,7 @@ def localize(document, output):  # noqa: WPS210
 
     """
     # Get document DOM
-    document_dom = BeautifulSoup(document.content, _DEFAULT_PARSER)
+    document_dom = BeautifulSoup(document.content, settings.DEFAULT_PARSER)
 
     # Obtain url components
     document_host = urlparse(document.url).netloc
@@ -138,7 +124,7 @@ def localize(document, output):  # noqa: WPS210
     # Obtain list of local resources
     resource_list = list(filter(
         _is_local,
-        document_dom.find_all(LOCAL_RESOURCES),
+        document_dom.find_all(settings.LOCAL_RESOURCES),
     ),
     )
 
@@ -164,13 +150,13 @@ def localize(document, output):  # noqa: WPS210
             ),
         )
 
-        if downloaded_resource:
+        if downloaded_resource.status_code == settings.STATUS_OK:
             # Create new resource filename
             # with hyphen instead non-alphanumeric symbols
             resource_local_filename = hyphenate.make_resource_filename(
                 resource_path,
             )
-            localized_path = _LEAD_SLASH.join(
+            localized_path = LEAD_SLASH.join(
                 [resource_dir, resource_local_filename],
             )
             # Save downloaded resource file
