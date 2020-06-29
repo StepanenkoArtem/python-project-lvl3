@@ -17,8 +17,7 @@ def create_dir(dir_path):
             Path for directory
 
     Returns:
-        (str | Boolean): Returns path if directory created successfully,
-        esle returns False
+        (str): Returns path if directory created successfully
 
     """
     if not os.path.exists(dir_path):
