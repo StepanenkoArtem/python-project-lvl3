@@ -8,7 +8,7 @@ os: linux
 # command to install dependencies
 install:
   - pip install poetry
-  - pip install flake8
+  - pip install "flake8<3"
   - pip install pytest
   - pip install pytest-cov
   - pip install coverage
