@@ -34,6 +34,7 @@ def url_normalize(url, scheme=settings.DEFAULT_SCHEME):
         url : str
             URL with leading HTTPS scheme
     """
+    logger.debug(settings.DEB_LOC_URL_NORM)
     if not url.startswith('http'):
         return ''.join([scheme, url])
     return url
@@ -75,6 +76,7 @@ def get_resource_path(resource):
             String contains full path to resource file
             (excluding protocol and host)
     """
+    logger.debug()
     for attr in settings.RESOURCE_REFS:
         if resource.has_attr(attr):
             path = urlparse(resource.get(attr)).path
@@ -99,6 +101,7 @@ def set_new_resource_link(resource, new_link):
     """
     for attr in settings.RESOURCE_REFS:
         if resource.has_attr(attr):
+            logger.debug(settings.DEB_LOC_SET_NEW_LINK)
             resource.attrs[attr] = new_link
     return resource
 
@@ -145,7 +148,7 @@ def localize(document, output):  # noqa: WPS210
             ),
         )
     # Download each local resource from resource list
-    logger.debug(settings.DEB_DOWNLOAD_RES)
+    logger.debug(settings.DEB_LOC_DOWNLOAD_RES)
     for resource in resource_list:
         resource_path = get_resource_path(resource)
         try:
@@ -159,7 +162,7 @@ def localize(document, output):  # noqa: WPS210
             )
         except requests.ConnectionError:
             logger.warning(
-                settings.WARN_RES_ISNT_FOUND.format(res=resource_path),
+                settings.WARN_LOC_RES_ISNT_FOUND.format(res=resource_path),
             )
             continue
 

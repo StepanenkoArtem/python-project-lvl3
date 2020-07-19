@@ -28,4 +28,4 @@ def download(url):
         return requests.get(url_normalize(url))
     except requests.ConnectionError:
         logger.error(settings.ERR_DL_CONNECTTION.format(url=url))
-        sys.exit(1)
+        sys.exit(settings.CON_ERR)

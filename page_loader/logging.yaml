@@ -12,7 +12,7 @@ handlers:
   console:
     class: logging.StreamHandler
     formatter: simple
-    level: ERROR
+    level: DEBUG
   logfile:
     class: logging.FileHandler
     formatter: verbose
@@ -22,5 +22,6 @@ handlers:
 # Loggers
 loggers:
   page_loader:
+    level: ERROR
     handlers: 
       [logfile, console]

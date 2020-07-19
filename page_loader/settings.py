@@ -18,7 +18,7 @@ DEFAULT_SCHEME = 'https://'
 
 # Logging
 LOG_CONF = 'page_loader/logging.yaml'
-DEFAULT_FORMATTER = '%(asctime)s: %(name)s - %(levelname)s : %(message)s'
+DEFAULT_FORMATTER = '{asctime}: {name} - {levelname} : {message}'
 DEFAULT_LOGGER = 'page_loader'
 
 # Logging messages
@@ -29,7 +29,11 @@ DEB_USER_LOGGER = 'Create user logging handler'
 # download
 DEB_DL_URL_GET = 'Retrieve URL={url}'
 ERR_DL_CONNECTTION = 'Cannot establish connection with {url}'
+
 # filesystem
+DEB_FS_CREATE_DIR = 'Create resources subdirectory'
+ERR_FS_PERMISSION_DND = 'Permission denied'
+ERR_FS_CREATE_FILE_ERR = 'Cannot create file'
 
 # hyphenate
 DEB_HYPH_HYPHENATE = 'Replace non-aplhanumeric symbols to hyphen in {path}'
@@ -43,5 +47,13 @@ DEB_HYPH_FILENAME = 'Make new document name'
 DEB_LOC_GET_DOM = 'Get DOM from downloaded document'
 DEB_LOC_GET_RES_LIST = 'Obtain resource list'
 DEB_LOC_GET_HOST = 'Get downloaded document host'
-DEB_DOWNLOAD_RES = 'Start downloading resourses'
-WARN_RES_ISNT_FOUND = 'Cannot retrive resource {res}'
+DEB_LOC_DOWNLOAD_RES = 'Start downloading resourses'
+DEB_LOC_URL_NORM = 'Normalize url'
+DEB_LOC_GET_RES_PATH = 'Get resource path'
+DEB_LOC_SET_NEW_LINK = 'Update link'
+WARN_LOC_RES_ISNT_FOUND = 'Cannot retrive resource {res}'
+
+# System exit codes
+
+FS_ERR = 2
+CON_ERR = 1

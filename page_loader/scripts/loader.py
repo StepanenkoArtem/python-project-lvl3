@@ -29,6 +29,7 @@ logger = logging.getLogger(settings.DEFAULT_LOGGER)
 @click.option(
     '--loglevel',
     type=str,
+    default=logger.level,
     help='Set logging level',
 )
 @click.option(
@@ -40,6 +41,13 @@ logger = logging.getLogger(settings.DEFAULT_LOGGER)
 )
 def main(url, output, loglevel, logpath):
     """Entry point."""
+    logger.setLevel(loglevel)
+    if logpath:
+        custom_handler = logging.FileHandler(logpath)
+        custom_handler.setFormatter(
+            logging.Formatter(settings.DEFAULT_FORMATTER, style='{'),
+        )
+        logger.addHandler(custom_handler)
     localize(download.download(url), output)
 
 
