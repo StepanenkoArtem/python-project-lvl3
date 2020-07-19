@@ -18,7 +18,7 @@ DEFAULT_SCHEME = 'https://'
 
 # Bar settings
 BAR_CAPTION = 'Loading resources'
-BAR_SUFFIX = '%(index)d files'
+BAR_SUFFIX = '%(index)d files'  # noqa: WPS323
 
 # Logging
 LOG_CONF = 'page_loader/logging.yaml'

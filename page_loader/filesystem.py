@@ -31,7 +31,6 @@ def create_dir(dir_path):
             os.makedirs(dir_path)
         except PermissionError:
             logger.error(settings.ERR_FS_PERMISSION_DND)
-            sys.exit(settings.EXIT_FS_ERR)
     return dir_path
 
 
