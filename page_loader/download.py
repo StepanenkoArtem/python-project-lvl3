@@ -21,6 +21,9 @@ def download(url):
 
     Returns:
         downloaded : <requests.object>
+
+    Raises:
+        ConnectionError : Cantnot establish connection to host
     """
     logger.debug(settings.DEB_DL_URL_GET.format(url=url))
     try:
