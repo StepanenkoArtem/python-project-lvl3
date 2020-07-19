@@ -23,6 +23,7 @@ pytest-cov = "^2.8.1"
 pyfakefs = "^4.0.2"
 rope = "^0.17.0"
 isort = "<5"
+flake8-isort = "<2.9.1"
 
 [tool.poetry.scripts]
 stepanenko-page-loader = 'page_loader.scripts.loader:main'
