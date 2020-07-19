@@ -17,7 +17,7 @@ with open(settings.LOG_CONF) as config_file:
     config_dict = yaml.safe_load(config_file)
 config.dictConfig(config_dict)
 
-logger = logging.getLogger(__package__)
+logger = logging.getLogger(settings.DEFAULT_LOGGER)
 
 
 @click.command()
@@ -27,24 +27,19 @@ logger = logging.getLogger(__package__)
     help='Set destionation folder to save file',
 )
 @click.option(
-    '--log',
+    '--loglevel',
     type=str,
-    default=logger.level,
     help='Set logging level',
 )
 @click.option(
-    '--logfile',
+    '--logpath',
     help='Set logfile path',
 )
 @click.argument(
     'url',
 )
-def main(url, output, log, logfile):
+def main(url, output, loglevel, logpath):
     """Entry point."""
-    logger.setLevel(log)
-    if logfile:
-        custom_handler = logging.FileHandler(logfile)
-        logger.addHandler(custom_handler)
     localize(download.download(url), output)
 
 

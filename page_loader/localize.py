@@ -118,14 +118,16 @@ def localize(document, output):  # noqa: WPS210
     Returns: None
 
     """
-    logger.info('THIS LOGGIER ALSO WORKING')
     # Get document DOM
+    logger.debug(settings.DEB_LOC_GET_DOM)
     document_dom = BeautifulSoup(document.content, settings.DEFAULT_PARSER)
 
     # Obtain url components
+    logger.debug(settings.DEB_LOC_GET_HOST)
     document_host = urlparse(document.url).netloc
 
     # Obtain list of local resources
+    logger.debug(settings.DEB_LOC_GET_RES_LIST)
     resource_list = list(filter(
         _is_local,
         document_dom.find_all(settings.LOCAL_RESOURCES),
@@ -143,16 +145,23 @@ def localize(document, output):  # noqa: WPS210
             ),
         )
     # Download each local resource from resource list
+    logger.debug(settings.DEB_DOWNLOAD_RES)
     for resource in resource_list:
         resource_path = get_resource_path(resource)
-        downloaded_resource = requests.get(
-            url_normalize(
-                '{host}{path}'.format(
-                    host=document_host,
-                    path=resource_path,
+        try:
+            downloaded_resource = requests.get(
+                url_normalize(
+                    '{host}{path}'.format(
+                        host=document_host,
+                        path=resource_path,
+                    ),
                 ),
-            ),
-        )
+            )
+        except requests.ConnectionError:
+            logger.warning(
+                settings.WARN_RES_ISNT_FOUND.format(res=resource_path),
+            )
+            continue
 
         if downloaded_resource.status_code == settings.STATUS_OK:
             # Create new resource filename

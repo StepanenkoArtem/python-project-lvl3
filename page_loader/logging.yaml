@@ -12,16 +12,15 @@ handlers:
   console:
     class: logging.StreamHandler
     formatter: simple
-    level: WARNING
+    level: ERROR
   logfile:
     class: logging.FileHandler
     formatter: verbose
     level: DEBUG
-    filename: 'loader.log'
+    filename: 'default.log'
 
 # Loggers
 loggers:
   page_loader:
-    level: DEBUG
     handlers: 
       [logfile, console]

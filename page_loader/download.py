@@ -3,6 +3,7 @@
 """Retrive URL resource."""
 
 import logging
+import sys
 
 import requests
 from page_loader import settings
@@ -22,8 +23,9 @@ def download(url):
     Returns:
         downloaded : <requests.object>
     """
-    logger.warning('start download URL={url}'.format(url=url))
-    downloaded = requests.get(url_normalize(url))
-    if downloaded.status_code == settings.STATUS_OK:
-        return downloaded
-    return None
+    logger.debug(settings.DEB_DL_URL_GET.format(url=url))
+    try:
+        return requests.get(url_normalize(url))
+    except requests.ConnectionError:
+        logger.error(settings.ERR_DL_CONNECTTION.format(url=url))
+        sys.exit(1)
