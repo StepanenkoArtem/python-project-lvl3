@@ -4,6 +4,7 @@
 """Main module. Retrive url from command line args."""
 
 import logging
+import sys
 from logging import config
 from os import getcwd
 from os.path import join
@@ -43,7 +44,11 @@ def main(url, output, loglevel, logpath):
     """Entry point."""
     logger.setLevel(loglevel)
     if logpath:
-        custom_handler = logging.FileHandler(logpath)
+        try:
+            custom_handler = logging.FileHandler(logpath)
+        except PermissionError:
+            logger.error(settings.ERR_FS_PERMISSION_DND)
+            sys.exit(settings.EXIT_FS_ERR)
         custom_handler.setFormatter(
             logging.Formatter(settings.DEFAULT_FORMATTER, style='{'),
         )

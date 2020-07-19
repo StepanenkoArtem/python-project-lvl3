@@ -13,6 +13,7 @@ requests = "^2.22.0"
 click = "^7.0"
 beautifulsoup4 = "^4.8.2"
 pytest-mock = "^3.1.0"
+progress = "^1.5"
 
 
 [tool.poetry.dev-dependencies]

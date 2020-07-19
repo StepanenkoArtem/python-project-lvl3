@@ -14,6 +14,7 @@ from urllib.parse import urlparse
 import requests
 from bs4 import BeautifulSoup
 from page_loader import filesystem, hyphenate, settings
+from progress.bar import FillingSquaresBar
 
 LEAD_SLASH = '/'
 
@@ -106,7 +107,7 @@ def set_new_resource_link(resource, new_link):
     return resource
 
 
-def localize(document, output):  # noqa: WPS210
+def localize(document, output):  # noqa: WPS210, WPS213, B305
     """
     Parce and save local resources from document.
 
@@ -149,42 +150,49 @@ def localize(document, output):  # noqa: WPS210
         )
     # Download each local resource from resource list
     logger.debug(settings.DEB_LOC_DOWNLOAD_RES)
-    for resource in resource_list:
-        resource_path = get_resource_path(resource)
-        try:
-            downloaded_resource = requests.get(
-                url_normalize(
-                    '{host}{path}'.format(
-                        host=document_host,
-                        path=resource_path,
+    with FillingSquaresBar(
+        settings.BAR_CAPTION,
+        max=len(resource_list),
+        suffix=settings.BAR_SUFFIX,
+    ) as resource_counter:
+        for resource in resource_list:
+            resource_path = get_resource_path(resource)
+            try:
+                downloaded_resource = requests.get(
+                    url_normalize(
+                        '{host}{path}'.format(
+                            host=document_host,
+                            path=resource_path,
+                        ),
                     ),
-                ),
-            )
-        except requests.ConnectionError:
-            logger.warning(
-                settings.WARN_LOC_RES_ISNT_FOUND.format(res=resource_path),
-            )
-            continue
+                )
+            except requests.ConnectionError:
+                logger.warning(
+                    settings.WARN_LOC_RES_ISNT_FOUND.format(res=resource_path),
+                )
+                continue
 
-        if downloaded_resource.status_code == settings.STATUS_OK:
-            # Create new resource filename
-            # with hyphen instead non-alphanumeric symbols
-            resource_local_filename = hyphenate.make_resource_filename(
-                resource_path,
-            )
-            localized_path = LEAD_SLASH.join(
-                [resource_dir, resource_local_filename],
-            )
-            # Save downloaded resource file
-            filesystem.save_document(
-                document_content=downloaded_resource.content,
-                path_file=localized_path,
-            )
-            # Update resource reference in main document
-            set_new_resource_link(
-                resource,
-                localized_path,
-            )
+            if downloaded_resource.status_code == settings.STATUS_OK:
+                # Create new resource filename
+                # with hyphen instead non-alphanumeric symbols
+                resource_local_filename = hyphenate.make_resource_filename(
+                    resource_path,
+                )
+                localized_path = LEAD_SLASH.join(
+                    [resource_dir, resource_local_filename],
+                )
+                # Save downloaded resource file
+                filesystem.save_document(
+                    document_content=downloaded_resource.content,
+                    path_file=localized_path,
+                )
+                # Update resource reference in main document
+                set_new_resource_link(
+                    resource,
+                    localized_path,
+                )
+            resource_counter.next()  # noqa: B305
+        resource_counter.finish()
     # Save modified document
     filesystem.save_document(
         document_content=document_dom.encode(),
