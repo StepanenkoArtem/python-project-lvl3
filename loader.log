@@ -1,0 +1,42 @@
+2020-07-18 22:55:35,006: page_loader.download - WARNING : start download URL=hexlet.io
+2020-07-18 22:55:35,538: page_loader.localize - INFO : THIS LOGGIER ALSO WORKING
+2020-07-18 22:56:31,479: page_loader.download - WARNING : start download URL=hexlet.io
+2020-07-18 22:56:32,076: page_loader.localize - INFO : THIS LOGGIER ALSO WORKING
+2020-07-18 22:56:32,271: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 22:56:36,744: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:08:16,536: page_loader.download - WARNING : start download URL=hexlet.io
+2020-07-18 23:08:17,145: page_loader.localize - INFO : THIS LOGGIER ALSO WORKING
+2020-07-18 23:08:17,332: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:08:21,728: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:08:47,670: page_loader.download - WARNING : start download URL=hexlet.io
+2020-07-18 23:08:48,266: page_loader.localize - INFO : THIS LOGGIER ALSO WORKING
+2020-07-18 23:08:48,451: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:08:52,947: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:10:49,626: page_loader.download - WARNING : start download URL=hexlet.io
+2020-07-18 23:10:50,373: page_loader.localize - INFO : THIS LOGGIER ALSO WORKING
+2020-07-18 23:10:50,566: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:10:54,988: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:11:42,740: page_loader.download - WARNING : start download URL=hexlet.io
+2020-07-18 23:11:43,327: page_loader.localize - INFO : THIS LOGGIER ALSO WORKING
+2020-07-18 23:11:43,518: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:11:48,006: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:15:41,797: page_loader.download - WARNING : start download URL=hexlet.io
+2020-07-18 23:15:42,391: page_loader.localize - INFO : THIS LOGGIER ALSO WORKING
+2020-07-18 23:15:42,578: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:15:47,061: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:16:31,911: page_loader.download - WARNING : start download URL=hexlet.io
+2020-07-18 23:16:32,447: page_loader.localize - INFO : THIS LOGGIER ALSO WORKING
+2020-07-18 23:16:32,631: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:16:36,924: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:19:45,109: page_loader.download - WARNING : start download URL=hexlet.io
+2020-07-18 23:19:45,692: page_loader.localize - INFO : THIS LOGGIER ALSO WORKING
+2020-07-18 23:19:45,881: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:19:50,256: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:22:02,342: page_loader.download - WARNING : start download URL=hexlet.io
+2020-07-18 23:22:02,947: page_loader.localize - INFO : THIS LOGGIER ALSO WORKING
+2020-07-18 23:22:03,138: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-18 23:22:07,610: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-19 09:00:43,977: page_loader.download - WARNING : start download URL=hexlet.io
+2020-07-19 09:00:44,641: page_loader.localize - INFO : THIS LOGGIER ALSO WORKING
+2020-07-19 09:00:44,823: page_loader.hyphenate - DEBUG : making hyphenate
+2020-07-19 09:00:49,104: page_loader.hyphenate - DEBUG : making hyphenate

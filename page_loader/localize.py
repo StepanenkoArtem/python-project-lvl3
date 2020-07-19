@@ -7,6 +7,7 @@ Parce and save downloaded document.
 Obtain, download and save local resources from downloaded document.
 """
 
+import logging
 from os.path import join
 from urllib.parse import urlparse
 
@@ -15,6 +16,8 @@ from bs4 import BeautifulSoup
 from page_loader import filesystem, hyphenate, settings
 
 LEAD_SLASH = '/'
+
+logger = logging.getLogger(__name__)
 
 
 def url_normalize(url, scheme=settings.DEFAULT_SCHEME):
@@ -115,6 +118,7 @@ def localize(document, output):  # noqa: WPS210
     Returns: None
 
     """
+    logger.info('THIS LOGGIER ALSO WORKING')
     # Get document DOM
     document_dom = BeautifulSoup(document.content, settings.DEFAULT_PARSER)
 

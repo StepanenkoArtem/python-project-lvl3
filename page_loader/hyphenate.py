@@ -2,6 +2,7 @@
 
 """This module provides creating 'hyphanated' filenames and paths."""
 
+import logging
 import re
 from urllib.parse import urlparse
 
@@ -16,6 +17,8 @@ _FILE_EXTENSION = r'(?=\.)[^/]*?$'
 _HYPHEN = '-'
 _LEADING_SLASH = '/'
 
+logger = logging.getLogger(__name__)
+
 
 def _hyphenate(path):
     """
@@ -27,6 +30,7 @@ def _hyphenate(path):
     Returns :
         str : String with replaced non-alphanumecric symbols
     """
+    logger.debug('making hyphenate')
     return re.sub(_HYPHENATE_PATTERN, _HYPHEN, path).strip(_HYPHEN)
 
 
