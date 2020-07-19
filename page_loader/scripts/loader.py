@@ -4,6 +4,7 @@
 """Main module. Retrive url from command line args."""
 
 import logging
+import sys
 from logging import config
 from os import getcwd
 from os.path import join
@@ -47,11 +48,18 @@ def main(url, output, loglevel, logpath):
             custom_handler = logging.FileHandler(logpath)
         except PermissionError:
             logger.error(settings.ERR_FS_PERMISSION_DND)
+            sys.exit(settings.EXIT_FS_ERR)
+
         custom_handler.setFormatter(
             logging.Formatter(settings.DEFAULT_FORMATTER, style='{'),
         )
         logger.addHandler(custom_handler)
-    localize(download.download(url), output)
+    try:
+        localize(download.download(url), output)
+    except PermissionError:
+        sys.exit(settings.EXIT_FS_ERR)
+    except ConnectionError:
+        sys.exit(settings.EXIT_CON_ERR)
 
 
 if __name__ == '__main__':

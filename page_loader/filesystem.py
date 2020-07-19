@@ -24,6 +24,8 @@ def create_dir(dir_path):
     Returns:
         (str): Returns path if directory created successfully
 
+    Raises:
+        PermissionError : if cannot create subfolder
     """
     if not os.path.exists(dir_path):
         logger.debug(settings.DEB_FS_CREATE_DIR)
@@ -31,6 +33,7 @@ def create_dir(dir_path):
             os.makedirs(dir_path)
         except PermissionError:
             logger.error(settings.ERR_FS_PERMISSION_DND)
+            raise
     return dir_path
 
 
