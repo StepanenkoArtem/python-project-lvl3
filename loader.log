@@ -1,4 +1,0 @@
-2020-07-19 09:04:22,515: page_loader.download - WARNING : start download URL=hexlet.io
-2020-07-19 09:04:23,131: page_loader.localize - INFO : THIS LOGGIER ALSO WORKING
-2020-07-19 09:04:23,349: page_loader.hyphenate - DEBUG : making hyphenate
-2020-07-19 09:04:27,952: page_loader.hyphenate - DEBUG : making hyphenate
