@@ -30,8 +30,8 @@ def create_dir(dir_path):
         try:
             os.makedirs(dir_path)
         except PermissionError:
-            logger.error()
-            sys.exit(1)
+            logger.error(settings.ERR_FS_PERMISSION_DND)
+            sys.exit(settings.EXIT_FS_ERR)
     return dir_path
 
 
@@ -49,7 +49,7 @@ def save_document(document_content, path_file):
             document.write(document_content)
     except FileNotFoundError:
         logger.error(settings.ERR_FS_CREATE_FILE_ERR)
-        sys.exit(settings.FS_ERR)
+        sys.exit(settings.EXIT_FS_ERR)
     except PermissionError:
         logger.error(settings.ERR_FS_PERMISSION_DND)
-        sys.exit(settings.FS_ERR)
+        sys.exit(settings.EXIT_FS_ERR)

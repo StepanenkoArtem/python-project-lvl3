@@ -21,7 +21,7 @@ def test_create_dir_on_readonly_dir(fs):  # noqa: D103
         read_only=read_only_dir,
         some_dir=test_dir,
     )
-    with pytest.raises(PermissionError):
+    with pytest.raises(SystemExit):
         assert create_dir(full_path)
 
 

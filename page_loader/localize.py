@@ -28,7 +28,7 @@ def url_normalize(url, scheme=settings.DEFAULT_SCHEME):
         url : str
             String contains URL
         scheme : str
-            Scheme which add to URL
+            Scheme which addEXIT_FS_ERRL
 
     Returns:
         url : str
@@ -76,7 +76,7 @@ def get_resource_path(resource):
             String contains full path to resource file
             (excluding protocol and host)
     """
-    logger.debug()
+    logger.debug(settings.DEB_LOC_GET_RES_PATH)
     for attr in settings.RESOURCE_REFS:
         if resource.has_attr(attr):
             path = urlparse(resource.get(attr)).path

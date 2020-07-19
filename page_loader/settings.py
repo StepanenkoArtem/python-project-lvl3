@@ -55,5 +55,5 @@ WARN_LOC_RES_ISNT_FOUND = 'Cannot retrive resource {res}'
 
 # System exit codes
 
-FS_ERR = 2
-CON_ERR = 1
+EXIT_FS_ERR = 2
+EXIT_CON_ERR = 1
