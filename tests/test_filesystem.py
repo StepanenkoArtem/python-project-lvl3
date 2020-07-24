@@ -15,7 +15,6 @@ def test_create_dir(fs):  # noqa: D103
 def test_create_dir_on_readonly_dir(fs):  # noqa: D103
     permissions = 111
     if os.name == 'nt':
-        permissions = 0o111
         read_only_dir = os.path.join('c:/', 'read_only_dir')
         os.chmod(read_only_dir, permissions)
     else:
