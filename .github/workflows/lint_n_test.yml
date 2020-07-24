@@ -8,10 +8,10 @@ jobs:
         python-version: [2.7, 3.5, 3.6, 3.7, 3.8]
         os: linux
     steps:
+    - name: Set os and python verisons
       with:
         os: ${{ matrix.os }}
         python-version: ${{ matrix.python-version }}
-# command to install dependencies
     - name: install dependencies
       run: |
         pip install poetry
