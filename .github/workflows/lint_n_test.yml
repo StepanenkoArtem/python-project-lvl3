@@ -1,4 +1,4 @@
-name: CI
+name: Build
 
 on: push
 jobs:
@@ -43,7 +43,13 @@ jobs:
         make test
         make test-cov2xml
     - name: after script
-      run: |
-        ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-        ./cc-test-reporter after-build format-coverage coverage.xml -t coverage.py
-        ./cc-test-reporter after-build upload-coverage
+    - name: upload test coverage
+    - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          file: ./coverage.xml # optional
+          flags: pytest # optional
+          name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+
+      
