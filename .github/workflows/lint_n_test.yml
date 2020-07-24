@@ -3,6 +3,7 @@ name: CI
 on: push
 jobs:
   build:
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         python-version: [2.7, 3.5, 3.6, 3.7, 3.8]
@@ -11,7 +12,6 @@ jobs:
     - name: Set os and python verisons
       uses: actions/setup-python@v2
       with:
-        os: ${{ matrix.os }}
         python-version: ${{ matrix.python-version }}
     - name: install dependencies
       run: |
