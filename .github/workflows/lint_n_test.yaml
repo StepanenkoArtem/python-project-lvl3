@@ -12,7 +12,7 @@ jobs:
           3.8
         ]
     # command to install dependencies
-      install:
+      - install:
         run: |
           pip install poetry
           pip install flake8
@@ -26,15 +26,15 @@ jobs:
           pip install wemake-python-styleguide
           pip install "isort<5"
           pip install progress
-        before_script: |
+      - before_script: |
           curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
           chmod +x ./cc-test-reporter
           ./cc-test-reporter before-build
-        run_scripts: |
+      - run_scripts: |
           make lint
           make test
           make test-cov2xml
-        after_script: |
+      - after_script: |
           ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
           ./cc-test-reporter after-build format-coverage coverage.xml -t coverage.py
           ./cc-test-reporter after-build upload-coverage
