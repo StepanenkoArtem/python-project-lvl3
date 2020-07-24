@@ -9,6 +9,7 @@ jobs:
         os: linux
     steps:
     - name: Set os and python verisons
+      uses: actions/setup-python@v2
       with:
         os: ${{ matrix.os }}
         python-version: ${{ matrix.python-version }}
