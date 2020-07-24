@@ -3,10 +3,14 @@ name: Lint_and_test
 on: push
 jobs:
   lint_and_test:
+    strategy:
+        matrix:
+          python-version: [2.7, 3.5, 3.6, 3.7, 3.8]
+          os: linux
     steps:
       with:
-        os: linux
-        python-version: [3.6, 3.7, 3.8]
+        os: ${{ matrix.os }}
+        python-version: ${{ matrix.python-version }}
     # command to install dependencies
       - install:
           run: |
