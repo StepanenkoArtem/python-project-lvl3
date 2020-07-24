@@ -12,11 +12,12 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 1    
-    - name: Setup python versions
+    - name: setup python versions
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
     - name: install dependencies
+      needs: [setup python versions]
       run: |
         pip install poetry
         pip install flake8
