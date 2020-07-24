@@ -3,17 +3,17 @@ name: CI
 on: push
 jobs:
   build:
-    runs-on: ubuntu-16.04
+    #runs-on: ubuntu-16.04
     strategy:
       matrix:
-        python-version: [2.7, 3.5, 3.6, 3.7, 3.8]
-
+        python-version: [ 3.6, 3.7, 3.8]
+        os: [ubuntu-16.04, ubuntu-18.04]
     steps:
-    - uses: actions/checkout@v2
     - name: Set os and python verisons
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+        os: ${{ matrix.os }}
     - name: install dependencies
       run: |
         pip install poetry
