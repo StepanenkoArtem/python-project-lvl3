@@ -2,7 +2,7 @@ name: Lint and Test
 
 on: push
 jobs:
-  name: Lint and Test
+  name: Make lint and test
   runs-on: linux
   strategy:
     matrix:
