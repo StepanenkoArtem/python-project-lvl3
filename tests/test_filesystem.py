@@ -14,11 +14,7 @@ def test_create_dir(fs):  # noqa: D103
 
 def test_create_dir_on_readonly_dir(fs):  # noqa: D103
     permissions = 111
-    if os.name == 'nt':
-        read_only_dir = os.path.join('c:/', 'read_only_dir')
-        fs.chmod(read_only_dir, permissions)
-    else:
-        read_only_dir = os.path.join('read_only_dir')
+    read_only_dir = os.path.join('read_only_dir')
     fs.create_dir(read_only_dir, perm_bits=permissions)
     full_path = os.path.join(read_only_dir, 'sub_dir')
     with pytest.raises(PermissionError):
