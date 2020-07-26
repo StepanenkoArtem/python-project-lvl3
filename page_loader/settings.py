@@ -9,6 +9,7 @@ LOCAL_RESOURCES = (
     'script',
 )
 DEFAULT_PARSER = 'html.parser'
+DEFAULT_TIMEOUT = 3
 
 RESOURCE_FILES_DIR = '_files'
 

@@ -150,9 +150,10 @@ def localize(document, output):  # noqa: WPS210, WPS213, B305
         )
     # Download each local resource from resource list
     logger.debug(settings.DEB_LOC_DOWNLOAD_RES)
+
     with FillingSquaresBar(
         settings.BAR_CAPTION,
-        max=len(resource_list),
+        max=len(resource_list) + 1,
         suffix=settings.BAR_SUFFIX,
     ) as resource_counter:
         for resource in resource_list:

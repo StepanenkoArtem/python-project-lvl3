@@ -58,7 +58,7 @@ def main(url, output, loglevel, logpath):
         localize(download.download(url), output)
     except PermissionError:
         sys.exit(settings.EXIT_FS_ERR)
-    except ConnectionError:
+    except (ConnectionError, TimeoutError):
         sys.exit(settings.EXIT_CON_ERR)
 
 

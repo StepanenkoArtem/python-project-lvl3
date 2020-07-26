@@ -23,14 +23,22 @@ def download(url):
         downloaded : <requests.object>
 
     Raises:
-        ConnectionError : Cantnot establish connection to host
+        ConnectionError : Cannot establish connection to host
     """
     logger.debug(settings.DEB_DL_URL_GET.format(url=url))
     try:
-        return requests.get(url_normalize(url))
-    except requests.ConnectionError:
-        logger.error(settings.ERR_DL_CONNECTTION.format(url=url))
+        requested = requests.get(
+            url=url_normalize(url),
+            timeout=settings.DEFAULT_TIMEOUT,
+        )
+    except requests.RequestException as req_error:
+        logger.error(req_error)
         raise ConnectionError
-    except TimeoutError:
-        logger.error(settings.ERR_DL_CONNECTTION.format(url=url))
+
+    try:
+        requested.raise_for_status()
+    except requests.RequestException as http_err:
+        logger.error(http_err)
         raise ConnectionError
+
+    return requested
