@@ -3,12 +3,9 @@
 from page_loader import hyphenate
 from tests.fixtures.get_dataset_from_file import get_dataset_from_json
 
-_DS_MAKE_RES_DIR_NAME = \
-    'tests/datasets/hyphenate/test_make_resource_dir_name.json'
-_DS_MAKE_RES_FILENAME = \
-    'tests/datasets/hyphenate/test_make_resource_filename.json'
-_DS_MAKE_DOCUMENT_NAME = \
-    'tests/datasets/hyphenate/test_make_document_name.json'
+_DS_MAKE_RES_DIR_NAME = 'tests/datasets/hyphenate/test_make_resource_dir_name.json'  # noqa: E501
+_DS_MAKE_RES_FILENAME = 'tests/datasets/hyphenate/test_make_resource_filename.json'  # noqa: E501
+_DS_MAKE_DOCUMENT_NAME = 'tests/datasets/hyphenate/test_make_document_name.json'  # noqa: E501
 
 
 def test_make_resource_dir_name():  # noqa: D103

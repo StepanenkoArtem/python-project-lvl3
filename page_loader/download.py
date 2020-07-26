@@ -31,3 +31,6 @@ def download(url):
     except requests.ConnectionError:
         logger.error(settings.ERR_DL_CONNECTTION.format(url=url))
         raise ConnectionError
+    except TimeoutError:
+        logger.error(settings.ERR_DL_CONNECTTION.format(url=url))
+        raise ConnectionError
