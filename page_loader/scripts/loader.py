@@ -56,11 +56,11 @@ def main(url, output, loglevel, logpath):
         logger.addHandler(custom_handler)
     try:
         localize(download.download(url), output)
-    except PermissionError:
+    except (PermissionError, FileNotFoundError):
         sys.exit(settings.EXIT_FS_ERR)
     except (ConnectionError, TimeoutError):
         sys.exit(settings.EXIT_CON_ERR)
-
+    
 
 if __name__ == '__main__':
     main()

@@ -4,7 +4,6 @@
 
 import logging
 import os
-import sys
 
 from page_loader import settings
 
@@ -37,21 +36,24 @@ def create_dir(dir_path):
     return dir_path
 
 
-def save_document(document_content, path_file):
+def save_document(document_content, filepath):
     """
     Save document content to file.
 
     Args:
         document_content (class 'bytes'): Content of html document.
-        path_file (str) : Full path to destination file.
+        filepath (str) : Full path to destination file.
 
+    Raises:
+        FileNotFoundError : raise if file not found error
+        PermissionError : raise if permission denied
     """
     try:
-        with open(path_file, mode=MODE) as document:
+        with open(filepath, mode=MODE) as document:
             document.write(document_content)
     except FileNotFoundError:
         logger.error(settings.ERR_FS_CREATE_FILE_ERR)
-        sys.exit(settings.EXIT_FS_ERR)
+        raise
     except PermissionError:
         logger.error(settings.ERR_FS_PERMISSION_DND)
-        sys.exit(settings.EXIT_FS_ERR)
+        raise
