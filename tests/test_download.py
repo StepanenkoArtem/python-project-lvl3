@@ -2,14 +2,14 @@
 
 import pytest
 from page_loader import download
+from page_loader.settings import STATUS_OK
 
 
 def test_downloads_success():
     """Testing download() returns value."""  # noqa: DAR201
     test_url = 'https://httpbin.org/status/200'
     actual = download.download(test_url)
-    expected = 200
-    assert actual.status_code == expected
+    assert actual.status_code == STATUS_OK
 
 
 def test_downloads_exceptions():
