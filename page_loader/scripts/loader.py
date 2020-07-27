@@ -60,7 +60,7 @@ def main(url, output, loglevel, logpath):
         sys.exit(settings.EXIT_FS_ERR)
     except (ConnectionError, TimeoutError):
         sys.exit(settings.EXIT_CON_ERR)
-    
+
 
 if __name__ == '__main__':
     main()
