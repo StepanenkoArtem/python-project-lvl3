@@ -31,14 +31,14 @@ def download(url):
             url=url_normalize(url),
             timeout=settings.DEFAULT_TIMEOUT,
         )
-    except requests.RequestException as req_error:
-        logger.error(req_error)
+    except requests.RequestException as request_error:
+        logger.error(request_error)
         raise ConnectionError
 
     try:
         requested.raise_for_status()
-    except requests.RequestException as http_err:
-        logger.error(http_err)
+    except requests.RequestException as http_error:
+        logger.error(http_error)
         raise ConnectionError
 
     return requested
