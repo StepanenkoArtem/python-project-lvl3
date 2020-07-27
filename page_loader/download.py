@@ -37,7 +37,7 @@ def download(url):
 
     try:
         requested.raise_for_status()
-    except requests.RequestException as http_error:
+    except requests.HTTPError as http_error:
         logger.error(http_error)
         raise ConnectionError
 

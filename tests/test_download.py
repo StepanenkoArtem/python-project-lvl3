@@ -16,3 +16,7 @@ def test_downloads_exceptions():
     """Testing download() exceptions."""  # noqa: DAR201
     with pytest.raises(ConnectionError):
         assert download.download('https://httpbin.org/status/404')
+    with pytest.raises(ConnectionError):
+        assert download.download('https://fgsdfgsdfgsd.com')
+    with pytest.raises(ConnectionError):
+        assert download.download('')
