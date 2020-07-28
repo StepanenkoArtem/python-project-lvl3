@@ -2,21 +2,18 @@
 # coding=utf-8
 
 """Main module. Retrive url from command line args."""
-
 import logging
+import os
 import sys
 from logging import config
-from os import getcwd
 from os.path import join
 
 import click
-import yaml
 from page_loader import download, settings
 from page_loader.localize import localize
+from page_loader.logconf import log_conf
 
-with open(settings.LOG_CONF) as config_file:
-    config_dict = yaml.safe_load(config_file)
-config.dictConfig(config_dict)
+config.dictConfig(log_conf)
 
 logger = logging.getLogger(settings.DEFAULT_LOGGER)
 
@@ -24,7 +21,7 @@ logger = logging.getLogger(settings.DEFAULT_LOGGER)
 @click.command()
 @click.option(
     '--output',
-    default=join(getcwd(), settings.DEFAULT_DOWNLOAD_DIR),
+    default=join(os.getcwd(), settings.DEFAULT_DOWNLOAD_DIR),
     help='Set destionation folder to save file',
 )
 @click.option(
@@ -41,7 +38,7 @@ logger = logging.getLogger(settings.DEFAULT_LOGGER)
     'url',
 )
 def main(url, output, loglevel, logpath):
-    """Entry point."""
+    """Download URL page."""
     logger.setLevel(loglevel)
     if logpath:
         try:

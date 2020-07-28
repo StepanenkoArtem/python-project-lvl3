@@ -17,19 +17,23 @@ RESOURCE_REFS = ('href', 'src')
 
 DEFAULT_SCHEME = 'https://'
 
-# Bar settings
+# ProgressBar settings
 BAR_CAPTION = 'Loading resources'
 BAR_SUFFIX = '%(index)d files'  # noqa: WPS323
 
+
 # Logging
-LOG_CONF = 'page_loader/logging.yaml'
+
+LOG_CONF_FILE = 'page_loader/logging.yaml'
 DEFAULT_FORMATTER = '{asctime}: {name} - {levelname} : {message}'
 DEFAULT_LOGGER = 'page_loader'
+
 
 # Logging messages
 
 # __main__
 DEB_USER_LOGGER = 'Create user logging handler'
+CANNOT_READ_CONF = 'Cannot find logging.yaml file'
 
 # download
 DEB_DL_URL_GET = 'Retrieve URL={url}'

@@ -14,7 +14,7 @@ Run next command for installing page-loader package
 
     pip install --extra-index-url https://pypi.org/simple -i https://test.pypi.org/simple stepanenko-page-loader
 
-[![asciicast](https://asciinema.org/a/gHpRua3Ib7qGAdglsqI0veDuT.svg)](https://asciinema.org/a/gHpRua3Ib7qGAdglsqI0veDuT)
+[![asciicast](https://asciinema.org/a/CQyUMCvHSGBQg9T0nT9mEoAKy.svg)](https://asciinema.org/a/CQyUMCvHSGBQg9T0nT9mEoAKy)
 
 ## Usage
 

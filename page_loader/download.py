@@ -17,7 +17,7 @@ def download(url):
 
     Args:
         url : str
-            Url address specified from command-lina args
+            Url address specified from command-line args
 
     Returns:
         downloaded : <requests.object>

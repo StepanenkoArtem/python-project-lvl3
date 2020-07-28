@@ -1,11 +1,12 @@
 [tool.poetry]
 name = "stepanenko-page-loader"
-version = "0.1.19"
+version = "0.1.23"
 description = "Tool for downloading web pages to the local machine"
 authors = ["Artem Stepanenko <artem.stepanenko.ks.ua@gmail.com>"]
 packages = [
     { include = "page_loader" },
 ]
+
 
 [tool.poetry.dependencies]
 python = "^3.6"
