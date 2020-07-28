@@ -5,7 +5,7 @@
 import logging
 
 import requests
-from page_loader import settings
+from page_loader import settings, logconf
 from page_loader.localize import url_normalize
 
 logger = logging.getLogger(__name__)
@@ -25,13 +25,16 @@ def download(url):
     Raises:
         ConnectionError : Cannot establish connection to host
     """
-    logger.debug(settings.DEB_DL_URL_GET.format(url=url))
+    logger.debug(logconf.DEB_DL_URL_GET.format(url=url))
     try:
         requested = requests.get(
             url=url_normalize(url),
             timeout=settings.DEFAULT_TIMEOUT,
         )
-    except requests.RequestException as request_error:
+    except (
+        requests.RequestException,
+        requests.ReadTimeout,
+    ) as request_error:
         logger.error(request_error)
         raise ConnectionError
 

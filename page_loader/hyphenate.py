@@ -6,7 +6,7 @@ import logging
 import re
 from urllib.parse import urlparse
 
-from page_loader import settings
+from page_loader import logconf
 
 # Postfixes
 _DOC_EXTENSION = '.html'
@@ -32,7 +32,7 @@ def _hyphenate(path):
     Returns :
         str : String with replaced non-alphanumecric symbols
     """
-    logger.debug(settings.DEB_HYPH_HYPHENATE.format(path=path))
+    logger.debug(logconf.DEB_HYPH_HYPHENATE.format(path=path))
     return re.sub(_HYPHENATE_PATTERN, _HYPHEN, path).strip(_HYPHEN)
 
 
@@ -48,7 +48,7 @@ def _trim_extension(path):
         str: string
             resource file basenamr.
     """
-    logger.debug(settings.DEB_HYPH_TRIM_EXT.format(path=path))
+    logger.debug(logconf.DEB_HYPH_TRIM_EXT.format(path=path))
     return re.sub(_FILE_EXTENSION, '', path)
 
 
@@ -68,7 +68,7 @@ def make_resource_dir_name(document_url):
         host=urlparse(document_url).netloc,
         path=_trim_extension(urlparse(document_url).path),
     )
-    logger.debug(settings.DEB_HYPH_MAKE_DIR.format(url=document_url))
+    logger.debug(logconf.DEB_HYPH_MAKE_DIR.format(url=document_url))
     return _hyphenate(prepared_path) + _RES_DIR_POSTFIX
 
 
@@ -87,10 +87,10 @@ def make_resource_filename(resource_path):
     try:
         extension = re.search(_FILE_EXTENSION, resource_path).group(0)
     except AttributeError:
-        logger.debug(settings.DEB_HYPH_EXT_NOT_EXIST)
+        logger.debug(logconf.DEB_HYPH_EXT_NOT_EXIST)
         extension = ''
     logger.debug(
-        settings.DEB_HYPH_MAKE_RES_FILENAME.format(path=resource_path),
+        logconf.DEB_HYPH_MAKE_RES_FILENAME.format(path=resource_path),
     )
     return '{base_path}{ext}'.format(
         base_path=_hyphenate(_trim_extension(resource_path)).strip('-'),
@@ -113,7 +113,7 @@ def make_document_name(document_url):
         host=urlparse(document_url).netloc,
         path=_trim_extension(urlparse(document_url).path),
     )
-    logger.debug(settings.DEB_HYPH_FILENAME)
+    logger.debug(logconf.DEB_HYPH_FILENAME)
     return '{basename}{ext}'.format(
         basename=_hyphenate(basename),
         ext=_DOC_EXTENSION,

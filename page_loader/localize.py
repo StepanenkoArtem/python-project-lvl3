@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
-from page_loader import filesystem, hyphenate, settings
+from page_loader import filesystem, hyphenate, logconf, settings
 from progress.bar import FillingSquaresBar
 
 LEAD_SLASH = '/'
@@ -35,7 +35,7 @@ def url_normalize(url, scheme=settings.DEFAULT_SCHEME):
         url : str
             URL with leading HTTPS scheme
     """
-    logger.debug(settings.DEB_LOC_URL_NORM)
+    logger.debug(logconf.DEB_LOC_URL_NORM)
     if not url.startswith('http'):
         return ''.join([scheme, url])
     return url
@@ -77,7 +77,7 @@ def get_resource_path(resource):
             String contains full path to resource file
             (excluding protocol and host)
     """
-    logger.debug(settings.DEB_LOC_GET_RES_PATH)
+    logger.debug(logconf.DEB_LOC_GET_RES_PATH)
     for attr in settings.RESOURCE_REFS:
         if resource.has_attr(attr):
             path = urlparse(resource.get(attr)).path
@@ -102,7 +102,7 @@ def set_new_resource_link(resource, new_link):
     """
     for attr in settings.RESOURCE_REFS:
         if resource.has_attr(attr):
-            logger.debug(settings.DEB_LOC_SET_NEW_LINK)
+            logger.debug(logconf.DEB_LOC_SET_NEW_LINK)
             resource.attrs[attr] = new_link
     return resource
 
@@ -123,21 +123,20 @@ def localize(document, output):  # noqa: WPS210, WPS213, B305
 
     """
     # Get document DOM
-    logger.debug(settings.DEB_LOC_GET_DOM)
+    logger.debug(logconf.DEB_LOC_GET_DOM)
     document_dom = BeautifulSoup(document.content, settings.DEFAULT_PARSER)
 
     # Obtain url components
-    logger.debug(settings.DEB_LOC_GET_HOST)
+    logger.debug(logconf.DEB_LOC_GET_HOST)
     document_host = urlparse(document.url).netloc
 
     # Obtain list of local resources
-    logger.debug(settings.DEB_LOC_GET_RES_LIST)
+    logger.debug(logconf.DEB_LOC_GET_RES_LIST)
     resource_list = list(filter(
         _is_local,
         document_dom.find_all(settings.LOCAL_RESOURCES),
     ),
     )
-
     # Create directory for resource files if local resources exist
     if resource_list:
         resource_dir = filesystem.create_dir(
@@ -149,12 +148,11 @@ def localize(document, output):  # noqa: WPS210, WPS213, B305
             ),
         )
     # Download each local resource from resource list
-    logger.debug(settings.DEB_LOC_DOWNLOAD_RES)
+    logger.debug(logconf.DEB_LOC_DOWNLOAD_RES)
 
     with FillingSquaresBar(
         settings.BAR_CAPTION,
-        max=len(resource_list) + 1,
-        suffix=settings.BAR_SUFFIX,
+        max=len(resource_list),
     ) as resource_counter:
         for resource in resource_list:
             resource_path = get_resource_path(resource)
@@ -166,10 +164,16 @@ def localize(document, output):  # noqa: WPS210, WPS213, B305
                             path=resource_path,
                         ),
                     ),
+                    timeout=settings.DEFAULT_TIMEOUT,
                 )
             except requests.ConnectionError:
                 logger.warning(
-                    settings.WARN_LOC_RES_ISNT_FOUND.format(res=resource_path),
+                    logconf.WARN_LOC_RES_ISNT_FOUND.format(res=resource_path),
+                )
+                continue
+            except TimeoutError:
+                logger.warning(
+                    logconf.WARN_LOC_RES_TIMEOUT.format(res=resource_path),
                 )
                 continue
 
@@ -185,7 +189,7 @@ def localize(document, output):  # noqa: WPS210, WPS213, B305
                 # Save downloaded resource file
                 filesystem.save_document(
                     document_content=downloaded_resource.content,
-                    path_file=localized_path,
+                    filepath=localized_path,
                 )
                 # Update resource reference in main document
                 set_new_resource_link(
@@ -197,7 +201,7 @@ def localize(document, output):  # noqa: WPS210, WPS213, B305
     # Save modified document
     filesystem.save_document(
         document_content=document_dom.encode(),
-        path_file=join(
+        filepath=join(
             output,
             hyphenate.make_document_name(document.url),
         ),

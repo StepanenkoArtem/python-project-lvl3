@@ -9,12 +9,12 @@ from logging import config
 from os.path import join
 
 import click
-from page_loader import download, settings
+from page_loader import download, logconf, settings
 from page_loader.localize import localize
 
-config.dictConfig(settings.log_conf)
+config.dictConfig(logconf.config_dict)
 
-logger = logging.getLogger(settings.DEFAULT_LOGGER)
+logger = logging.getLogger(logconf.DEFAULT_LOGGER)
 
 
 @click.command()
@@ -27,7 +27,7 @@ logger = logging.getLogger(settings.DEFAULT_LOGGER)
     '--loglevel',
     type=str,
     default=logger.level,
-    help='Set logging level',
+    help='Set logging level (INFO, DEBUG, WARNING, ERROR or CRITICAL)',
 )
 @click.option(
     '--logpath',
@@ -36,18 +36,19 @@ logger = logging.getLogger(settings.DEFAULT_LOGGER)
 @click.argument(
     'url',
 )
-def main(url, output, loglevel, logpath):
+def main(url, output, logpath, loglevel=logger.level):
     """Download URL page."""
     logger.setLevel(loglevel)
+
     if logpath:
         try:
             custom_handler = logging.FileHandler(logpath)
         except PermissionError:
-            logger.error(settings.ERR_FS_PERMISSION_DND)
+            logger.error(logconf.ERR_FS_PERMISSION_DND)
             sys.exit(settings.EXIT_FS_ERR)
 
         custom_handler.setFormatter(
-            logging.Formatter(settings.DEFAULT_FORMATTER, style='{'),
+            logging.Formatter(logconf.VERBOSE_FORMAT),
         )
         logger.addHandler(custom_handler)
     try:

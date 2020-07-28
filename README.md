@@ -18,9 +18,14 @@ Run next command for installing page-loader package
 
 ## Usage
 
-1. Run
+1. Common usage format.
+    stepanenko-page-loader [OPTIONS] URL
+
+2. Run
     stepanenko-page-loader --help
 to get short help
 
-    Running with 'save-to' parameter
-[![asciicast](https://asciinema.org/a/oo2NGMaHTu9ENWc6yTr7jjULW.svg)](https://asciinema.org/a/oo2NGMaHTu9ENWc6yTr7jjULW)
+3. To download web page run next
+    stepanenko-page-loader URL
+
+For example, if you want to download `https://

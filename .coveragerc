@@ -2,3 +2,4 @@
 omit = 
 	*/scripts/*
 	*settings*
+	*logconf*

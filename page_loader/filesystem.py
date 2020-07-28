@@ -5,7 +5,7 @@
 import logging
 import os
 
-from page_loader import settings
+from page_loader import logconf
 
 logger = logging.getLogger(__name__)
 # File operation mode
@@ -27,11 +27,11 @@ def create_dir(dir_path):
         PermissionError : if cannot create subfolder
     """
     if not os.path.exists(dir_path):
-        logger.debug(settings.DEB_FS_CREATE_DIR)
+        logger.debug(logconf.DEB_FS_CREATE_DIR)
         try:
             os.makedirs(dir_path)
         except PermissionError:
-            logger.error(settings.ERR_FS_PERMISSION_DND)
+            logger.error(logconf.ERR_FS_PERMISSION_DND)
             raise
     return dir_path
 
@@ -52,8 +52,8 @@ def save_document(document_content, filepath):
         with open(filepath, mode=MODE) as document:
             document.write(document_content)
     except FileNotFoundError:
-        logger.error(settings.ERR_FS_CREATE_FILE_ERR)
+        logger.error(logconf.ERR_FS_CREATE_FILE_ERR)
         raise
     except PermissionError:
-        logger.error(settings.ERR_FS_PERMISSION_DND)
+        logger.error(logconf.ERR_FS_PERMISSION_DND)
         raise
