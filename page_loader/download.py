@@ -5,7 +5,7 @@
 import logging
 
 import requests
-from page_loader import settings, logconf
+from page_loader import logconf, settings
 from page_loader.localize import url_normalize
 
 logger = logging.getLogger(__name__)
