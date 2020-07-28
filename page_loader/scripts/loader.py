@@ -11,9 +11,8 @@ from os.path import join
 import click
 from page_loader import download, settings
 from page_loader.localize import localize
-from page_loader.logconf import log_conf
 
-config.dictConfig(log_conf)
+config.dictConfig(settings.log_conf)
 
 logger = logging.getLogger(settings.DEFAULT_LOGGER)
 
