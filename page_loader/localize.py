@@ -13,8 +13,7 @@ from urllib.parse import urljoin, urlparse
 
 from bs4 import BeautifulSoup
 from page_loader import download, filesystem, hyphenate, logconf, settings
-
-# from progress.bar import FillingSquaresBar  # noqa: E800
+from progress.bar import FillingSquaresBar
 
 LEAD_SLASH = '/'
 
@@ -144,25 +143,30 @@ def localize(document, output):  # noqa: WPS210
         filesystem.create_dir(resource_dir)
 
     # Get resource content and save it to local filesystem
-    for resource in local_resources:
-        resource_urlpath = get_url_path(resource)
-        resource_filepath = os.path.join(
-            output,
-            hyphenate.make_resource_filename(resource_urlpath),
-        )
+    with FillingSquaresBar(
+        settings.BAR_CAPTION,
+        max=len(local_resources) if local_resources else 1,
+    ) as counter:
+        for resource in local_resources:
+            resource_urlpath = get_url_path(resource)
+            resource_filepath = os.path.join(
+                output,
+                hyphenate.make_resource_filename(resource_urlpath),
+            )
 
-        filesystem.save_document(
-            document_content=get_resource_content(
-                url=urljoin(document.url, resource_urlpath),
-            ),
-            filepath=resource_filepath,
-        )
+            filesystem.save_document(
+                document_content=get_resource_content(
+                    url=urljoin(document.url, resource_urlpath),
+                ),
+                filepath=resource_filepath,
+            )
 
-        set_new_resource_link(
-            resource=resource,
-            new_link=resource_filepath,
-        )
-
+            set_new_resource_link(
+                resource=resource,
+                new_link=resource_filepath,
+            )
+            counter.next()  # noqa: B305
+        counter.finish()
     # Save modified document
     filesystem.save_document(
         document_content=document_dom.encode(),
