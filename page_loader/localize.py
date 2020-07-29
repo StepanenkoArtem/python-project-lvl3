@@ -105,10 +105,6 @@ def set_new_resource_link(resource, new_link):
     return resource
 
 
-def get_resource_content(url):  # noqa: D103
-    return download.download(url).content
-
-
 def localize(document, output):  # noqa: WPS210
     """
     Parce and save local resources from document.
@@ -155,9 +151,9 @@ def localize(document, output):  # noqa: WPS210
             )
 
             filesystem.save_document(
-                document_content=get_resource_content(
+                document_content=download.download(
                     url=urljoin(document.url, resource_urlpath),
-                ),
+                ).content,
                 filepath=resource_filepath,
             )
 
