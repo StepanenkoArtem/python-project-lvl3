@@ -8,13 +8,13 @@ Obtain, download and save local resources from downloaded document.
 """
 
 import logging
-from os.path import join
-from urllib.parse import urlparse
+import os
+from urllib.parse import urljoin, urlparse
 
-import requests
 from bs4 import BeautifulSoup
-from page_loader import filesystem, hyphenate, logconf, settings
-from progress.bar import FillingSquaresBar
+from page_loader import download, filesystem, hyphenate, logconf, settings
+
+# from progress.bar import FillingSquaresBar  # noqa: E800
 
 LEAD_SLASH = '/'
 
@@ -57,14 +57,13 @@ def _is_local(resource):
     for attr in resource.attrs:
         if attr in settings.RESOURCE_REFS:
             url_parts = urlparse(resource.get(attr))
-            if url_parts.path == LEAD_SLASH:
-                return False
-            if (not url_parts.netloc) and url_parts.path:
+            scheme_n_netloc = url_parts.netloc or url_parts.scheme
+            if len(url_parts.path) > 1 and not scheme_n_netloc:
                 return True
     return False
 
 
-def get_resource_path(resource):
+def get_url_path(resource):
     """
     Obtain reference path to the local resource file.
 
@@ -107,7 +106,11 @@ def set_new_resource_link(resource, new_link):
     return resource
 
 
-def localize(document, output):  # noqa: WPS210, WPS213, B305
+def get_resource_content(url):  # noqa: D103
+    return download.download(url).content
+
+
+def localize(document, output):  # noqa: WPS210
     """
     Parce and save local resources from document.
 
@@ -123,85 +126,47 @@ def localize(document, output):  # noqa: WPS210, WPS213, B305
 
     """
     # Get document DOM
-    logger.debug(logconf.DEB_LOC_GET_DOM)
     document_dom = BeautifulSoup(document.content, settings.DEFAULT_PARSER)
-
-    # Obtain url components
-    logger.debug(logconf.DEB_LOC_GET_HOST)
-    document_host = urlparse(document.url).netloc
-
     # Obtain list of local resources
-    logger.debug(logconf.DEB_LOC_GET_RES_LIST)
-    resource_list = list(filter(
-        _is_local,
-        document_dom.find_all(settings.LOCAL_RESOURCES),
-    ),
+    local_resources = list(
+        filter(
+            _is_local,
+            document_dom.find_all(settings.LOCAL_RESOURCES),
+        ),
     )
+
     # Create directory for resource files if local resources exist
-    if resource_list:
-        resource_dir = filesystem.create_dir(
-            dir_path=join(
-                output,
-                hyphenate.make_resource_dir_name(
-                    document.url,
-                ),
-            ),
+    if local_resources:
+        resource_dir = os.path.join(
+            output,
+            hyphenate.make_resource_dir_name(document.url),
         )
-    # Download each local resource from resource list
-    logger.debug(logconf.DEB_LOC_DOWNLOAD_RES)
+        filesystem.create_dir(resource_dir)
 
-    with FillingSquaresBar(
-        settings.BAR_CAPTION,
-        max=len(resource_list),
-    ) as resource_counter:
-        for resource in resource_list:
-            resource_path = get_resource_path(resource)
-            try:
-                downloaded_resource = requests.get(
-                    url_normalize(
-                        '{host}{path}'.format(
-                            host=document_host,
-                            path=resource_path,
-                        ),
-                    ),
-                    timeout=settings.DEFAULT_TIMEOUT,
-                )
-            except requests.ConnectionError:
-                logger.warning(
-                    logconf.WARN_LOC_RES_ISNT_FOUND.format(res=resource_path),
-                )
-                continue
-            except TimeoutError:
-                logger.warning(
-                    logconf.WARN_LOC_RES_TIMEOUT.format(res=resource_path),
-                )
-                continue
+    # Get resource content and save it to local filesystem
+    for resource in local_resources:
+        resource_urlpath = get_url_path(resource)
+        resource_filepath = os.path.join(
+            output,
+            hyphenate.make_resource_filename(resource_urlpath),
+        )
 
-            if downloaded_resource.status_code == settings.STATUS_OK:
-                # Create new resource filename
-                # with hyphen instead non-alphanumeric symbols
-                resource_local_filename = hyphenate.make_resource_filename(
-                    resource_path,
-                )
-                localized_path = LEAD_SLASH.join(
-                    [resource_dir, resource_local_filename],
-                )
-                # Save downloaded resource file
-                filesystem.save_document(
-                    document_content=downloaded_resource.content,
-                    filepath=localized_path,
-                )
-                # Update resource reference in main document
-                set_new_resource_link(
-                    resource,
-                    localized_path,
-                )
-            resource_counter.next()  # noqa: B305
-        resource_counter.finish()
+        filesystem.save_document(
+            document_content=get_resource_content(
+                url=urljoin(document.url, resource_urlpath),
+            ),
+            filepath=resource_filepath,
+        )
+
+        set_new_resource_link(
+            resource=resource,
+            new_link=resource_filepath,
+        )
+
     # Save modified document
     filesystem.save_document(
         document_content=document_dom.encode(),
-        filepath=join(
+        filepath=os.path.join(
             output,
             hyphenate.make_document_name(document.url),
         ),

@@ -20,9 +20,6 @@ def create_dir(dir_path):
         dir_path : str
             Path for directory
 
-    Returns:
-        (str): Returns path if directory created successfully
-
     Raises:
         PermissionError : if cannot create subfolder
     """
@@ -33,7 +30,6 @@ def create_dir(dir_path):
         except PermissionError:
             logger.error(logconf.ERR_FS_PERMISSION_DND)
             raise
-    return dir_path
 
 
 def save_document(document_content, filepath):

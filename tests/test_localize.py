@@ -1,6 +1,7 @@
 # coding=utf-8
 
 """Testing localize.py module."""
+
 from unittest.mock import Mock
 
 import bs4
@@ -35,7 +36,7 @@ def test_get_resource_path():  # noqa: D103
         resource = Mock()
         resource.path = Mock()
         resource.get = Mock(return_value=url)
-        assert path == localize.get_resource_path(resource)
+        assert path == localize.get_url_path(resource)
 
 
 def test_set_new_link_on_doc():  # noqa: D103, WPS210
