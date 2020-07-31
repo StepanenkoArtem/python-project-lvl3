@@ -31,12 +31,12 @@ def test_is_local():  # noqa: D103
         assert expected == localize._is_local(resource)  # noqa: WPS437
 
 
-def test_get_resource_path():  # noqa: D103
+def test_get_path_from_url():  # noqa: D103
     for url, path in get_dataset_from_json(_DS_GET_RESOURCE_PATH):
         resource = Mock()
         resource.path = Mock()
         resource.get = Mock(return_value=url)
-        assert path == localize.get_url_path(resource)
+        assert path == localize.get_path_from_url(resource)
 
 
 def test_set_new_link_on_doc():  # noqa: D103, WPS210

@@ -5,8 +5,6 @@
 import logging
 import os
 
-from page_loader import logconf
-
 logger = logging.getLogger(__name__)
 # File operation mode
 MODE = 'wb'
@@ -24,11 +22,14 @@ def create_dir(dir_path):
         PermissionError : if cannot create subfolder
     """
     if not os.path.exists(dir_path):
-        logger.debug(logconf.DEB_FS_CREATE_DIR)
         try:
             os.makedirs(dir_path)
         except PermissionError:
-            logger.error(logconf.ERR_FS_PERMISSION_DND)
+            logger.error(
+                'Cannot create directory {dir}. Permission denied'.format(
+                    dir=dir_path,
+                ),
+            )
             raise
 
 
@@ -41,15 +42,15 @@ def save_document(document_content, filepath):
         filepath (str) : Full path to destination file.
 
     Raises:
-        FileNotFoundError : raise if file not found error
-        PermissionError : raise if permission denied
+        file_not_found (FileNotFoundError) : raise if file not found error
+        perm_error (PermissionError) : raise if permission denied
     """
     try:
         with open(filepath, mode=MODE) as document:
             document.write(document_content)
-    except FileNotFoundError:
-        logger.error(logconf.ERR_FS_CREATE_FILE_ERR)
+    except FileNotFoundError as file_not_found:
+        logger.error(file_not_found)
         raise
-    except PermissionError:
-        logger.error(logconf.ERR_FS_PERMISSION_DND)
+    except PermissionError as perm_error:
+        logger.error(perm_error)
         raise

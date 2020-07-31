@@ -17,7 +17,7 @@ config.dictConfig(logconf.config_dict)
 logger = logging.getLogger(logconf.DEFAULT_LOGGER)
 
 
-@click.command()
+@click.command()  # noqa: WPS213
 @click.option(
     '--output',
     default=join(os.getcwd(), settings.DEFAULT_DOWNLOAD_DIR),
@@ -36,9 +36,12 @@ logger = logging.getLogger(logconf.DEFAULT_LOGGER)
 @click.argument(
     'url',
 )
-def main(url, output, logpath, loglevel=logger.level):
+def main(url, output, logpath, loglevel):
     """Download URL page."""
-    logger.setLevel(loglevel)
+    try:
+        logger.setLevel(loglevel.upper())
+    except ValueError as uknown_level:
+        logger.warning(uknown_level)
 
     if logpath:
         try:

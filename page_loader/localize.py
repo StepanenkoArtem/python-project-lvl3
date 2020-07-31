@@ -12,7 +12,7 @@ import os
 from urllib.parse import urljoin, urlparse
 
 from bs4 import BeautifulSoup
-from page_loader import download, filesystem, hyphenate, logconf, settings
+from page_loader import download, filesystem, hyphenate, settings
 from progress.bar import FillingSquaresBar
 
 LEAD_SLASH = '/'
@@ -34,7 +34,6 @@ def url_normalize(url, scheme=settings.DEFAULT_SCHEME):
         url : str
             URL with leading HTTPS scheme
     """
-    logger.debug(logconf.DEB_LOC_URL_NORM)
     if not url.startswith('http'):
         return ''.join([scheme, url])
     return url
@@ -62,7 +61,7 @@ def _is_local(resource):
     return False
 
 
-def get_url_path(resource):
+def get_path_from_url(resource):
     """
     Obtain reference path to the local resource file.
 
@@ -75,7 +74,7 @@ def get_url_path(resource):
             String contains full path to resource file
             (excluding protocol and host)
     """
-    logger.debug(logconf.DEB_LOC_GET_RES_PATH)
+    logger.debug('')
     for attr in settings.RESOURCE_REFS:
         if resource.has_attr(attr):
             path = urlparse(resource.get(attr)).path
@@ -100,7 +99,7 @@ def set_new_resource_link(resource, new_link):
     """
     for attr in settings.RESOURCE_REFS:
         if resource.has_attr(attr):
-            logger.debug(logconf.DEB_LOC_SET_NEW_LINK)
+            logger.debug('Set new resource link {link}'.format(link=new_link))
             resource.attrs[attr] = new_link
     return resource
 
@@ -144,18 +143,25 @@ def localize(document, output):  # noqa: WPS210
         max=len(local_resources) if local_resources else 1,
     ) as counter:
         for resource in local_resources:
-            resource_urlpath = get_url_path(resource)
+            resource_urlpath = get_path_from_url(resource)
             resource_filepath = os.path.join(
                 output,
                 hyphenate.make_resource_filename(resource_urlpath),
             )
 
-            filesystem.save_document(
-                document_content=download.download(
-                    url=urljoin(document.url, resource_urlpath),
-                ).content,
-                filepath=resource_filepath,
-            )
+            try:
+                filesystem.save_document(
+                    document_content=download.download(
+                        url=urljoin(document.url, resource_urlpath),
+                    ).content,
+                    filepath=resource_filepath,
+                )
+            except ConnectionError:
+                logger.warning(
+                    'Cannot download resource {res}'.format(
+                        res=resource_urlpath,
+                    ),
+                )
 
             set_new_resource_link(
                 resource=resource,
