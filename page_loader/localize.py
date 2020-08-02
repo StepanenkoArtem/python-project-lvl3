@@ -145,7 +145,7 @@ def localize(document, output):  # noqa: WPS210
         for resource in local_resources:
             resource_urlpath = get_path_from_url(resource)
             resource_filepath = os.path.join(
-                output,
+                resource_dir,
                 hyphenate.make_resource_filename(resource_urlpath),
             )
 

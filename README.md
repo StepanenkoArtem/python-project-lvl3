@@ -14,7 +14,7 @@ Run next command for installing page-loader package
 
     pip install --extra-index-url https://pypi.org/simple -i https://test.pypi.org/simple stepanenko-page-loader
 
-[![asciicast](https://asciinema.org/a/CQyUMCvHSGBQg9T0nT9mEoAKy.svg)](https://asciinema.org/a/CQyUMCvHSGBQg9T0nT9mEoAKy)
+[![asciicast](https://asciinema.org/a/YMkldndyX6mn4RRIjuzhTu4na.svg)](https://asciinema.org/a/YMkldndyX6mn4RRIjuzhTu4na)
 
 ## Usage
 
@@ -25,7 +25,8 @@ Run next command for installing page-loader package
     stepanenko-page-loader --help
 to get short help
 
-3. To download web page run next
-    stepanenko-page-loader URL
+[![asciicast](https://asciinema.org/a/JWt2OkkZI4RQUMyfnwxDfCOsh.svg)](https://asciinema.org/a/JWt2OkkZI4RQUMyfnwxDfCOsh)
 
-For example, if you want to download `https://
+3. To download web page run `stepanenko-page-loader` with specified url.
+
+For example, if you want to download `https://`

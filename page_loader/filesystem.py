@@ -6,6 +6,7 @@ import logging
 import os
 
 logger = logging.getLogger(__name__)
+
 # File operation mode
 MODE = 'wb'
 
@@ -21,7 +22,14 @@ def create_dir(dir_path):
     Raises:
         PermissionError : if cannot create subfolder
     """
+    dir_path = os.path.normpath(dir_path)
+    logger.debug('Try create dir {path}'.format(path=dir_path))
     if not os.path.exists(dir_path):
+        logger.info(
+            'Create folder for downloading documents on {path}'.format(
+                path=dir_path,
+            ),
+        )
         try:
             os.makedirs(dir_path)
         except PermissionError:
@@ -31,6 +39,11 @@ def create_dir(dir_path):
                 ),
             )
             raise
+        logger.info(
+            'Folder {path} successfully created'.format(
+                path=dir_path,
+            ),
+        )
 
 
 def save_document(document_content, filepath):

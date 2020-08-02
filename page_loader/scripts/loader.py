@@ -24,7 +24,6 @@ def _validate_level(ctx, _, loglevel):
         logger.setLevel(loglevel)
     except ValueError:
         logger.setLevel('NOTSET')
-    return logger.level
 
 
 def _validate_logfile(ctx, _, logfile):
@@ -34,7 +33,6 @@ def _validate_logfile(ctx, _, logfile):
         except PermissionError as perm_error:
             logger.error(perm_error)
             sys.exit(settings.EXIT_FS_ERR)
-
         custom_handler.setFormatter(
             logging.Formatter(logconf.VERBOSE_FORMAT),
         )
@@ -63,7 +61,7 @@ def _validate_logfile(ctx, _, logfile):
 @click.argument(
     'url',
 )
-def main(url, output, logfile, loglevel):
+def main(url, output, loglevel, logfile):
     """Download URL page."""
     try:
         localize(download.download(url), output)

@@ -2,7 +2,7 @@
 
 """Settings."""
 STATUS_OK = 200
-DEFAULT_DOWNLOAD_DIR = 'downloads'
+DEFAULT_DOWNLOAD_DIR = 'spl-downloads'
 LOCAL_RESOURCES = (
     'img',
     'link',

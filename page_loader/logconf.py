@@ -10,7 +10,7 @@ _level = 'level'
 DEFAULT_LOGFILE = 'logging.log'
 VERBOSE_FORMAT = '%(asctime)s: %(name)s - %(levelname)s : %(message)s'
 SIMPLE_FORMAT = '%(levelname)s: %(message)s'
-DEFAULT_LOGGER = 'page_loader'
+DEFAULT_LOGGER = __package__
 
 config_dict = {
     'version': 1,
@@ -33,14 +33,14 @@ config_dict = {
         'logfile': {
             _class: 'logging.handlers.RotatingFileHandler',
             _formatter: 'verbose',
-            _level: 'INFO',
+            _level: 'DEBUG',
             'filename': DEFAULT_LOGFILE,
         },
     },
     'loggers': {
         DEFAULT_LOGGER: {
-            _level: 'WARNING',
-            'handlers': ['logfile', 'console'],
+            _level: 'DEBUG',
+            'handlers': ['console', 'logfile'],
         },
     },
 }

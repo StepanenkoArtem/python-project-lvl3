@@ -34,8 +34,8 @@ def download(url):
     except (
         requests.RequestException,
         requests.ReadTimeout,
-    ) as request_error:
-        logger.error(request_error)
+    ):
+        logger.error('Could not connect to {url}'.format(url=url))
         raise ConnectionError
     try:
         requested.raise_for_status()
