@@ -17,7 +17,31 @@ config.dictConfig(logconf.config_dict)
 logger = logging.getLogger(logconf.DEFAULT_LOGGER)
 
 
-@click.command()  # noqa: WPS213
+def _validate_level(ctx, _, loglevel):
+    try:
+        logger.setLevel(loglevel.upper())
+    except AttributeError:
+        logger.setLevel(loglevel)
+    except ValueError:
+        logger.setLevel('NOTSET')
+    return logger.level
+
+
+def _validate_logfile(ctx, _, logfile):
+    if logfile:
+        try:
+            custom_handler = logging.FileHandler(logfile)
+        except PermissionError as perm_error:
+            logger.error(perm_error)
+            sys.exit(settings.EXIT_FS_ERR)
+
+        custom_handler.setFormatter(
+            logging.Formatter(logconf.VERBOSE_FORMAT),
+        )
+        logger.addHandler(custom_handler)
+
+
+@click.command()
 @click.option(
     '--output',
     default=join(os.getcwd(), settings.DEFAULT_DOWNLOAD_DIR),
@@ -27,33 +51,20 @@ logger = logging.getLogger(logconf.DEFAULT_LOGGER)
     '--loglevel',
     type=str,
     default=logger.level,
+    callback=_validate_level,
     help='Set logging level (INFO, DEBUG, WARNING, ERROR or CRITICAL)',
 )
 @click.option(
-    '--logpath',
+    '--logfile',
     help='Set logfile path',
+    default=None,
+    callback=_validate_logfile,
 )
 @click.argument(
     'url',
 )
-def main(url, output, logpath, loglevel):
+def main(url, output, logfile, loglevel):
     """Download URL page."""
-    try:
-        logger.setLevel(loglevel.upper())
-    except ValueError as uknown_level:
-        logger.warning(uknown_level)
-
-    if logpath:
-        try:
-            custom_handler = logging.FileHandler(logpath)
-        except PermissionError:
-            logger.error(logconf.ERR_FS_PERMISSION_DND)
-            sys.exit(settings.EXIT_FS_ERR)
-
-        custom_handler.setFormatter(
-            logging.Formatter(logconf.VERBOSE_FORMAT),
-        )
-        logger.addHandler(custom_handler)
     try:
         localize(download.download(url), output)
     except (PermissionError, FileNotFoundError):

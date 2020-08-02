@@ -1,5 +1,4 @@
 [run]
 omit = 
-	*/scripts/*
 	*settings*
 	*logconf*
