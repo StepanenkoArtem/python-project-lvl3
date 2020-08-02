@@ -31,10 +31,7 @@ def download(url):
             url=url_normalize(url),
             timeout=settings.DEFAULT_TIMEOUT,
         )
-    except (
-        requests.RequestException,
-        requests.ReadTimeout,
-    ):
+    except requests.RequestException:
         logger.error('Could not connect to {url}'.format(url=url))
         raise ConnectionError
     try:
