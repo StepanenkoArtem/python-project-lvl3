@@ -18,30 +18,39 @@ Run next command for installing page-loader package
 
 ## Usage
 
-ol 1. Common usage format.
+1. Common usage format.
 
-    stepanenko-page-loader [OPTIONS] URL
+        stepanenko-page-loader [OPTIONS] URL
 
-For downloading web page run `stepanenko-page-loader` with specified url as argument.
+    For downloading web page run `stepanenko-page-loader` with specified url as argument.
 
-    stepanenko-page-loader nytimes.com
+        stepanenko-page-loader nytimes.com
 
-[![asciicast](https://asciinema.org/a/EIBtD72GWWeFbjueid5vNRf99.svg)](https://asciinema.org/a/EIBtD72GWWeFbjueid5vNRf99)
+    [![asciicast](https://asciinema.org/a/EIBtD72GWWeFbjueid5vNRf99.svg)](https://asciinema.org/a/EIBtD72GWWeFbjueid5vNRf99)
 
-By default downloaded documents will save to subdirectory `spl-downloads` in current workind directory.
+    By default downloaded documents will save to subdirectory `spl-downloads` in current workind directory.
 
-ol 2. Options
+2. Options
 
-    `--help` - To get help info
+    `--help`
 
-[![asciicast](https://asciinema.org/a/fGw6BmDu2GV6Q3NJbYQGwlG1i.svg)](https://asciinema.org/a/fGw6BmDu2GV6Q3NJbYQGwlG1i)
+    To get help info
 
-    `--output` - Specify directory for saving files.
+    [![asciicast](https://asciinema.org/a/fGw6BmDu2GV6Q3NJbYQGwlG1i.svg)](https://asciinema.org/a/fGw6BmDu2GV6Q3NJbYQGwlG1i)
 
-[![asciicast](https://asciinema.org/a/LzIR8SY1pxR9g7AjE9xLiBAp0.svg)](https://asciinema.org/a/LzIR8SY1pxR9g7AjE9xLiBAp0)
+        `--output`
+    Specify directory for saving files.
 
-    `--logfile` - Specify custom logging file. 
+    [![asciicast](https://asciinema.org/a/LzIR8SY1pxR9g7AjE9xLiBAp0.svg)](https://asciinema.org/a/LzIR8SY1pxR9g7AjE9xLiBAp0)
 
-[![asciicast](https://asciinema.org/a/ZGA8kbeVLvj5eHKu86tXpBuTf.svg)](https://asciinema.org/a/ZGA8kbeVLvj5eHKu86tXpBuTf)
+        `--logfile`
 
-    `--loglevel` - Set logging level. There are five valid options available: 'DEBUG', 'INFO', 'WARNING', 'ERROR' and 'CRITICAL'. Both small and upper register is allowable. Integer value also acceptable: 10, 20, 30, 40, 50 accordingly.
+    Specify custom logging file.
+
+    [![asciicast](https://asciinema.org/a/ZGA8kbeVLvj5eHKu86tXpBuTf.svg)](https://asciinema.org/a/ZGA8kbeVLvj5eHKu86tXpBuTf)
+
+        `--loglevel`
+
+    Set logging level. There are five valid options available: 'DEBUG', 'INFO', 'WARNING', 'ERROR' and 'CRITICAL'. Both small and upper register is allowable. Integer value also acceptable: 10, 20, 30, 40, 50 accordingly.
+
+    [![asciicast](https://asciinema.org/a/cdjanRBHrBoq36hgtm5UE8cpN.svg)](https://asciinema.org/a/cdjanRBHrBoq36hgtm5UE8cpN)
