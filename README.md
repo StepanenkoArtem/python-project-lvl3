@@ -14,19 +14,34 @@ Run next command for installing page-loader package
 
     pip install --extra-index-url https://pypi.org/simple -i https://test.pypi.org/simple stepanenko-page-loader
 
-[![asciicast](https://asciinema.org/a/YMkldndyX6mn4RRIjuzhTu4na.svg)](https://asciinema.org/a/YMkldndyX6mn4RRIjuzhTu4na)
+[![asciicast](https://asciinema.org/a/icIdAGzhTZC5VTgd7ozrfoUow.svg)](https://asciinema.org/a/icIdAGzhTZC5VTgd7ozrfoUow)
 
 ## Usage
 
-1. Common usage format.
+ol 1. Common usage format.
+
     stepanenko-page-loader [OPTIONS] URL
 
-2. Run
-    stepanenko-page-loader --help
-to get short help
+For downloading web page run `stepanenko-page-loader` with specified url as argument.
 
-[![asciicast](https://asciinema.org/a/JWt2OkkZI4RQUMyfnwxDfCOsh.svg)](https://asciinema.org/a/JWt2OkkZI4RQUMyfnwxDfCOsh)
+    stepanenko-page-loader nytimes.com
 
-3. To download web page run `stepanenko-page-loader` with specified url.
+[![asciicast](https://asciinema.org/a/EIBtD72GWWeFbjueid5vNRf99.svg)](https://asciinema.org/a/EIBtD72GWWeFbjueid5vNRf99)
 
-For example, if you want to download `https://`
+By default downloaded documents will save to subdirectory `spl-downloads` in current workind directory.
+
+ol 2. Options
+
+    `--help` - To get help info
+
+[![asciicast](https://asciinema.org/a/fGw6BmDu2GV6Q3NJbYQGwlG1i.svg)](https://asciinema.org/a/fGw6BmDu2GV6Q3NJbYQGwlG1i)
+
+    `--output` - Specify directory for saving files.
+
+[![asciicast](https://asciinema.org/a/LzIR8SY1pxR9g7AjE9xLiBAp0.svg)](https://asciinema.org/a/LzIR8SY1pxR9g7AjE9xLiBAp0)
+
+    `--logfile` - Specify custom logging file. 
+
+[![asciicast](https://asciinema.org/a/ZGA8kbeVLvj5eHKu86tXpBuTf.svg)](https://asciinema.org/a/ZGA8kbeVLvj5eHKu86tXpBuTf)
+
+    `--loglevel` - Set logging level. There are five valid options available: 'DEBUG', 'INFO', 'WARNING', 'ERROR' and 'CRITICAL'. Both small and upper register is allowable. Integer value also acceptable: 10, 20, 30, 40, 50 accordingly.

@@ -12,31 +12,38 @@ import click
 from page_loader import download, logconf, settings
 from page_loader.localize import localize
 
-config.dictConfig(logconf.config_dict)
+config.dictConfig(logconf.dict_config)
 
 logger = logging.getLogger(logconf.DEFAULT_LOGGER)
 
 
-def _validate_level(ctx, _, loglevel):
+def _validate_loglevel(ctx, _, level):
     try:
-        logger.setLevel(loglevel.upper())
+        logger.setLevel(level.upper())
     except AttributeError:
-        logger.setLevel(loglevel)
+        logger.setLevel(level)
     except ValueError:
-        logger.setLevel('NOTSET')
+        logger.warning(
+            'Uknown logging level `{lvl}`. Using default {default_lvl}'.format(
+                lvl=level,
+                default_lvl=logger.level,
+            ),
+        )
 
 
 def _validate_logfile(ctx, _, logfile):
     if logfile:
         try:
-            custom_handler = logging.FileHandler(logfile)
+            custom_file_handler = logging.FileHandler(logfile)
         except PermissionError as perm_error:
-            logger.error(perm_error)
-            sys.exit(settings.EXIT_FS_ERR)
-        custom_handler.setFormatter(
-            logging.Formatter(logconf.VERBOSE_FORMAT),
-        )
-        logger.addHandler(custom_handler)
+            logger.warning(perm_error)
+        finally:
+            custom_file_handler.setFormatter(
+                logging.Formatter(
+                    logconf.VERBOSE_FORMAT,
+                ),
+            )
+            logger.addHandler(custom_file_handler)
 
 
 @click.command()
@@ -47,15 +54,12 @@ def _validate_logfile(ctx, _, logfile):
 )
 @click.option(
     '--loglevel',
-    type=str,
-    default=logger.level,
-    callback=_validate_level,
+    callback=_validate_loglevel,
     help='Set logging level (INFO, DEBUG, WARNING, ERROR or CRITICAL)',
 )
 @click.option(
     '--logfile',
     help='Set logfile path',
-    default=None,
     callback=_validate_logfile,
 )
 @click.argument(
@@ -63,6 +67,7 @@ def _validate_logfile(ctx, _, logfile):
 )
 def main(url, output, loglevel, logfile):
     """Download URL page."""
+    logger.info('Start new job')
     try:
         localize(download.download(url), output)
     except (PermissionError, FileNotFoundError):

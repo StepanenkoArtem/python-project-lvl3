@@ -2,45 +2,41 @@
 
 """Logging configuration."""
 
-_class = 'class'
-_format = 'format'
-_formatter = 'formatter'
-_level = 'level'
 
-DEFAULT_LOGFILE = 'logging.log'
-VERBOSE_FORMAT = '%(asctime)s: %(name)s - %(levelname)s : %(message)s'
-SIMPLE_FORMAT = '%(levelname)s: %(message)s'
+VERBOSE_FORMAT = '%(asctime)s:%(levelname)s:%(name)s:%(message)s'
+SIMPLE_FORMAT = '%(levelname)s:%(message)s'
 DEFAULT_LOGGER = __package__
 
-config_dict = {
+
+dict_config = {
     'version': 1,
     'formatters': {
         'simple': {
-            _class: 'logging.Formatter',
-            _format: SIMPLE_FORMAT,
+            'class': 'logging.Formatter',
+            'format': SIMPLE_FORMAT,
         },
         'verbose': {
-            _class: 'logging.Formatter',
-            _format: VERBOSE_FORMAT,
+            'class': 'logging.Formatter',
+            'format': VERBOSE_FORMAT,
         },
     },
     'handlers': {
         'console': {
-            _class: 'logging.StreamHandler',
-            _formatter: 'simple',
-            _level: 'WARNING',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+            'level': 'WARNING',
         },
-        'logfile': {
-            _class: 'logging.handlers.RotatingFileHandler',
-            _formatter: 'verbose',
-            _level: 'DEBUG',
-            'filename': DEFAULT_LOGFILE,
+        'file_handler': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'verbose',
+            'level': 'DEBUG',
+            'filename': 'logging.log',
         },
     },
     'loggers': {
         DEFAULT_LOGGER: {
-            _level: 'DEBUG',
-            'handlers': ['console', 'logfile'],
+            'level': 'DEBUG',
+            'handlers': ['file_handler', 'console'],
         },
     },
 }

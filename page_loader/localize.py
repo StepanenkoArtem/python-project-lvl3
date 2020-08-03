@@ -74,7 +74,7 @@ def get_path_from_url(resource):
             String contains full path to resource file
             (excluding protocol and host)
     """
-    logger.debug('')
+    logger.debug('Getting path from resource URL')
     for attr in settings.RESOURCE_REFS:
         if resource.has_attr(attr):
             path = urlparse(resource.get(attr)).path
@@ -137,7 +137,7 @@ def localize(document, output):  # noqa: WPS210
         )
         filesystem.create_dir(resource_dir)
 
-    # Get resource content and save it to local filesystem
+    # Get resources content and save it to local filesystem
     with FillingSquaresBar(
         settings.BAR_CAPTION,
         max=len(local_resources) if local_resources else 1,
@@ -148,7 +148,7 @@ def localize(document, output):  # noqa: WPS210
                 resource_dir,
                 hyphenate.make_resource_filename(resource_urlpath),
             )
-
+            logger.debug('save downloaded resourse to local filesystem')
             try:
                 filesystem.save_document(
                     document_content=download.download(

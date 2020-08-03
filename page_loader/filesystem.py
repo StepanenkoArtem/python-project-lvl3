@@ -58,6 +58,7 @@ def save_document(document_content, filepath):
         file_not_found (FileNotFoundError) : raise if file not found error
         perm_error (PermissionError) : raise if permission denied
     """
+    logger.info('Save document to {path}'.format(path=filepath))
     try:
         with open(filepath, mode=MODE) as document:
             document.write(document_content)
