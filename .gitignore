@@ -8,5 +8,5 @@ coverage.xml
 .coverage
 *.egg-info/
 dist
-/downloads
+*downloads*
 *.log
