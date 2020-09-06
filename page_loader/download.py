@@ -20,7 +20,8 @@ def download(url):
             Url address specified from command-line args
 
     Returns:
-        downloaded : <requests.object>
+        downloaded : bytes
+            Content of downloaded page
 
     Raises:
         ConnectionError : Cannot establish connection to host
@@ -40,4 +41,4 @@ def download(url):
         logger.error(http_error)
         raise ConnectionError
 
-    return requested
+    return requested.content
