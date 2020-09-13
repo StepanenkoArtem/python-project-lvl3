@@ -19,8 +19,3 @@ DEFAULT_SCHEME = 'https://'
 
 # ProgressBar settings
 BAR_CAPTION = 'Loading resources'
-
-# System exit codes
-
-EXIT_CON_ERR = 1
-EXIT_FS_ERR = 2

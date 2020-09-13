@@ -171,7 +171,7 @@ def localize(document, output):  # noqa: WPS210
         counter.finish()
     # Save modified document
     filesystem.save_document(
-        document_content=document_dom.encode(),
+        document_content=document_dom.encode(formatter=None),
         filepath=os.path.join(
             output,
             hyphenate.make_document_name(document.url),

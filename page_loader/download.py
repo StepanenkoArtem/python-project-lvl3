@@ -41,4 +41,4 @@ def download(url):
         logger.error(http_error)
         raise ConnectionError
 
-    return requested.content
+    return requested
