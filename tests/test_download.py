@@ -1,22 +1,14 @@
 # coding=utf-8
 
 import pytest
-from page_loader import download
-
-STATUS_OK = 200
-
-
-def test_downloads_success():
-    """Testing download() returns value."""
-    actual = download.download('https://httpbin.org/status/200')
-    assert actual.status_code == STATUS_OK
+from page_loader.download import get_page
 
 
 def test_downloads_exceptions():
     """Testing download() exceptions."""
     with pytest.raises(ConnectionError):
-        assert download.download('https://httpbin.org/status/404')
+        assert get_page('https://httpbin.org/status/404')
     with pytest.raises(ConnectionError):
-        assert download.download('https://fgsdfgsdfgsd.com')
+        assert get_page('https://#incetorrectdomain.com')
     with pytest.raises(ConnectionError):
-        assert download.download('')
+        assert get_page('')
