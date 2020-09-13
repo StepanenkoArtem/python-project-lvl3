@@ -2,7 +2,8 @@
 
 import pytest
 from page_loader import download
-from page_loader.settings import STATUS_OK
+
+STATUS_OK = 200
 
 
 def test_downloads_success():

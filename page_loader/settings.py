@@ -1,8 +1,7 @@
 # coding=utf-8
 
 """Settings."""
-STATUS_OK = 200
-DEFAULT_DOWNLOAD_DIR = 'spl-downloads'
+DEFAULT_DOWNLOAD_DIR = 'downloads'
 LOCAL_RESOURCES = (
     'img',
     'link',
