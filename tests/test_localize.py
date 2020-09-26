@@ -6,7 +6,6 @@ from unittest.mock import Mock
 
 import bs4
 from page_loader import localize
-from tests.fixtures.get_dataset_from_file import get_dataset_from_json
 
 # Filepaths for testing datasets
 _DS_IS_LOCAL = 'tests/datasets/localize/is_local.json'

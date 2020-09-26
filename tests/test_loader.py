@@ -37,7 +37,7 @@ def downloaded(tmpdir):
     """
     output = tmpdir
     url = 'https://stepanenkoartem.github.io'
-    localize(download.download(url), output)
+    localize(download.get_page(url), output)
     with open(
         output.join('/stepanenkoartem-github-io.html'),
         'rb',

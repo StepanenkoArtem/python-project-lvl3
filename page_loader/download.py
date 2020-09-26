@@ -11,7 +11,7 @@ from page_loader.localize import url_normalize
 logger = logging.getLogger(__name__)
 
 
-def download(url):
+def get_page(url):
     """
     Download requested url.
 
@@ -41,4 +41,4 @@ def download(url):
         logger.error(http_error)
         raise ConnectionError
 
-    return requested
+    return requested.content

@@ -5,13 +5,13 @@
 import json
 
 import pytest
-from page_loader import hyphenate
+from page_loader import path
 
 
 @pytest.mark.parametrize(
     'resource_path, expected_dir_name',
     json.load(
-        open('tests/datasets/hyphenate/test_make_resource_dir_name.json'),
+        open('tests/datasets/path/test_make_resource_dir_name.json'),
     ).items(),
 )
 def test_make_resource_dir_name(resource_path, expected_dir_name):
@@ -22,7 +22,7 @@ def test_make_resource_dir_name(resource_path, expected_dir_name):
         resource_path (str) : origin path.
         expected_dir_name (str) : expected modified directory name.
     """
-    assert expected_dir_name == hyphenate.make_resource_dir_name(
+    assert expected_dir_name == path.make_resource_dir_name(
         resource_path,
     )
 
@@ -30,7 +30,7 @@ def test_make_resource_dir_name(resource_path, expected_dir_name):
 @pytest.mark.parametrize(
     'resource_path, expected_filename',
     json.load(
-        open('tests/datasets/hyphenate/test_make_resource_filename.json'),
+        open('tests/datasets/path/test_make_resource_filename.json'),
     ).items(),
 )
 def test_make_resource_filename(resource_path, expected_filename):
@@ -41,7 +41,7 @@ def test_make_resource_filename(resource_path, expected_filename):
         resource_path (str) : origin filename path
         expected_filename (str) : modified ("dashed") filename
     """
-    assert expected_filename == hyphenate.make_resource_filename(
+    assert expected_filename == path.make_resource_filename(
         resource_path,
     )
 
@@ -49,7 +49,7 @@ def test_make_resource_filename(resource_path, expected_filename):
 @pytest.mark.parametrize(
     'document_path, expected_filename',
     json.load(
-        open('tests/datasets/hyphenate/test_make_document_name.json'),
+        open('tests/datasets/path/test_make_document_name.json'),
     ).items(),
 )
 def test_make_document_name(document_path, expected_filename):
@@ -60,6 +60,6 @@ def test_make_document_name(document_path, expected_filename):
         document_path (str) : origin document path
         expected_filename (str) : expected modified filepath
     """
-    assert expected_filename == hyphenate.make_document_name(
+    assert expected_filename == path.make_document_name(
         document_path,
     )

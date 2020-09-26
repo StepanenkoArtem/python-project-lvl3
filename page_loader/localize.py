@@ -120,7 +120,7 @@ def localize(document, output):  # noqa: WPS210
 
     """
     # Get document DOM
-    document_dom = BeautifulSoup(document.content, settings.DEFAULT_PARSER)
+    document_dom = BeautifulSoup(document, settings.DEFAULT_PARSER)
     # Obtain list of local resources
     local_resources = list(
         filter(
