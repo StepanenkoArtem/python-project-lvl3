@@ -8,6 +8,10 @@ import os
 MODE = 'wb'
 
 
+class StorageError(Exception):
+    pass
+
+
 def create_dir(dir_path):
     """
     Create destination directory.
