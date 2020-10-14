@@ -5,6 +5,10 @@
 import requests
 
 
+class NetworkError(Exception):
+    ConnectionError
+
+
 def get_page(url):
     """
     Download requested url.
