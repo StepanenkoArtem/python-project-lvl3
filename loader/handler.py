@@ -7,20 +7,18 @@ Parce and save downloaded document.
 Obtain, download and save local resources from downloaded document.
 """
 
-import logging
 import os
 from urllib.parse import urljoin, urlparse
 
 from bs4 import BeautifulSoup
-from page_loader import download, filesystem, hyphenate, settings
+from loader import download, filesystem, hyphenate, settings
 from progress.bar import FillingSquaresBar
 
-LEAD_SLASH = '/'
+BAR_CAPTION = 'Loading resources'
+DEFAULT_PARSER = 'html.parser'
 
-logger = logging.getLogger(__name__)
 
-
-def url_normalize(url, scheme=settings.DEFAULT_SCHEME):
+def normalize_url(url, scheme='https://'):
     """
     Add HTTPS scheme to URL if does not it contains.
 
@@ -35,11 +33,11 @@ def url_normalize(url, scheme=settings.DEFAULT_SCHEME):
             URL with leading HTTPS scheme
     """
     if not url.startswith('http'):
-        return ''.join([scheme, url])
+        return scheme + url
     return url
 
 
-def _is_local(resource):
+def is_resource(resource):
     """
     Figure out is the resource local (don't contain host in url).
 
@@ -74,13 +72,12 @@ def get_path_from_url(resource):
             String contains full path to resource file
             (excluding protocol and host)
     """
-    logger.debug('Getting path from resource URL')
     for attr in settings.RESOURCE_REFS:
         if resource.has_attr(attr):
             path = urlparse(resource.get(attr)).path
-    if path.startswith(LEAD_SLASH):
+    if path.startswith('/'):
         return path
-    return ''.join([LEAD_SLASH, path])
+    return ''.join(['/', path])
 
 
 def set_new_resource_link(resource, new_link):
@@ -99,7 +96,6 @@ def set_new_resource_link(resource, new_link):
     """
     for attr in settings.RESOURCE_REFS:
         if resource.has_attr(attr):
-            logger.debug('Set new resource link {link}'.format(link=new_link))
             resource.attrs[attr] = new_link
     return resource
 
@@ -120,11 +116,11 @@ def localize(document, output):  # noqa: WPS210
 
     """
     # Get document DOM
-    document_dom = BeautifulSoup(document, settings.DEFAULT_PARSER)
+    document_dom = BeautifulSoup(document, DEFAULT_PARSER)
     # Obtain list of local resources
     local_resources = list(
         filter(
-            _is_local,
+            is_resource,
             document_dom.find_all(settings.LOCAL_RESOURCES),
         ),
     )
@@ -139,7 +135,7 @@ def localize(document, output):  # noqa: WPS210
 
     # Get resources content and save it to local filesystem
     with FillingSquaresBar(
-        settings.BAR_CAPTION,
+        BAR_CAPTION,
         max=len(local_resources) if local_resources else 1,
     ) as counter:
         for resource in local_resources:
@@ -148,7 +144,6 @@ def localize(document, output):  # noqa: WPS210
                 resource_dir,
                 hyphenate.make_resource_filename(resource_urlpath),
             )
-            logger.debug('save downloaded resourse to local filesystem')
             try:
                 filesystem.save_document(
                     document_content=download.download(
@@ -156,13 +151,7 @@ def localize(document, output):  # noqa: WPS210
                     ).content,
                     filepath=resource_filepath,
                 )
-            except ConnectionError:
-                logger.warning(
-                    'Cannot download resource {res}'.format(
-                        res=resource_urlpath,
-                    ),
-                )
-
+            except ConnectionError as e:
             set_new_resource_link(
                 resource=resource,
                 new_link=resource_filepath,

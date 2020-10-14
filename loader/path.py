@@ -2,7 +2,6 @@
 
 """This module provides creating 'hyphanated' filenames and paths."""
 
-import logging
 import re
 from urllib.parse import urlparse
 
@@ -15,9 +14,6 @@ _HYPHENATE_PATTERN = r'[^0-9a-zA-Z]'
 _FILE_EXTENSION = r'(?=\.)[^/]*?$'
 
 _HYPHEN = '-'
-_LEADING_SLASH = '/'
-
-logger = logging.getLogger(__name__)
 
 
 def _hyphenate(path):
@@ -86,15 +82,7 @@ def make_resource_filename(resource_path):
     try:
         extension = re.search(_FILE_EXTENSION, resource_path).group(0)
     except AttributeError:
-        logger.debug(
-            '{resource} has no extension'.format(
-                resource=resource_path,
-            ),
-        )
         extension = ''
-    logger.debug(
-        'Making resource filename for {path}'.format(path=resource_path),
-    )
     return '{base_path}{ext}'.format(
         base_path=_hyphenate(_trim_extension(resource_path)).strip('-'),
         ext=extension,
@@ -113,7 +101,6 @@ def make_document_name(document_url):
         and with 'html' - extendion
     """
     basename = _prepare_basename(document_url)
-    logger.debug('Making filename for downloaded document')
     return '{basename}{ext}'.format(
         basename=_hyphenate(basename),
         ext=_DOC_EXTENSION,

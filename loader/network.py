@@ -2,13 +2,7 @@
 
 """Retrive URL resource."""
 
-import logging
-
 import requests
-from page_loader import settings
-from page_loader.localize import url_normalize
-
-logger = logging.getLogger(__name__)
 
 
 def get_page(url):
@@ -26,19 +20,16 @@ def get_page(url):
     Raises:
         ConnectionError : Cannot establish connection to host
     """
-    logger.debug('Trying to download {url}'.format(url=url))
     try:
         requested = requests.get(
-            url=url_normalize(url),
-            timeout=settings.DEFAULT_TIMEOUT,
+            url=url,
+            timeout=3,
         )
-    except requests.RequestException:
-        logger.error('Could not connect to {url}'.format(url=url))
-        raise ConnectionError
+    except requests.RequestException as failed_request:
+        raise ConnectionError from failed_request
     try:
         requested.raise_for_status()
     except requests.HTTPError as http_error:
-        logger.error(http_error)
-        raise ConnectionError
+        raise ConnectionError from http_error
 
     return requested.content
