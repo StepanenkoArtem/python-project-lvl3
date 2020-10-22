@@ -6,10 +6,29 @@ import requests
 
 
 class NetworkError(Exception):
-    ConnectionError
+    """Network Error Exceptions."""
+
+    def __init__(self, message):
+        """Init Network Exception.
+
+        Args:
+            message: str
+                Exception's message
+        """
+        self.exit_code = 1
+        self.message = message
+
+    def __str__(self):
+        """Define __str__ method.
+
+        Returns:
+            self.message : str
+                Message what exception occured
+        """
+        return self.message
 
 
-def get_page(url):
+def download(url):
     """
     Download requested url.
 
@@ -22,18 +41,20 @@ def get_page(url):
             Content of downloaded page
 
     Raises:
-        ConnectionError : Cannot establish connection to host
+        NetworkError : Cannot establish connection to host
     """
-    try:
+    try:  # noqa: WPS229
         requested = requests.get(
             url=url,
             timeout=3,
         )
-    except requests.RequestException as failed_request:
-        raise ConnectionError from failed_request
-    try:
         requested.raise_for_status()
-    except requests.HTTPError as http_error:
-        raise ConnectionError from http_error
-
+    except requests.RequestException as request_err:
+        raise NetworkError(
+            message='Cannot connect to {url}'.format(url=url),
+        ) from request_err
+    except requests.exceptions.HTTPError as http_err:
+        raise NetworkError(
+            message='Cannot connect to ',
+        ) from http_err
     return requested.content
