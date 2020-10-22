@@ -1,14 +1,46 @@
 # coding=utf-8
 
+"""Test working with net."""
+
 import pytest
-from page_loader.download import get_page
+from loader import network
 
 
-def test_downloads_exceptions():
-    """Testing download() exceptions."""
-    with pytest.raises(ConnectionError):
-        assert get_page('https://httpbin.org/status/404')
-    with pytest.raises(ConnectionError):
-        assert get_page('https://#incetorrectdomain.com')
-    with pytest.raises(ConnectionError):
-        assert get_page('')
+def test_download():
+    """Test downloading URL document."""
+    expected = open(
+        'tests/golden/origin_html/stepanenkoartem.gihub.io.html',
+        mode='rb',
+    ).read()
+    actual = network.download('https://stepanenkoartem.github.io/')
+    assert expected == actual
+
+
+@pytest.mark.xfail
+def test_redirects():
+    """Testing 3xx response."""
+    with pytest.raises(network.NetworkError):
+        network.download('https://httpbin.org/status/301')
+        network.download('https://httpbin.org/status/302')
+        network.download('https://httpbin.org/status/201')
+
+
+def test_client_connection_errors():
+    """Testing 4xx Error exceptions."""
+    with pytest.raises(network.NetworkError):
+        network.download('https://httpbin.org/status/404')
+        network.download('https://httpbin.org/status/403')
+
+
+def test_server_connection_errors():
+    """Testing 5xx Error exceptions."""
+    with pytest.raises(network.NetworkError):
+        network.download('https://httpbin.org/status/500')
+        network.download('https://httpbin.org/status/502')
+
+
+def test_network_failed_connection():
+    """Testing failed connection exceptions."""
+    with pytest.raises(network.NetworkError):
+        network.download('https://#incetorrectdomain.com')
+        network.download('')

@@ -5,16 +5,16 @@
 import json
 
 import pytest
-from page_loader import path
+from loader import path
 
 
 @pytest.mark.parametrize(
     'resource_path, expected_dir_name',
     json.load(
-        open('tests/datasets/path/test_make_resource_dir_name.json'),
+        open('tests/datasets/path/for_resource_dir.json'),
     ).items(),
 )
-def test_make_resource_dir_name(resource_path, expected_dir_name):
+def test_for_resource_dir(resource_path, expected_dir_name):
     """
     Check replacing non-alphanumeric symbols in resource directory name.
 
@@ -22,7 +22,7 @@ def test_make_resource_dir_name(resource_path, expected_dir_name):
         resource_path (str) : origin path.
         expected_dir_name (str) : expected modified directory name.
     """
-    assert expected_dir_name == path.make_resource_dir_name(
+    assert expected_dir_name == path.for_resource_dir(
         resource_path,
     )
 
@@ -30,10 +30,10 @@ def test_make_resource_dir_name(resource_path, expected_dir_name):
 @pytest.mark.parametrize(
     'resource_path, expected_filename',
     json.load(
-        open('tests/datasets/path/test_make_resource_filename.json'),
+        open('tests/datasets/path/for_resource.json'),
     ).items(),
 )
-def test_make_resource_filename(resource_path, expected_filename):
+def test_for_resource(resource_path, expected_filename):
     """
     Check replacing non-alphanumeric symbols in filename.
 
@@ -41,7 +41,7 @@ def test_make_resource_filename(resource_path, expected_filename):
         resource_path (str) : origin filename path
         expected_filename (str) : modified ("dashed") filename
     """
-    assert expected_filename == path.make_resource_filename(
+    assert expected_filename == path.for_resource(
         resource_path,
     )
 
@@ -49,10 +49,10 @@ def test_make_resource_filename(resource_path, expected_filename):
 @pytest.mark.parametrize(
     'document_path, expected_filename',
     json.load(
-        open('tests/datasets/path/test_make_document_name.json'),
+        open('tests/datasets/path/for_page.json'),
     ).items(),
 )
-def test_make_document_name(document_path, expected_filename):
+def test_for_page(document_path, expected_filename):
     """
     Check replacing non-aplhanumeric symbols in document path name.
 
@@ -60,6 +60,6 @@ def test_make_document_name(document_path, expected_filename):
         document_path (str) : origin document path
         expected_filename (str) : expected modified filepath
     """
-    assert expected_filename == path.make_document_name(
+    assert expected_filename == path.for_page(
         document_path,
     )
