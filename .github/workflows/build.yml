@@ -25,7 +25,7 @@ jobs:
       run: |
         make lint
         make test
-        make test-cov2xml
+        make coverage.xml
     - name: upload test coverage
       uses: codecov/codecov-action@v1
       with:
