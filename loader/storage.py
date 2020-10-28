@@ -4,15 +4,30 @@
 
 import os
 
-# File operation mode
-MODE = 'wb'
-
 
 class StorageError(Exception):
-    pass
+    """Define StorageError Exceptions."""
+
+    def __init__(self, message):
+        """Init Storage Exception.
+
+        Args:
+            message: str
+                Exception's message
+        """
+        self.exit_code = 2
+        self.message = message
+
+    def __str__(self):
+        """Show user friendly-message.
+
+        Returns:
+            message : (str)
+        """
+        return self.message
 
 
-def create_dir(dir_path):
+def mkdir(dir_path):
     """
     Create destination directory.
 
@@ -21,33 +36,41 @@ def create_dir(dir_path):
             Path for directory
 
     Raises:
-        PermissionError : if cannot create subfolder
+        StorageError : Raise if cannot create subfolder
     """
     dir_path = os.path.normpath(dir_path)
 
-    if not os.path.exists(dir_path):
-        try:
-            os.makedirs(dir_path)
-        except PermissionError:
-            raise
+    try:
+        os.makedirs(dir_path)
+    except FileExistsError as file_exist_error:
+        raise StorageError(
+            message='Folder {dir} already exist'.format(dir=dir_path),
+        ) from file_exist_error
+    except PermissionError as perm_error:
+        raise StorageError(
+            message='PermissionError',
+        ) from perm_error
 
 
-def save(document_content, filepath):
+def save(f_content, output, filename):
     """
-    Save document content to file.
+    Save content to file.
 
     Args:
-        document_content (class 'bytes'): Content of html document.
-        filepath (str) : Full path to destination file.
+        f_content : (bytes) HTML content in bytes.
+        filename : (str)
+        output : (str) destination dir to save file
 
     Raises:
-        file_not_found (FileNotFoundError) : raise if file not found error
-        perm_error (PermissionError) : raise if permission denied
+        StorageError : raise if file storage error occured
     """
     try:
-        with open(filepath, mode=MODE) as document:
-            document.write(document_content)
-    except FileNotFoundError as file_not_found:
-        raise FileNotFoundError from file_not_found
-    except PermissionError as perm_error:
-        raise PermissionError from perm_error
+        with open(
+            os.path.join(output, filename),
+            mode='wb',
+        ) as document:
+            document.write(f_content)
+    except (FileNotFoundError, PermissionError) as file_storage_err:
+        raise StorageError(
+            message='Cannot save file {file}'.format(file=filename),
+        ) from file_storage_err
