@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "stepanenko-page-loader"
-version = "0.1.26"
+name = "pload"
+version = "0.1.27"
 description = "Tool for downloading web pages to the local machine"
 authors = ["Artem Stepanenko <artem.stepanenko.ks.ua@gmail.com>"]
 packages = [
