@@ -15,7 +15,7 @@ DEFAULT_PARSER = 'html.parser'
 BAR_DESC = 'LOAD RESOURCES'
 
 
-@click.command()  # noqa: WPS210
+@click.command()
 @click.option(
     '--output',
     default=os.path.join(os.getcwd(), 'downloads'),
