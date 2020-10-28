@@ -19,7 +19,7 @@ test:
 test-cov:
 	poetry run python -m pytest -q --cov=loader tests/
 
-coverage: coverage.xml
+coverage.xml:
 	poetry run python -m pytest --cov=loader tests/ --cov-report=xml
 
 .PHONY:
@@ -30,4 +30,3 @@ coverage: coverage.xml
 	bump
 	test
 	test-cov
-	coverage
