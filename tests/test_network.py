@@ -8,11 +8,13 @@ from loader import network
 
 def test_download():
     """Test downloading URL document."""
+    # PREPARE
     expected = open(
-        'tests/golden/origin_html/stepanenkoartem.gihub.io.html',
+        'tests/pages/origin/stepanenkoartem.github.io.html',
         mode='rb',
     ).read()
     actual = network.download('https://stepanenkoartem.github.io/')
+    # CHECK
     assert expected == actual
 
 

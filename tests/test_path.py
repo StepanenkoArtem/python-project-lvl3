@@ -22,6 +22,7 @@ def test_for_resource_dir(resource_path, expected_dir_name):
         resource_path (str) : origin path.
         expected_dir_name (str) : expected modified directory name.
     """
+    # CHECK
     assert expected_dir_name == path.for_resource_dir(
         resource_path,
     )
@@ -41,9 +42,8 @@ def test_for_resource(resource_path, expected_filename):
         resource_path (str) : origin filename path
         expected_filename (str) : modified ("dashed") filename
     """
-    assert expected_filename == path.for_resource(
-        resource_path,
-    )
+    # CHECK
+    assert expected_filename == path.for_resource(resource_path)
 
 
 @pytest.mark.parametrize(
@@ -60,6 +60,7 @@ def test_for_page(document_path, expected_filename):
         document_path (str) : origin document path
         expected_filename (str) : expected modified filepath
     """
+    # CHECK
     assert expected_filename == path.for_page(
         document_path,
     )
