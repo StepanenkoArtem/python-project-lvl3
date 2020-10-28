@@ -24,7 +24,7 @@ BAR_DESC = 'LOAD RESOURCES'
 @click.option(
     '--loglevel',
     help='Set logging level (INFO, DEBUG, WARNING, ERROR or CRITICAL)',
-    default='WARNING',
+    default=logging.WARNING,
 )
 @click.option(
     '--logfile',

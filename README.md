@@ -1,4 +1,4 @@
-# PAGE Loader
+# pload
 
 [![Build Status](https://github.com/StepanenkoArtem/python-project-lvl3/workflows/Build/badge.svg)](https://github.com/StepanenkoArtem/python-project-lvl3/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/0c5f98e70a04ca23c02c/maintainability)](https://codeclimate.com/github/StepanenkoArtem/python-project-lvl3/maintainability)
@@ -12,19 +12,19 @@ Downloading URLs should be specified as command-line argument.
 
 Run next command for installing page-loader package
 
-    pip install --extra-index-url https://pypi.org/simple -i https://test.pypi.org/simple stepanenko-page-loader
+    pip install --extra-index-url https://pypi.org/simple -i https://test.pypi.org/simple pload
 
-[![asciicast](https://asciinema.org/a/icIdAGzhTZC5VTgd7ozrfoUow.svg)](https://asciinema.org/a/icIdAGzhTZC5VTgd7ozrfoUow)
+[![asciicast](https://asciinema.org/a/KXmqyaTyhWarVXOy3J8Jmtuku.svg)](https://asciinema.org/a/KXmqyaTyhWarVXOy3J8Jmtuku)
 
 ## Usage
 
 1. Common usage format.
 
-        stepanenko-page-loader [OPTIONS] URL
+        pload [OPTIONS] URL
 
-    For downloading web page run `stepanenko-page-loader` with specified url as argument.
+    For downloading web page run `pload` with specified url as argument.
 
-        stepanenko-page-loader nytimes.com
+        pload https://www.wikipedia.org/
 
     [![asciicast](https://asciinema.org/a/EIBtD72GWWeFbjueid5vNRf99.svg)](https://asciinema.org/a/EIBtD72GWWeFbjueid5vNRf99)
 
