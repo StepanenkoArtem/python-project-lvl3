@@ -4,7 +4,7 @@ version = "0.1.26"
 description = "Tool for downloading web pages to the local machine"
 authors = ["Artem Stepanenko <artem.stepanenko.ks.ua@gmail.com>"]
 packages = [
-    { include = "page_loader" },
+    { include = "loader" },
 ]
 
 [tool.poetry.dependencies]
@@ -13,6 +13,7 @@ requests = "^2.22.0"
 click = "^7.0"
 beautifulsoup4 = "^4.8.2"
 progress = "^1.5"
+tqdm = "^4.51.0"
 
 
 [tool.poetry.dev-dependencies]
@@ -21,8 +22,8 @@ flake8 = "^3.7.9"
 pytest = "^5.3.5"
 pytest-cov = "^2.8.1"
 rope = "^0.17.0"
-isort = "<5"
 pytest-mock = "^3.3.1"
+isort = "<5"
 
 [tool.poetry.scripts]
 pload = 'page_loader.scripts.loader:main'
