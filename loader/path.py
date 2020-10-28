@@ -2,21 +2,15 @@
 
 """This module provides creating 'hyphanated' filenames and paths."""
 
+import os
 import re
 from urllib.parse import urlparse
 
-# Postfixes
-_DOC_EXTENSION = '.html'
-_RES_DIR_POSTFIX = '_files'
-
 # REGEX Patterns
-_HYPHENATE_PATTERN = r'[^0-9a-zA-Z]'
-_FILE_EXTENSION = r'(?=\.)[^/]*?$'
-
-_HYPHEN = '-'
+HYPHENATE_PATTERN = re.compile(r'[^0-9a-zA-Z]')
 
 
-def _hyphenate(path):
+def hyphenate(path):
     """
     Replace non-alphanumerical symbols to hyphen.
 
@@ -26,48 +20,40 @@ def _hyphenate(path):
     Returns :
         str : String with replaced non-alphanumecric symbols
     """
-    return re.sub(_HYPHENATE_PATTERN, _HYPHEN, path).strip(_HYPHEN)
+    return re.sub(HYPHENATE_PATTERN, '-', path).strip('-')
 
 
-def _trim_extension(path):
-    """
-    Get resource file basename without file extendion.
-
-    Args :
-        path:
-            path to local resource fils
-
-    Returns:
-        str: string
-            resource file basenamr.
-    """
-    return re.sub(_FILE_EXTENSION, '', path)
-
-
-def _prepare_basename(document_url):
-    return '{host}{path}'.format(
-        host=urlparse(document_url).netloc,
-        path=_trim_extension(urlparse(document_url).path),
-    )
-
-
-def make_resource_dir_name(document_url):
-    """
-    Create name for directory where resource files will be saved.
-
-    Add '_files' postfix to 'hyphenated' filename
+def prepare_basename(document_url):
+    """Prepare basename from document URL.
 
     Args :
         document_url (str): URL of downloaded document
 
     Returns :
-        str : String contains directory name with '_files' ending.
+        str : Basename
     """
-    basename = _prepare_basename(document_url)
-    return _hyphenate(basename) + _RES_DIR_POSTFIX
+    host = urlparse(document_url).netloc
+    path, _ = os.path.splitext(urlparse(document_url).path)
+    return host + path
 
 
-def make_resource_filename(resource_path):
+def for_resource_dir(document_url):
+    """
+    Create name for directory where resource files will be saved.
+
+    Add '_files' postfix to basename
+
+    Args :
+        document_url (str): URL of downloaded document
+
+    Returns :
+        str : String contains directory name with '_files' postfix.
+    """
+    basename = prepare_basename(document_url)
+    return hyphenate(basename) + '_files'
+
+
+def for_resource(resource_path):
     """
     Create filename for resource file.
 
@@ -79,19 +65,13 @@ def make_resource_filename(resource_path):
         str : Filename with replaced non-alpanumerical symbols
         and original filextension.
     """
-    try:
-        extension = re.search(_FILE_EXTENSION, resource_path).group(0)
-    except AttributeError:
-        extension = ''
-    return '{base_path}{ext}'.format(
-        base_path=_hyphenate(_trim_extension(resource_path)).strip('-'),
-        ext=extension,
-    )
+    path, extension = os.path.splitext(resource_path)
+    return hyphenate(path) + extension
 
 
-def make_document_name(document_url):
+def for_page(document_url):
     """
-    Create hypheneted filename for downloaded document.
+    Create filename for downloaded document.
 
     Args :
         document_url (str) : document url
@@ -100,8 +80,5 @@ def make_document_name(document_url):
         str : Filename with replaced non-alphanumerical symbols
         and with 'html' - extendion
     """
-    basename = _prepare_basename(document_url)
-    return '{basename}{ext}'.format(
-        basename=_hyphenate(basename),
-        ext=_DOC_EXTENSION,
-    )
+    basename = prepare_basename(document_url)
+    return hyphenate(basename) + '.html'
