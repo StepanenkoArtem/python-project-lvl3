@@ -1,82 +1,101 @@
 # coding=utf-8
 
+"""Commandline module."""
 import logging
 import os
-import sys
-from os.path import join
+import traceback
+from urllib.parse import urlparse, urlunparse
 
 import click
+from bs4 import BeautifulSoup
+from tqdm import tqdm
 from loader import handler, logger, network, path, storage
 
-# Exit codes
-EXIT_CONNECTION_ERR = 1
-EXIT_FILESYSTEM_ERR = 2
-EXIT_PARAM_ERR = 3
+DEFAULT_PARSER = 'html.parser'
+BAR_DESC = 'LOAD RESOURCES'
 
 
-@click.command()
+@click.command()  # noqa: WPS210
 @click.option(
     '--output',
-    default=join(os.getcwd(), 'downloads'),
+    default=os.path.join(os.getcwd(), 'downloads'),
     help='Set destionation folder to save file',
 )
-@ click.option(
+@click.option(
     '--loglevel',
     help='Set logging level (INFO, DEBUG, WARNING, ERROR or CRITICAL)',
-    default='DEBUG',
+    default='WARNING',
 )
 @click.option(
     '--logfile',
     help='Set logfile path',
+    default='loader.log',
 )
 @click.argument(
     'url',
 )
-def main(url, output, level, logfile):
-    logger.setup(
-        level=level,
-        logfile=logfile,
-    )
+def main(url, output, loglevel, logfile):
+    """Run user's input command.
 
-    # Download page
-    try:
-        page = network.get_page(url)
-    except network.NetworkError:
-        logging.error()
-        sys.exit(EXIT_CONNECTION_ERR)
+    Args:
+        url : str
+            Requested url
+        output : str
+            Path to save downloaded page
+        loglevel : (str|int)
+            Logging level
+        logfile : str
+            Custom logfile name
+    """
+    # Logging setup
+    logger.setup(level=loglevel, logfile=logfile)
 
-    # Save modified page
-    try:
-        storage.save(
-            content=handler.set_local_links(page),
-            filename=path.for_page(url),
-            output=output,
-        )
-    except storage.StorageError:
-        sys.exit(EXIT_FILESYSTEM_ERR)
+    # Download page and get DOM
+    dom = BeautifulSoup(network.download(url), DEFAULT_PARSER)
 
-    resource_links = handler.get_links(page)
+    # Get resource objects from DOM
+    resources = handler.get_resources(dom)
 
-    # Make dirname for downloaded resource
-    if resource_links:
-        resource_dir = '{destination}{postfix}'.format(
-            destination=output,
-            postfix='_files',
-        )
+    # Split URL to fragments
+    url_parts = list(urlparse(url))
 
-    for link in resource_links:
-        # Download resources
-        try:
-            resource = network.get_page(link)
-        except network.NetworkError:
-            logging.error('')
+    if resources:
+        # Build resource dirname
+        resource_dirname = path.for_resource_dir(url)
+        # Create dir for resource inside 'output'
+        storage.mkdir(os.path.join(output, resource_dirname))
 
-        # Save downoaded resource
-        try:
-            storage.save(
-                content=resource,
-                filename=path.for_resource(link),
-                output=resource_dir,
+        resource_urls = []
+        for resource in resources:
+            # Get resource path from resource object
+            resource_path = handler.get_path(resource)
+            # Build resource filename
+            resource_filename = path.for_resource(resource_path)
+
+            # Set local path in resource object
+            handler.update_resource(
+                resource=resource,
+                new_link=os.path.join(resource_dirname, resource_filename),
             )
-        except storage.StorageError:
-            logging.error('')
+            # Build URL for resource
+            url_parts[2] = resource_path
+            resource_urls.append(urlunparse(url_parts))
+
+        # Save modified DOM
+        storage.save(
+            f_content=dom.encode(),
+            output=output,
+            filename=path.for_page(url),
+        )
+        # Download resources and save it
+        for resource_url in tqdm(resource_urls, desc=BAR_DESC):
+            try:
+                storage.save(
+                    f_content=network.download(resource_url),
+                    output=os.path.join(output, resource_dirname),
+                    filename=resource_filename,
+                )
+            except network.NetworkError:
+                logging.debug(
+                    traceback.format_exception_only(network.NetworkError),
+                )
