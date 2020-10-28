@@ -9,7 +9,7 @@ class NetworkError(Exception):
     """Network Error Exceptions."""
 
     def __init__(self, message):
-        """Init Network Exception.
+        """Define NetworkError Exception.
 
         Args:
             message: str
@@ -19,11 +19,10 @@ class NetworkError(Exception):
         self.message = message
 
     def __str__(self):
-        """Define __str__ method.
+        """Show message while exception is logging.
 
         Returns:
-            self.message : str
-                Message what exception occured
+            message : (str)
         """
         return self.message
 
@@ -33,12 +32,10 @@ def download(url):
     Download requested url.
 
     Args:
-        url : str
-            Url address specified from command-line args
+        url : (str) Url address specified from command-line args
 
     Returns:
-        downloaded : bytes
-            Content of downloaded page
+        downloaded : (bytes) Content of downloaded page
 
     Raises:
         NetworkError : Cannot establish connection to host
@@ -49,12 +46,12 @@ def download(url):
             timeout=3,
         )
         requested.raise_for_status()
-    except requests.RequestException as request_err:
+    except (
+        requests.RequestException,
+        requests.exceptions.HTTPError,
+    ) as request_err:
         raise NetworkError(
-            message='Cannot connect to {url}'.format(url=url),
+            message="Can't connect to {url}".format(url=url),
         ) from request_err
-    except requests.exceptions.HTTPError as http_err:
-        raise NetworkError(
-            message='Cannot connect to ',
-        ) from http_err
+
     return requested.content
