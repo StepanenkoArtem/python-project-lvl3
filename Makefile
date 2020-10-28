@@ -1,5 +1,3 @@
-.PHONY build install publish lint bump test test-cov
-
 install:
 	poetry install
 
@@ -21,5 +19,15 @@ test:
 test-cov:
 	poetry run python -m pytest -q --cov=loader tests/
 
-coverage.xml:
+coverage: coverage.xml
 	poetry run python -m pytest --cov=loader tests/ --cov-report=xml
+
+.PHONY:
+	build
+	install
+	publish
+	lint
+	bump
+	test
+	test-cov
+	coverage
