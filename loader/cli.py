@@ -3,6 +3,7 @@
 """Commandline module."""
 import logging
 import os
+import sys
 import traceback
 from urllib.parse import urlparse, urlunparse
 
@@ -144,6 +145,9 @@ def run(url, output, loglevel, logfile):
                     filename=resource_filename,
                 )
             except network.NetworkError:
+                etype, evalue, tb = sys.exc_info()
                 logging.debug(
-                    traceback.format_exception_only(network.NetworkError),
+                    traceback.format_exception_only(
+                        etype, evalue,
+                    ),
                 )
