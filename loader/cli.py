@@ -82,7 +82,7 @@ def check_path(ctx, param, value):
 @click.argument(
     'url',
 )
-def main(url, output, loglevel, logfile):
+def run(url, output, loglevel, logfile):
     """Run user's input command.
 
     Args:

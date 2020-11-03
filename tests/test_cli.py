@@ -22,7 +22,7 @@ def download():
         :None
     """
     try:
-        cli.main(
+        cli.run(
             [URL, '--output', TEMP_DIR],
         )
     except SystemExit:

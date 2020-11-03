@@ -8,9 +8,11 @@ import sys
 
 from loader import cli, logger, network, storage
 
-if __name__ == '__main__':
+
+def main():
+    """Run main function."""
     try:
-        cli.main()
+        cli.run()
     except (
         cli.ParamError,
         logger.LoggingError,
@@ -20,3 +22,7 @@ if __name__ == '__main__':
         logging.error(error)
         logging.debug(error.__cause__)
         sys.exit(error.exit_code)
+
+
+if __name__ == '__main__':
+    main()
