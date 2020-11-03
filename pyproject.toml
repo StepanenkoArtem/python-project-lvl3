@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pload"
-version = "0.1.28"
+version = "0.1.32"
 description = "Tool for downloading web pages to the local machine"
 authors = ["Artem Stepanenko <artem.stepanenko.ks.ua@gmail.com>"]
 packages = [

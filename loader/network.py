@@ -6,7 +6,7 @@ import requests
 
 
 class NetworkError(Exception):
-    """Network Error Exceptions."""
+    """Network Error Exception."""
 
     def __init__(self, message):
         """Define NetworkError Exception.

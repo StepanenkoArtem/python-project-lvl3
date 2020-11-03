@@ -1,9 +1,30 @@
 # coding=utf-8
 
-"""Confiuring logging."""
+"""Configure logging."""
 
 import logging
-import logging.config  # noqa: WPS301
+
+
+class LoggingError(Exception):
+    """Logging Error exception."""
+
+    def __init__(self, message):
+        """Init Logging Exception.
+
+        Args:
+            message: str
+                Exception's message
+        """
+        self.exit_code = 3
+        self.message = message
+
+    def __str__(self):
+        """Provide user-friendly message about error.
+
+        Returns:
+            message : (str)
+        """
+        return self.message
 
 
 def setup(level, logfile):

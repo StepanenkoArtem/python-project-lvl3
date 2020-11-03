@@ -14,9 +14,9 @@ EXPECTED = 'tests/pages/expected'
 URL = 'https://stepanenkoartem.github.io/'
 
 
-@pytest.fixture(scope='session', autouse=True)
-def testrun():
-    """Run main function.
+@pytest.fixture(scope='module', autouse=True)
+def download():
+    """Run main function to download test data.
 
     Returns:
         :None

@@ -44,11 +44,13 @@ def mkdir(dir_path):
         os.makedirs(dir_path)
     except FileExistsError as file_exist_error:
         raise StorageError(
-            message='Folder {dir} already exist'.format(dir=dir_path),
+            message='Directory {dir} already exist'.format(dir=dir_path),
         ) from file_exist_error
     except PermissionError as perm_error:
         raise StorageError(
-            message='PermissionError',
+            message="Can't creat dir {dir}. Permission denied.".format(
+                dir=dir_path,
+            ),
         ) from perm_error
 
 

@@ -15,11 +15,58 @@ DEFAULT_PARSER = 'html.parser'
 BAR_DESC = 'LOAD RESOURCES'
 
 
+class ParamError(Exception):
+    """Wrong Parameter Exception."""
+
+    def __init__(self, message):
+        """Init ParamError.
+
+        Args:
+            message : str
+                Parameter error message
+        """
+        self.message = message
+        self.exit_code = 4
+
+    def __str__(self):
+        """Provide user-friendly message.
+
+        Returns:
+            str: Error message
+        """
+        return self.message
+
+
+def check_path(ctx, param, value):
+    """Check is 'output' argument valid.
+
+    Args:
+        ctx: click context
+        param : parameter object
+        value : parameter 'output' value
+
+    Returns:
+        str : path to output directory
+
+    Raises:
+        ParamError : if output directory permission denied
+    """
+    abs_path = os.path.abspath(os.path.expanduser(value))
+    if not os.access(os.path.dirname(abs_path), os.W_OK):
+        raise ParamError(
+            '{value} for {param} is not permitted'.format(
+                value=value, param=param,
+            ),
+        ) from PermissionError
+    return value
+
+
 @click.command()
 @click.option(
     '--output',
     default=os.path.join(os.getcwd(), 'downloads'),
     help='Set destionation folder to save file',
+    callback=check_path,
 )
 @click.option(
     '--loglevel',
@@ -30,6 +77,7 @@ BAR_DESC = 'LOAD RESOURCES'
     '--logfile',
     help='Set logfile path',
     default='loader.log',
+    callback=check_path,
 )
 @click.argument(
     'url',
