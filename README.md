@@ -14,7 +14,7 @@ Run next command for installing page-loader package
 
     pip install --extra-index-url https://pypi.org/simple -i https://test.pypi.org/simple pload
 
-[![asciicast](https://asciinema.org/a/KXmqyaTyhWarVXOy3J8Jmtuku.svg)](https://asciinema.org/a/KXmqyaTyhWarVXOy3J8Jmtuku)
+[![asciicast](https://asciinema.org/a/WKFA9AqAUVolWh0PvYITrQnLa.svg)](https://asciinema.org/a/WKFA9AqAUVolWh0PvYITrQnLa)
 
 ## Usage
 
@@ -26,9 +26,9 @@ Run next command for installing page-loader package
 
         pload https://www.wikipedia.org/
 
-    [![asciicast](https://asciinema.org/a/EIBtD72GWWeFbjueid5vNRf99.svg)](https://asciinema.org/a/EIBtD72GWWeFbjueid5vNRf99)
+    [![asciicast](https://asciinema.org/a/FA3pI2erJPHJestriE6dj7F3R.svg)](https://asciinema.org/a/FA3pI2erJPHJestriE6dj7F3R)
 
-    By default downloaded documents will save to subdirectory `spl-downloads` in current workind directory.
+    By default downloaded documents will save to subdirectory `downloads` in current workind directory.
 
 2. Options
 
@@ -36,21 +36,20 @@ Run next command for installing page-loader package
 
     To get help info
 
-    [![asciicast](https://asciinema.org/a/fGw6BmDu2GV6Q3NJbYQGwlG1i.svg)](https://asciinema.org/a/fGw6BmDu2GV6Q3NJbYQGwlG1i)
+    [![asciicast](https://asciinema.org/a/WKFA9AqAUVolWh0PvYITrQnLa.svg)](https://asciinema.org/a/WKFA9AqAUVolWh0PvYITrQnLa)
 
         `--output`
     Specify directory for saving files.
 
-    [![asciicast](https://asciinema.org/a/LzIR8SY1pxR9g7AjE9xLiBAp0.svg)](https://asciinema.org/a/LzIR8SY1pxR9g7AjE9xLiBAp0)
+    [![asciicast](https://asciinema.org/a/onbK40nDRnpwxUcsUBIXxmx5p.svg)](https://asciinema.org/a/onbK40nDRnpwxUcsUBIXxmx5p)
 
         `--logfile`
-
     Specify custom logging file.
 
-    [![asciicast](https://asciinema.org/a/ZGA8kbeVLvj5eHKu86tXpBuTf.svg)](https://asciinema.org/a/ZGA8kbeVLvj5eHKu86tXpBuTf)
+    [![asciicast](https://asciinema.org/a/ckDtZzxNTPqNbuQuxOuDwX6BE.svg)](https://asciinema.org/a/ckDtZzxNTPqNbuQuxOuDwX6BE)
 
         `--loglevel`
 
     Set logging level. There are five valid options available: 'DEBUG', 'INFO', 'WARNING', 'ERROR' and 'CRITICAL'. Both small and upper register is allowable. Integer value also acceptable: 10, 20, 30, 40, 50 accordingly.
 
-    [![asciicast](https://asciinema.org/a/cdjanRBHrBoq36hgtm5UE8cpN.svg)](https://asciinema.org/a/cdjanRBHrBoq36hgtm5UE8cpN)
+   [![asciicast](https://asciinema.org/a/SxqsHzictc4T2ZFQwOJ0Wb6uy.svg)](https://asciinema.org/a/SxqsHzictc4T2ZFQwOJ0Wb6uy)
