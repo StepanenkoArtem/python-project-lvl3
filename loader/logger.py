@@ -31,7 +31,7 @@ def setup(level, logfile):
     """Set up logging settings.
 
     Args:
-        level : (int) logging level
+        level : (int|str) logging level
         logfile : (str) logfile name
     """
     # Configure console handler
