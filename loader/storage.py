@@ -38,8 +38,6 @@ def mkdir(dir_path):
     Raises:
         StorageError : Raise if cannot create subfolder
     """
-    dir_path = os.path.normpath(dir_path)
-
     try:
         os.makedirs(dir_path)
     except FileExistsError as file_exist_error:
