@@ -8,11 +8,21 @@ import pytest
 from loader import path
 
 
+def dataset(dataset_file):
+    """Get testing data from dataset file.
+
+    Args:
+        dataset_file : path to file with JSON dataset
+
+    Returns:
+        : dictionary contains {expected: origin}
+    """
+    return json.loads(open(dataset_file).read()).items()
+
+
 @pytest.mark.parametrize(
     'resource_path, expected_dir_name',
-    json.load(
-        open('tests/datasets/path/for_resource_dir.json'),
-    ).items(),
+    dataset('tests/datasets/path/for_resource_dir.json'),
 )
 def test_for_resource_dir(resource_path, expected_dir_name):
     """
@@ -30,9 +40,7 @@ def test_for_resource_dir(resource_path, expected_dir_name):
 
 @pytest.mark.parametrize(
     'resource_path, expected_filename',
-    json.load(
-        open('tests/datasets/path/for_resource.json'),
-    ).items(),
+    dataset('tests/datasets/path/for_resource.json'),
 )
 def test_for_resource(resource_path, expected_filename):
     """
@@ -48,9 +56,7 @@ def test_for_resource(resource_path, expected_filename):
 
 @pytest.mark.parametrize(
     'document_path, expected_filename',
-    json.load(
-        open('tests/datasets/path/for_page.json'),
-    ).items(),
+    dataset('tests/datasets/path/for_page.json'),
 )
 def test_for_page(document_path, expected_filename):
     """
