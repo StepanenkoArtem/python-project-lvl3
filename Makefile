@@ -23,10 +23,4 @@ coverage.xml:
 	poetry run python -m pytest --cov=loader tests/ --cov-report=xml
 
 .PHONY:
-	build
-	install
-	publish
-	lint
-	bump
-	test
-	test-cov
+	build install publish lint bump	test test-cov
