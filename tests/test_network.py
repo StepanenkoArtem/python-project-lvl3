@@ -18,31 +18,70 @@ def test_download():
     assert expected == actual
 
 
+@pytest.mark.parametrize(
+    'url',
+    [
+        'https://httpbin.org/status/301',
+        'https://httpbin.org/status/302',
+    ],
+)
 @pytest.mark.xfail
-def test_redirects():
-    """Testing 3xx response."""
+def test_redirects(url):
+    """Testing 3xx response.
+
+    Args:
+        url : (str) test URL
+    """
     with pytest.raises(network.NetworkError):
-        network.download('https://httpbin.org/status/301')
-        network.download('https://httpbin.org/status/302')
-        network.download('https://httpbin.org/status/201')
+        network.download(url)
 
 
-def test_client_connection_errors():
-    """Testing 4xx Error exceptions."""
+@pytest.mark.parametrize(
+    'url',
+    [
+        'https://httpbin.org/status/403',
+        'https://httpbin.org/status/404',
+    ],
+)
+def test_client_connection_errors(url):
+    """Testing 4xx Error exceptions.
+
+    Args:
+        url : (str) test URL
+    """
     with pytest.raises(network.NetworkError):
-        network.download('https://httpbin.org/status/404')
-        network.download('https://httpbin.org/status/403')
+        network.download(url)
 
 
-def test_server_connection_errors():
-    """Testing 5xx Error exceptions."""
+@pytest.mark.parametrize(
+    'url',
+    [
+        'https://httpbin.org/status/500',
+        'https://httpbin.org/status/502',
+    ],
+)
+def test_server_connection_errors(url):
+    """Testing 5xx Error exceptions.
+
+    Args:
+        url : (str) test URL
+    """
     with pytest.raises(network.NetworkError):
-        network.download('https://httpbin.org/status/500')
-        network.download('https://httpbin.org/status/502')
+        network.download(url)
 
 
-def test_network_failed_connection():
-    """Testing failed connection exceptions."""
+@pytest.mark.parametrize(
+    'url',
+    [
+        'https://#incetorrectdomain.com',
+        ' ',
+    ],
+)
+def test_network_failed_connection(url):
+    """Testing failed connection exceptions.
+
+    Args:
+        url : (str) test URL
+    """
     with pytest.raises(network.NetworkError):
-        network.download('https://#incetorrectdomain.com')
-        network.download('')
+        network.download(url)
