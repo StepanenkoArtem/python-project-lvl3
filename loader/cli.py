@@ -4,7 +4,6 @@
 import logging
 import os
 import sys
-import traceback
 from urllib.parse import urlparse, urlunsplit
 
 import click
@@ -166,10 +165,5 @@ def run(url, output, loglevel, logfile):
                     output=os.path.join(output, local_dirname),
                     filename=loader.path.for_resource(resource_path),
                 )
-            except loader.network.NetworkError:
-                etype, evalue, tb = sys.exc_info()
-                logging.debug(
-                    traceback.format_exception_only(
-                        etype, evalue,
-                    ),
-                )
+            except loader.network.NetworkError as error:
+                logging.debug(error, exc_info=sys.exc_info())
