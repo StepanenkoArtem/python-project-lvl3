@@ -5,8 +5,10 @@
 import logging
 
 
-class LoggingError(Exception):
+class LoaderBasicException(Exception):
     """Logging Error exception."""
+
+    exit_code: int = None
 
     def __init__(self, message):
         """Init Logging Exception.
@@ -15,14 +17,14 @@ class LoggingError(Exception):
             message: str
                 Exception's message
         """
-        self.exit_code = 3
+        super().__init__()
         self.message = message
 
     def __str__(self):
-        """Provide user-friendly message about error.
+        """Provide user-readable message.
 
         Returns:
-            message : (str)
+            str: Exception's message
         """
         return self.message
 
