@@ -3,7 +3,8 @@
 """This module provides file operations."""
 
 import os
-from loader.logger import LoaderBasicException
+
+from loader.logging import LoaderBasicException
 
 
 class StorageError(LoaderBasicException):
