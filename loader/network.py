@@ -3,28 +3,21 @@
 """Retrive URL resource."""
 
 import requests
+from loader.logging import LoaderBasicException
 
 
-class NetworkError(Exception):
+class NetworkError(LoaderBasicException):
     """Network Error Exception."""
 
+    exit_code = 3
+
     def __init__(self, message):
-        """Define NetworkError Exception.
+        """Init Network Exception.
 
         Args:
-            message: str
-                Exception's message
+            message (str): message error
         """
-        self.exit_code = 1
         self.message = message
-
-    def __str__(self):
-        """Show message while exception is logging.
-
-        Returns:
-            message : (str)
-        """
-        return self.message
 
 
 def download(url):
