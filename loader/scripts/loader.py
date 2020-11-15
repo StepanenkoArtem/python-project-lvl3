@@ -6,7 +6,7 @@
 import logging
 import sys
 
-from loader import cli, logger, network, storage
+from loader import cli, logger
 
 
 def main():
@@ -15,9 +15,7 @@ def main():
         cli.run()
     except (
         cli.ParamError,
-        logger.LoggingError,
-        network.NetworkError,
-        storage.StorageError,
+        logger.LoaderBasicException,
     ) as error:
         logging.error(error)
         logging.debug(error.__cause__)
