@@ -3,10 +3,13 @@
 """This module provides file operations."""
 
 import os
+from loader.logger import LoaderBasicException
 
 
-class StorageError(Exception):
+class StorageError(LoaderBasicException):
     """Define StorageError Exceptions."""
+
+    exit_code = 2
 
     def __init__(self, message):
         """Init Storage Exception.
@@ -15,16 +18,7 @@ class StorageError(Exception):
             message: str
                 Exception's message
         """
-        self.exit_code = 2
         self.message = message
-
-    def __str__(self):
-        """Show user friendly-message.
-
-        Returns:
-            message : (str)
-        """
-        return self.message
 
 
 def mkdir(dir_path):
