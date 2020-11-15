@@ -10,7 +10,7 @@ from urllib.parse import urlparse, urlunsplit
 import click
 from bs4 import BeautifulSoup
 from tqdm import tqdm
-from loader import handler, logger, network, path, storage
+import loader
 
 DEFAULT_PARSER = 'html.parser'
 BAR_DESC = 'LOAD RESOURCES'
@@ -117,43 +117,43 @@ def run(url, output, loglevel, logfile):
             Custom logfile name
     """
     # Logging setup
-    logger.setup(level=loglevel, logfile=logfile)
+    loader.logging.setup(level=loglevel, logfile=logfile)
 
     # Download page and get DOM
-    dom = BeautifulSoup(network.download(url), DEFAULT_PARSER)
+    dom = BeautifulSoup(loader.network.download(url), DEFAULT_PARSER)
 
     # Split URL to fragments
     scheme, net_loc, *_ = list(urlparse(url))
 
     # Get resource objects from DOM
-    resources = handler.get_resources(dom)
+    resources = loader.handler.get_resources(dom)
 
     if resources:
         # Build resource dirname
-        local_dirname = path.for_resource_dir(url)
+        local_dirname = loader.path.for_resource_dir(url)
         # Create dir for resource inside 'output'
-        storage.mkdir(os.path.join(output, local_dirname))
+        loader.storage.mkdir(os.path.join(output, local_dirname))
 
         web_resource_paths = []
         for resource in resources:
             # Get resource path from resource object
-            web_resource_path = handler.get_path(resource)
+            web_resource_path = loader.handler.get_path(resource)
             # Build resource local path
             local_resource_path = os.path.join(
                 local_dirname,
-                path.for_resource(web_resource_path),
+                loader.path.for_resource(web_resource_path),
             )
             # Set local path in resource object
-            handler.update_resource(
+            loader.handler.update_resource(
                 resource=resource,
                 new_link=local_resource_path,
             )
             web_resource_paths.append(web_resource_path)
         # Save modified DOM
-        storage.save(
+        loader.storage.save(
             f_content=dom.encode(),
             output=output,
-            filename=path.for_page(url),
+            filename=loader.path.for_page(url),
         )
         # Download resources
         for resource_path in tqdm(web_resource_paths, desc=BAR_DESC):
@@ -161,12 +161,12 @@ def run(url, output, loglevel, logfile):
                 [scheme, net_loc, resource_path, None, None],
             )
             try:
-                storage.save(
-                    f_content=network.download(resource_url),
+                loader.storage.save(
+                    f_content=loader.network.download(resource_url),
                     output=os.path.join(output, local_dirname),
-                    filename=path.for_resource(resource_path),
+                    filename=loader.path.for_resource(resource_path),
                 )
-            except network.NetworkError:
+            except loader.network.NetworkError:
                 etype, evalue, tb = sys.exc_info()
                 logging.debug(
                     traceback.format_exception_only(
